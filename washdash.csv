@@ -1,0 +1,640 @@
+ISO3,Country,Residence Type,Service Type,Year,Coverage,Population,Service level
+HTI,Haiti,total,Sanitation,2000,16.74954,1417648.0911,At least basic
+HTI,Haiti,rural,Sanitation,2000,10.65846,580959.38318,At least basic
+HTI,Haiti,urban,Sanitation,2000,27.76824,836688.58725,At least basic
+HTI,Haiti,total,Drinking water,2000,56.23929,4759982.33293,At least basic
+HTI,Haiti,rural,Drinking water,2000,40.48239,2206568.84217,At least basic
+HTI,Haiti,urban,Drinking water,2000,84.74335,2553413.46383,At least basic
+HTI,Haiti,total,Sanitation,2000,16.56953,1402412.17852,Limited service
+HTI,Haiti,rural,Sanitation,2000,7.11348,387733.54005,Limited service
+HTI,Haiti,urban,Sanitation,2000,33.67542,1014678.59155,Limited service
+HTI,Haiti,total,Drinking water,2000,6.95723,588846.41133,Limited service
+HTI,Haiti,rural,Drinking water,2000,8.70154,474293.7548,Limited service
+HTI,Haiti,urban,Drinking water,2000,3.8018,114552.64079,Limited service
+HTI,Haiti,total,Sanitation,2000,37.06716,3137291.24864,Open defecation
+HTI,Haiti,rural,Sanitation,2000,51.88325,2827994.46709,Open defecation
+HTI,Haiti,urban,Sanitation,2000,10.26502,309296.70099,Open defecation
+HTI,Haiti,total,Drinking water,2000,16.00503,1354633.79956,Surface water
+HTI,Haiti,rural,Drinking water,2000,22.40485,1221218.64508,Surface water
+HTI,Haiti,urban,Drinking water,2000,4.42782,133415.12002,Surface water
+HTI,Haiti,total,Sanitation,2000,29.61377,2506450.55538,Unimproved
+HTI,Haiti,rural,Sanitation,2000,30.34481,1654001.1317,Unimproved
+HTI,Haiti,urban,Sanitation,2000,28.29132,852449.59641,Unimproved
+HTI,Haiti,total,Drinking water,2000,20.79845,1760339.45271,Unimproved
+HTI,Haiti,rural,Drinking water,2000,28.41122,1548607.35198,Unimproved
+HTI,Haiti,urban,Drinking water,2000,7.02703,211732.29955,Unimproved
+HTI,Haiti,total,Sanitation,2001,17.8375,1535596.28661,At least basic
+HTI,Haiti,rural,Sanitation,2001,11.44036,618001.5696,At least basic
+HTI,Haiti,urban,Sanitation,2001,28.61343,917594.75161,At least basic
+HTI,Haiti,total,Drinking water,2001,57.06076,4912252.784,At least basic
+HTI,Haiti,rural,Drinking water,2001,40.62725,2194660.51471,At least basic
+HTI,Haiti,urban,Drinking water,2001,84.74289,2717592.43296,At least basic
+HTI,Haiti,total,Sanitation,2001,17.4433,1501660.16389,Limited service
+HTI,Haiti,rural,Sanitation,2001,7.63999,412707.81019,Limited service
+HTI,Haiti,urban,Sanitation,2001,33.95689,1088952.45007,Limited service
+HTI,Haiti,total,Drinking water,2001,7.07887,609406.88477,Limited service
+HTI,Haiti,rural,Drinking water,2001,8.92077,481894.80718,Limited service
+HTI,Haiti,urban,Drinking water,2001,3.97622,127512.11585,Limited service
+HTI,Haiti,total,Sanitation,2001,35.66333,3070188.05853,Open defecation
+HTI,Haiti,rural,Sanitation,2001,50.8081,2744624.1653,Open defecation
+HTI,Haiti,urban,Sanitation,2001,10.15209,325564.08503,Open defecation
+HTI,Haiti,total,Drinking water,2001,14.71799,1267043.67612,Surface water
+HTI,Haiti,rural,Drinking water,2001,21.01436,1135183.66717,Surface water
+HTI,Haiti,urban,Drinking water,2001,4.1118,131860.08865,Surface water
+HTI,Haiti,total,Sanitation,2001,29.05588,2501365.55812,Unimproved
+HTI,Haiti,rural,Sanitation,2001,30.11156,1626608.97609,Unimproved
+HTI,Haiti,urban,Sanitation,2001,27.2776,874756.49597,Unimproved
+HTI,Haiti,total,Drinking water,2001,21.14237,1820106.65994,Unimproved
+HTI,Haiti,rural,Drinking water,2001,29.43762,1590203.44298,Unimproved
+HTI,Haiti,urban,Drinking water,2001,7.16909,229903.08647,Unimproved
+HTI,Haiti,total,Sanitation,2002,18.93771,1657835.14458,At least basic
+HTI,Haiti,rural,Sanitation,2002,12.22187,653347.18541,At least basic
+HTI,Haiti,urban,Sanitation,2002,29.47071,1004487.87475,At least basic
+HTI,Haiti,total,Drinking water,2002,57.89031,5067803.27324,At least basic
+HTI,Haiti,rural,Drinking water,2002,40.76984,2179441.50385,At least basic
+HTI,Haiti,urban,Drinking water,2002,84.74178,2888361.98047,At least basic
+HTI,Haiti,total,Sanitation,2002,18.3131,1603155.80735,Limited service
+HTI,Haiti,rural,Sanitation,2002,8.16688,436578.77787,Limited service
+HTI,Haiti,urban,Sanitation,2002,34.22625,1166577.01231,Limited service
+HTI,Haiti,total,Drinking water,2002,7.19904,630214.20622,Limited service
+HTI,Haiti,rural,Drinking water,2002,9.14227,488720.45008,Limited service
+HTI,Haiti,urban,Drinking water,2002,4.15129,141493.75939,Limited service
+HTI,Haiti,total,Sanitation,2002,34.27817,3000761.44373,Open defecation
+HTI,Haiti,rural,Sanitation,2002,49.73294,2658584.01908,Open defecation
+HTI,Haiti,urban,Sanitation,2002,10.03916,342177.44999,Open defecation
+HTI,Haiti,total,Drinking water,2002,13.46121,1178413.97199,Surface water
+HTI,Haiti,rural,Drinking water,2002,19.62387,1049037.22545,Surface water
+HTI,Haiti,urban,Drinking water,2002,3.79579,129376.75678,Surface water
+HTI,Haiti,total,Sanitation,2002,28.47102,2492395.65424,Unimproved
+HTI,Haiti,rural,Sanitation,2002,29.8783,1597210.52362,Unimproved
+HTI,Haiti,urban,Sanitation,2002,26.26387,895185.13329,Unimproved
+HTI,Haiti,total,Drinking water,2002,21.44945,1877716.39859,Unimproved
+HTI,Haiti,rural,Drinking water,2002,30.46402,1628521.38846,Unimproved
+HTI,Haiti,urban,Drinking water,2002,7.31114,249195.02524,Unimproved
+HTI,Haiti,total,Sanitation,2003,20.04967,1784442.04868,At least basic
+HTI,Haiti,rural,Sanitation,2003,13.003,686904.36477,At least basic
+HTI,Haiti,urban,Sanitation,2003,30.3401,1097537.68891,At least basic
+HTI,Haiti,total,Drinking water,2003,58.72479,5226569.6144,At least basic
+HTI,Haiti,rural,Drinking water,2003,40.91015,2161143.64799,At least basic
+HTI,Haiti,urban,Drinking water,2003,84.74001,3065426.4812,At least basic
+HTI,Haiti,total,Sanitation,2003,19.17625,1706706.59011,Limited service
+HTI,Haiti,rural,Sanitation,2003,8.69416,459282.96164,Limited service
+HTI,Haiti,urban,Sanitation,2003,34.48352,1247423.69804,Limited service
+HTI,Haiti,total,Drinking water,2003,7.31794,651304.42569,Limited service
+HTI,Haiti,rural,Drinking water,2003,9.36606,494776.78153,Limited service
+HTI,Haiti,urban,Drinking water,2003,4.32702,156527.65758,Limited service
+HTI,Haiti,total,Sanitation,2003,32.91534,2929501.07112,Open defecation
+HTI,Haiti,rural,Sanitation,2003,48.65779,2570424.87224,Open defecation
+HTI,Haiti,urban,Sanitation,2003,9.92623,359076.24507,Open defecation
+HTI,Haiti,total,Drinking water,2003,12.23678,1089086.3883,Surface water
+HTI,Haiti,rural,Drinking water,2003,18.23338,963207.23569,Surface water
+HTI,Haiti,urban,Drinking water,2003,3.47978,125879.16976,Surface water
+HTI,Haiti,total,Sanitation,2003,27.85874,2479458.33192,Unimproved
+HTI,Haiti,rural,Sanitation,2003,29.64505,1566046.77879,Unimproved
+HTI,Haiti,urban,Sanitation,2003,25.25015,913411.37319,Unimproved
+HTI,Haiti,total,Drinking water,2003,21.72049,1933147.40722,Unimproved
+HTI,Haiti,rural,Drinking water,2003,31.49042,1663531.42333,Unimproved
+HTI,Haiti,urban,Drinking water,2003,7.4532,269615.77134,Unimproved
+HTI,Haiti,total,Sanitation,2004,21.05167,1904561.68171,At least basic
+HTI,Haiti,rural,Sanitation,2004,13.78375,727278.76499,At least basic
+HTI,Haiti,urban,Sanitation,2004,31.22159,1177282.95487,At least basic
+HTI,Haiti,total,Drinking water,2004,59.25748,5361073.20842,At least basic
+HTI,Haiti,rural,Drinking water,2004,41.04818,2165845.21121,At least basic
+HTI,Haiti,urban,Drinking water,2004,84.73758,3195228.29164,At least basic
+HTI,Haiti,total,Sanitation,2004,19.85283,1796101.72619,Limited service
+HTI,Haiti,rural,Sanitation,2004,9.22183,486575.65018,Limited service
+HTI,Haiti,urban,Sanitation,2004,34.72868,1309526.10548,Limited service
+HTI,Haiti,total,Drinking water,2004,7.47119,675924.41716,Limited service
+HTI,Haiti,rural,Drinking water,2004,9.59211,506113.25251,Limited service
+HTI,Haiti,urban,Drinking water,2004,4.5034,169811.15886,Limited service
+HTI,Haiti,total,Sanitation,2004,31.84075,2880658.70944,Open defecation
+HTI,Haiti,rural,Sanitation,2004,47.58263,2510625.36158,Open defecation
+HTI,Haiti,urban,Sanitation,2004,9.8133,370033.30428,Open defecation
+HTI,Haiti,total,Drinking water,2004,11.14157,1007986.62296,Surface water
+HTI,Haiti,rural,Drinking water,2004,16.84289,888689.48206,Surface water
+HTI,Haiti,urban,Drinking water,2004,3.16376,119297.1256,Surface water
+HTI,Haiti,total,Sanitation,2004,27.25475,2465759.8709,Unimproved
+HTI,Haiti,rural,Sanitation,2004,29.41179,1551868.70828,Unimproved
+HTI,Haiti,urban,Sanitation,2004,24.23643,913891.15693,Unimproved
+HTI,Haiti,total,Drinking water,2004,22.12976,2002097.59331,Unimproved
+HTI,Haiti,rural,Drinking water,2004,32.51682,1715700.55279,Unimproved
+HTI,Haiti,urban,Drinking water,2004,7.59526,286397.01195,Unimproved
+HTI,Haiti,total,Sanitation,2005,22.04754,2027334.73074,At least basic
+HTI,Haiti,rural,Sanitation,2005,14.56411,768199.00557,At least basic
+HTI,Haiti,urban,Sanitation,2005,32.11518,1259135.73612,At least basic
+HTI,Haiti,total,Drinking water,2005,59.75303,5494463.69085,At least basic
+HTI,Haiti,rural,Drinking water,2005,41.18394,2172288.96491,At least basic
+HTI,Haiti,urban,Drinking water,2005,84.7345,3322174.83481,At least basic
+HTI,Haiti,total,Sanitation,2005,20.49971,1885007.78648,Limited service
+HTI,Haiti,rural,Sanitation,2005,9.74987,514266.91802,Limited service
+HTI,Haiti,urban,Sanitation,2005,34.96175,1370740.87499,Limited service
+HTI,Haiti,total,Drinking water,2005,7.62885,701494.45454,Limited service
+HTI,Haiti,rural,Drinking water,2005,9.82044,517989.25589,Limited service
+HTI,Haiti,urban,Drinking water,2005,4.68043,183505.19725,Limited service
+HTI,Haiti,total,Sanitation,2005,30.81366,2833405.00756,Open defecation
+HTI,Haiti,rural,Sanitation,2005,46.50747,2453083.91489,Open defecation
+HTI,Haiti,urban,Sanitation,2005,9.70037,380321.0827,Open defecation
+HTI,Haiti,total,Drinking water,2005,10.07803,926703.83504,Surface water
+HTI,Haiti,rural,Drinking water,2005,15.4524,815052.39243,Surface water
+HTI,Haiti,urban,Drinking water,2005,2.84775,111651.4396,Surface water
+HTI,Haiti,total,Sanitation,2005,26.63909,2449541.38971,Unimproved
+HTI,Haiti,rural,Sanitation,2005,29.17854,1539051.63889,Unimproved
+HTI,Haiti,urban,Sanitation,2005,23.22271,910489.74895,Unimproved
+HTI,Haiti,total,Drinking water,2005,22.5401,2072626.9598,Unimproved
+HTI,Haiti,rural,Drinking water,2005,33.54321,1769270.88567,Unimproved
+HTI,Haiti,urban,Drinking water,2005,7.73732,303356.06766,Unimproved
+HTI,Haiti,total,Sanitation,2006,23.05187,2154147.8482,At least basic
+HTI,Haiti,rural,Sanitation,2006,15.34409,808646.73432,At least basic
+HTI,Haiti,urban,Sanitation,2006,33.02087,1345501.33241,At least basic
+HTI,Haiti,total,Drinking water,2006,60.24738,5629987.46125,At least basic
+HTI,Haiti,rural,Drinking water,2006,41.31743,2177463.60071,At least basic
+HTI,Haiti,urban,Drinking water,2006,84.73076,3452524.05406,At least basic
+HTI,Haiti,total,Hygiene,2006,24.18315,2259863.3543,Basic service
+HTI,Haiti,rural,Hygiene,2006,17.87037,941783.74123,Basic service
+HTI,Haiti,urban,Hygiene,2006,32.3479,1318079.6907,Basic service
+HTI,Haiti,total,Hygiene,2006,35.41857,3309788.99882,Limited service
+HTI,Haiti,rural,Hygiene,2006,38.56639,2032481.20036,Limited service
+HTI,Haiti,urban,Hygiene,2006,31.34729,1277307.90141,Limited service
+HTI,Haiti,total,Sanitation,2006,21.13762,1975265.06724,Limited service
+HTI,Haiti,rural,Sanitation,2006,10.2783,541675.27804,Limited service
+HTI,Haiti,urban,Sanitation,2006,35.18271,1433589.86249,Limited service
+HTI,Haiti,total,Drinking water,2006,7.78673,727652.80377,Limited service
+HTI,Haiti,rural,Drinking water,2006,10.05105,529698.83868,Limited service
+HTI,Haiti,urban,Drinking water,2006,4.85812,197953.98651,Limited service
+HTI,Haiti,total,Hygiene,2006,40.39828,3775131.75154,No handwashing facility
+HTI,Haiti,rural,Hygiene,2006,43.56324,2295819.56157,No handwashing facility
+HTI,Haiti,urban,Hygiene,2006,36.30481,1479312.15859,No handwashing facility
+HTI,Haiti,total,Sanitation,2006,29.80252,2784980.7449,Open defecation
+HTI,Haiti,rural,Sanitation,2006,45.43232,2394321.55945,Open defecation
+HTI,Haiti,urban,Sanitation,2006,9.58744,390659.26033,Open defecation
+HTI,Haiti,total,Drinking water,2006,9.03429,844235.10034,Surface water
+HTI,Haiti,rural,Drinking water,2006,14.06191,741074.37173,Surface water
+HTI,Haiti,urban,Drinking water,2006,2.53174,103160.75122,Surface water
+HTI,Haiti,total,Sanitation,2006,26.00799,2430390.27238,Unimproved
+HTI,Haiti,rural,Sanitation,2006,28.94528,1525440.93558,Unimproved
+HTI,Haiti,urban,Sanitation,2006,22.20898,904949.41237,Unimproved
+HTI,Haiti,total,Drinking water,2006,22.9316,2142908.65595,Unimproved
+HTI,Haiti,rural,Drinking water,2006,34.56961,1821847.77742,Unimproved
+HTI,Haiti,urban,Drinking water,2006,7.87938,321060.93612,Unimproved
+HTI,Haiti,total,Sanitation,2007,24.06454,2285008.46838,At least basic
+HTI,Haiti,rural,Sanitation,2007,16.12369,848571.24404,At least basic
+HTI,Haiti,urban,Sanitation,2007,33.93866,1436437.14059,At least basic
+HTI,Haiti,total,Drinking water,2007,60.73926,5767396.61297,At least basic
+HTI,Haiti,rural,Drinking water,2007,41.44864,2181394.40094,At least basic
+HTI,Haiti,urban,Drinking water,2007,84.72637,3586002.16924,At least basic
+HTI,Haiti,total,Hygiene,2007,24.32358,2309606.07932,Basic service
+HTI,Haiti,rural,Hygiene,2007,17.87037,940497.16375,Basic service
+HTI,Haiti,urban,Hygiene,2007,32.3479,1369108.88625,Basic service
+HTI,Haiti,total,Hygiene,2007,35.34855,3356463.22426,Limited service
+HTI,Haiti,rural,Hygiene,2007,38.56639,2029704.61331,Limited service
+HTI,Haiti,urban,Hygiene,2007,31.34729,1326758.62517,Limited service
+HTI,Haiti,total,Sanitation,2007,21.76539,2066697.29012,Limited service
+HTI,Haiti,rural,Sanitation,2007,10.80712,568766.22163,Limited service
+HTI,Haiti,urban,Sanitation,2007,35.39157,1497931.02006,Limited service
+HTI,Haiti,total,Drinking water,2007,7.94493,754397.61511,Limited service
+HTI,Haiti,rural,Drinking water,2007,10.28393,541231.52674,Limited service
+HTI,Haiti,urban,Drinking water,2007,5.03647,213166.09864,Limited service
+HTI,Haiti,total,Hygiene,2007,40.32787,3829266.70307,No handwashing facility
+HTI,Haiti,rural,Hygiene,2007,43.56324,2292683.22611,No handwashing facility
+HTI,Haiti,urban,Hygiene,2007,36.30481,1536583.43737,No handwashing facility
+HTI,Haiti,total,Sanitation,2007,28.80857,2735470.20875,Open defecation
+HTI,Haiti,rural,Sanitation,2007,44.35716,2334466.45216,Open defecation
+HTI,Haiti,urban,Sanitation,2007,9.47451,401003.82635,Open defecation
+HTI,Haiti,total,Drinking water,2007,8.0109,760661.54527,Surface water
+HTI,Haiti,rural,Drinking water,2007,12.67142,666882.05669,Surface water
+HTI,Haiti,urban,Drinking water,2007,2.21573,93779.50924,Surface water
+HTI,Haiti,total,Sanitation,2007,25.36151,2408160.1182,Unimproved
+HTI,Haiti,rural,Sanitation,2007,28.71203,1511081.10428,Unimproved
+HTI,Haiti,urban,Sanitation,2007,21.19526,897079.02938,Unimproved
+HTI,Haiti,total,Drinking water,2007,23.30492,2212880.31895,Unimproved
+HTI,Haiti,rural,Drinking water,2007,35.59601,1873377.08141,Unimproved
+HTI,Haiti,urban,Drinking water,2007,8.02143,339503.29237,Unimproved
+HTI,Haiti,total,Sanitation,2008,25.08643,2419980.3594,At least basic
+HTI,Haiti,rural,Sanitation,2008,16.9029,887818.26714,At least basic
+HTI,Haiti,urban,Sanitation,2008,34.86855,1532162.06516,At least basic
+HTI,Haiti,total,Drinking water,2008,61.22999,5906593.66306,At least basic
+HTI,Haiti,rural,Drinking water,2008,41.57758,2183845.94734,At least basic
+HTI,Haiti,urban,Drinking water,2008,84.72133,3722747.53108,At least basic
+HTI,Haiti,total,Hygiene,2008,24.46503,2360036.23965,Basic service
+HTI,Haiti,rural,Hygiene,2008,17.87037,938634.3561,Basic service
+HTI,Haiti,urban,Hygiene,2008,32.3479,1421401.84943,Basic service
+HTI,Haiti,total,Hygiene,2008,35.27802,3403118.46078,Limited service
+HTI,Haiti,rural,Hygiene,2008,38.56639,2025684.45309,Limited service
+HTI,Haiti,urban,Hygiene,2008,31.34729,1377434.0248,Limited service
+HTI,Haiti,total,Sanitation,2008,22.38335,2159225.98238,Limited service
+HTI,Haiti,rural,Sanitation,2008,11.33632,595435.66655,Limited service
+HTI,Haiti,urban,Sanitation,2008,35.58834,1563790.25975,Limited service
+HTI,Haiti,total,Drinking water,2008,8.10324,781684.4559,Limited service
+HTI,Haiti,rural,Drinking water,2008,10.51909,552511.07512,Limited service
+HTI,Haiti,urban,Drinking water,2008,5.21547,229173.39312,Limited service
+HTI,Haiti,total,Hygiene,2008,40.25695,3883415.26581,No handwashing facility
+HTI,Haiti,rural,Hygiene,2008,43.56324,2288142.19396,No handwashing facility
+HTI,Haiti,urban,Hygiene,2008,36.30481,1595273.0726,No handwashing facility
+HTI,Haiti,total,Sanitation,2008,27.83091,2684728.28135,Open defecation
+HTI,Haiti,rural,Sanitation,2008,43.28201,2273370.52876,Open defecation
+HTI,Haiti,urban,Sanitation,2008,9.36158,411357.83181,Open defecation
+HTI,Haiti,total,Drinking water,2008,7.00769,676001.64078,Surface water
+HTI,Haiti,rural,Drinking water,2008,11.28093,592526.2055,Surface water
+HTI,Haiti,urban,Drinking water,2008,1.89971,83475.45705,Surface water
+HTI,Haiti,total,Sanitation,2008,24.6993,2382635.32092,Unimproved
+HTI,Haiti,rural,Sanitation,2008,28.47878,1495836.56118,Unimproved
+HTI,Haiti,urban,Sanitation,2008,20.18154,886798.77935,Unimproved
+HTI,Haiti,total,Drinking water,2008,23.65909,2282290.41583,Unimproved
+HTI,Haiti,rural,Drinking water,2008,36.62241,1923577.70534,Unimproved
+HTI,Haiti,urban,Drinking water,2008,8.16349,358712.77707,Unimproved
+HTI,Haiti,total,Sanitation,2009,26.1167,2558926.57656,At least basic
+HTI,Haiti,rural,Sanitation,2009,17.68173,926382.95768,At least basic
+HTI,Haiti,urban,Sanitation,2009,35.81054,1632543.57071,At least basic
+HTI,Haiti,total,Drinking water,2009,61.71658,6047018.46887,At least basic
+HTI,Haiti,rural,Drinking water,2009,41.70424,2184973.07139,At least basic
+HTI,Haiti,urban,Drinking water,2009,84.71562,3862045.42392,At least basic
+HTI,Haiti,total,Hygiene,2009,24.60648,2410953.77965,Basic service
+HTI,Haiti,rural,Hygiene,2009,17.87037,936266.53172,Basic service
+HTI,Haiti,urban,Hygiene,2009,32.3479,1474687.2461,Basic service
+HTI,Haiti,total,Hygiene,2009,35.20748,3449645.56497,Limited service
+HTI,Haiti,rural,Hygiene,2009,38.56639,2020574.40677,Limited service
+HTI,Haiti,urban,Hygiene,2009,31.34729,1429071.15923,Limited service
+HTI,Haiti,total,Sanitation,2009,22.98939,2252511.48154,Limited service
+HTI,Haiti,rural,Sanitation,2009,11.8659,621679.58625,Limited service
+HTI,Haiti,urban,Sanitation,2009,35.773,1630831.89365,Limited service
+HTI,Haiti,total,Drinking water,2009,8.26197,809511.65814,Limited service
+HTI,Haiti,rural,Drinking water,2009,10.75652,563556.88856,Limited service
+HTI,Haiti,urban,Drinking water,2009,5.39512,245954.77021,Limited service
+HTI,Haiti,total,Hygiene,2009,40.18604,3937446.58386,No handwashing facility
+HTI,Haiti,rural,Hygiene,2009,43.56324,2282370.06466,No handwashing facility
+HTI,Haiti,urban,Hygiene,2009,36.30481,1655076.53951,No handwashing facility
+HTI,Haiti,total,Sanitation,2009,26.87206,2632936.4482,Open defecation
+HTI,Haiti,rural,Sanitation,2009,42.20685,2211305.98768,Open defecation
+HTI,Haiti,urban,Sanitation,2009,9.24864,421630.46314,Open defecation
+HTI,Haiti,total,Drinking water,2009,6.02548,590379.012,Surface water
+HTI,Haiti,rural,Drinking water,2009,9.89043,518180.74013,Surface water
+HTI,Haiti,urban,Drinking water,2009,1.5837,72198.27254,Surface water
+HTI,Haiti,total,Sanitation,2009,24.02185,2353671.49761,Unimproved
+HTI,Haiti,rural,Sanitation,2009,28.24552,1479842.42805,Unimproved
+HTI,Haiti,urban,Sanitation,2009,19.16782,873829.0699,Unimproved
+HTI,Haiti,total,Drinking water,2009,23.99598,2351136.76075,Unimproved
+HTI,Haiti,rural,Drinking water,2009,37.64881,1972500.39004,Unimproved
+HTI,Haiti,urban,Drinking water,2009,8.30555,378636.37313,Unimproved
+HTI,Haiti,total,Sanitation,2010,27.15644,2701880.45667,At least basic
+HTI,Haiti,rural,Sanitation,2010,18.46017,964081.77131,At least basic
+HTI,Haiti,urban,Sanitation,2010,36.76464,1737798.76564,At least basic
+HTI,Haiti,total,Drinking water,2010,62.20079,6188554.4364,At least basic
+HTI,Haiti,rural,Drinking water,2010,41.82862,2184498.26302,At least basic
+HTI,Haiti,urban,Drinking water,2010,84.70927,4004056.18963,At least basic
+HTI,Haiti,total,Hygiene,2010,24.7485,2462306.95031,Basic service
+HTI,Haiti,rural,Hygiene,2010,17.87037,933279.58827,Basic service
+HTI,Haiti,urban,Hygiene,2010,32.3479,1529027.34594,Basic service
+HTI,Haiti,total,Hygiene,2010,35.13667,3495858.59216,Limited service
+HTI,Haiti,rural,Hygiene,2010,38.56639,2014128.22796,Limited service
+HTI,Haiti,urban,Hygiene,2010,31.34729,1481730.37201,Limited service
+HTI,Haiti,total,Sanitation,2010,23.58409,2346456.12146,Limited service
+HTI,Haiti,rural,Sanitation,2010,12.39587,647373.78237,Limited service
+HTI,Haiti,urban,Sanitation,2010,35.94556,1699082.31373,Limited service
+HTI,Haiti,total,Drinking water,2010,8.42086,837818.44926,Limited service
+HTI,Haiti,rural,Drinking water,2010,10.99623,574277.72166,Limited service
+HTI,Haiti,urban,Drinking water,2010,5.57543,263540.73319,Limited service
+HTI,Haiti,total,Hygiene,2010,40.11483,3991152.38292,No handwashing facility
+HTI,Haiti,rural,Hygiene,2010,43.56324,2275088.6869,No handwashing facility
+HTI,Haiti,urban,Hygiene,2010,36.30481,1716063.72485,No handwashing facility
+HTI,Haiti,total,Sanitation,2010,25.93072,2579930.23424,Open defecation
+HTI,Haiti,rural,Sanitation,2010,41.1317,2148101.35579,Open defecation
+HTI,Haiti,urban,Sanitation,2010,9.13571,431828.91253,Open defecation
+HTI,Haiti,total,Drinking water,2010,5.06397,503830.57663,Surface water
+HTI,Haiti,rural,Drinking water,2010,8.49994,443909.27414,Surface water
+HTI,Haiti,urban,Drinking water,2010,1.26769,59921.31027,Surface water
+HTI,Haiti,total,Sanitation,2010,23.32875,2321051.15679,Unimproved
+HTI,Haiti,rural,Sanitation,2010,28.01227,1462939.62291,Unimproved
+HTI,Haiti,urban,Sanitation,2010,18.15409,858111.54411,Unimproved
+HTI,Haiti,total,Drinking water,2010,24.31438,2419114.56209,Unimproved
+HTI,Haiti,rural,Drinking water,2010,38.6752,2019811.17683,Unimproved
+HTI,Haiti,urban,Drinking water,2010,8.44761,399303.41717,Unimproved
+HTI,Haiti,total,Sanitation,2011,28.20566,2848862.09689,At least basic
+HTI,Haiti,rural,Sanitation,2011,19.23823,1000863.70842,At least basic
+HTI,Haiti,urban,Sanitation,2011,37.73083,1847998.38156,At least basic
+HTI,Haiti,total,Drinking water,2011,62.6818,6331062.85243,At least basic
+HTI,Haiti,rural,Drinking water,2011,41.95073,2182475.56699,At least basic
+HTI,Haiti,urban,Drinking water,2011,84.70226,4148587.2414,At least basic
+HTI,Haiti,total,Hygiene,2011,24.49545,2474119.29096,Basic service
+HTI,Haiti,rural,Hygiene,2011,17.6029,915786.0422,Basic service
+HTI,Haiti,urban,Hygiene,2011,31.8167,1558333.24629,Basic service
+HTI,Haiti,total,Hygiene,2011,38.84452,3923420.73964,Limited service
+HTI,Haiti,rural,Hygiene,2011,42.1156,2191052.89931,Limited service
+HTI,Haiti,urban,Hygiene,2011,35.36999,1732367.8413,Limited service
+HTI,Haiti,total,Sanitation,2011,24.16657,2440900.52527,Limited service
+HTI,Haiti,rural,Sanitation,2011,12.92622,672483.08045,Limited service
+HTI,Haiti,urban,Sanitation,2011,36.10602,1768417.44107,Limited service
+HTI,Haiti,total,Drinking water,2011,8.57997,866604.46307,Limited service
+HTI,Haiti,rural,Drinking water,2011,11.23821,584664.99597,Limited service
+HTI,Haiti,urban,Drinking water,2011,5.7564,281939.46796,Limited service
+HTI,Haiti,total,Hygiene,2011,36.66003,3702779.99363,No handwashing facility
+HTI,Haiti,rural,Hygiene,2011,40.2815,2095634.05536,No handwashing facility
+HTI,Haiti,urban,Hygiene,2011,32.81331,1607145.84335,No handwashing facility
+HTI,Haiti,total,Sanitation,2011,25.00765,2525852.80982,Open defecation
+HTI,Haiti,rural,Sanitation,2011,40.05654,2083930.66627,Open defecation
+HTI,Haiti,urban,Sanitation,2011,9.02278,441922.14811,Open defecation
+HTI,Haiti,total,Drinking water,2011,4.12342,416478.93391,Surface water
+HTI,Haiti,rural,Drinking water,2011,7.10945,369867.38349,Surface water
+HTI,Haiti,urban,Drinking water,2011,0.95167,46611.5514,Surface water
+HTI,Haiti,total,Sanitation,2011,22.62012,2284704.66296,Unimproved
+HTI,Haiti,rural,Sanitation,2011,27.77901,1445195.58492,Unimproved
+HTI,Haiti,urban,Sanitation,2011,17.14037,839509.07971,Unimproved
+HTI,Haiti,total,Drinking water,2011,24.6148,2486173.89663,Unimproved
+HTI,Haiti,rural,Drinking water,2011,39.7016,2065465.12358,Unimproved
+HTI,Haiti,urban,Drinking water,2011,8.58967,420708.77852,Unimproved
+HTI,Haiti,total,Sanitation,2012,29.26475,2999906.64782,At least basic
+HTI,Haiti,rural,Sanitation,2012,20.0159,1036638.3524,At least basic
+HTI,Haiti,urban,Sanitation,2012,38.70913,1963268.20205,At least basic
+HTI,Haiti,total,Drinking water,2012,63.15966,6474447.51692,At least basic
+HTI,Haiti,rural,Drinking water,2012,42.07057,2178865.64273,At least basic
+HTI,Haiti,urban,Drinking water,2012,84.6946,4295581.56333,At least basic
+HTI,Haiti,total,Hygiene,2012,24.2375,2484567.63081,Basic service
+HTI,Haiti,rural,Hygiene,2012,17.33542,897814.36759,Basic service
+HTI,Haiti,urban,Hygiene,2012,31.2855,1586753.23601,Basic service
+HTI,Haiti,total,Hygiene,2012,42.56156,4362951.87679,Limited service
+HTI,Haiti,rural,Hygiene,2012,45.66482,2365014.57228,Limited service
+HTI,Haiti,urban,Hygiene,2012,39.39269,1997937.31647,Limited service
+HTI,Haiti,total,Sanitation,2012,24.73643,2535712.60925,Limited service
+HTI,Haiti,rural,Sanitation,2012,13.45695,696945.58617,Limited service
+HTI,Haiti,urban,Sanitation,2012,36.25438,1838766.97817,Limited service
+HTI,Haiti,total,Drinking water,2012,8.73924,895852.70931,Limited service
+HTI,Haiti,rural,Drinking water,2012,11.48247,594685.62928,Limited service
+HTI,Haiti,urban,Drinking water,2012,5.93801,301167.09103,Limited service
+HTI,Haiti,total,Hygiene,2012,33.20094,3403402.37861,No handwashing facility
+HTI,Haiti,rural,Hygiene,2012,36.99976,1916244.55081,No handwashing facility
+HTI,Haiti,urban,Hygiene,2012,29.32181,1487157.96223,No handwashing facility
+HTI,Haiti,total,Sanitation,2012,24.10289,2470768.73555,Open defecation
+HTI,Haiti,rural,Sanitation,2012,38.98138,2018874.53334,Open defecation
+HTI,Haiti,urban,Sanitation,2012,8.90985,451894.26085,Open defecation
+HTI,Haiti,total,Drinking water,2012,3.2039,328429.04517,Surface water
+HTI,Haiti,rural,Drinking water,2012,5.71896,296189.27043,Surface water
+HTI,Haiti,urban,Drinking water,2012,0.63566,32239.78465,Surface water
+HTI,Haiti,total,Sanitation,2012,21.89592,2244534.08632,Unimproved
+HTI,Haiti,rural,Sanitation,2012,27.54576,1426615.01359,Unimproved
+HTI,Haiti,urban,Sanitation,2012,16.12665,817919.09535,Unimproved
+HTI,Haiti,total,Drinking water,2012,24.8972,2552192.89661,Unimproved
+HTI,Haiti,rural,Drinking water,2012,40.728,2109333.05094,Unimproved
+HTI,Haiti,urban,Drinking water,2012,8.73173,442859.90771,Unimproved
+HTI,Haiti,total,Sanitation,2013,30.33333,3154869.77931,At least basic
+HTI,Haiti,rural,Sanitation,2013,20.79319,1071367.85605,At least basic
+HTI,Haiti,urban,Sanitation,2013,39.69952,2083501.87751,At least basic
+HTI,Haiti,total,Drinking water,2013,63.63269,6618227.81267,At least basic
+HTI,Haiti,rural,Drinking water,2013,42.18813,2173740.21889,At least basic
+HTI,Haiti,urban,Drinking water,2013,84.68628,4444487.5261,At least basic
+HTI,Haiti,total,Hygiene,2013,23.97408,2493465.8148,Basic service
+HTI,Haiti,rural,Hygiene,2013,17.06795,879424.93621,Basic service
+HTI,Haiti,urban,Hygiene,2013,30.7543,1614040.90943,Basic service
+HTI,Haiti,total,Hygiene,2013,46.28804,4814266.80896,Limited service
+HTI,Haiti,rural,Hygiene,2013,49.21404,2535749.74858,Limited service
+HTI,Haiti,urban,Hygiene,2013,43.41538,2278517.04749,Limited service
+HTI,Haiti,total,Sanitation,2013,25.2924,2630580.05896,Limited service
+HTI,Haiti,rural,Sanitation,2013,13.98807,720734.55326,Limited service
+HTI,Haiti,urban,Sanitation,2013,36.39063,1909845.55645,Limited service
+HTI,Haiti,total,Drinking water,2013,8.89885,925539.80629,Limited service
+HTI,Haiti,rural,Drinking water,2013,11.729,604336.15696,Limited service
+HTI,Haiti,urban,Drinking water,2013,6.12029,321203.63654,Limited service
+HTI,Haiti,total,Hygiene,2013,29.73788,3092939.4324,No handwashing facility
+HTI,Haiti,rural,Hygiene,2013,33.71801,1737318.29872,No handwashing facility
+HTI,Haiti,urban,Hygiene,2013,25.83031,1355621.04833,No handwashing facility
+HTI,Haiti,total,Sanitation,2013,23.21767,2414794.08341,Open defecation
+HTI,Haiti,rural,Sanitation,2013,37.90623,1953115.76487,Open defecation
+HTI,Haiti,urban,Sanitation,2013,8.79692,461678.25225,Open defecation
+HTI,Haiti,total,Drinking water,2013,2.30562,239799.94173,Surface water
+HTI,Haiti,rural,Drinking water,2013,4.32847,223024.20449,Surface water
+HTI,Haiti,urban,Drinking water,2013,0.31965,16775.72818,Surface water
+HTI,Haiti,total,Sanitation,2013,21.1566,2200428.12408,Unimproved
+HTI,Haiti,rural,Sanitation,2013,27.3125,1407274.7918,Unimproved
+HTI,Haiti,urban,Sanitation,2013,15.11292,793153.3047,Unimproved
+HTI,Haiti,total,Drinking water,2013,25.16284,2617104.57597,Unimproved
+HTI,Haiti,rural,Drinking water,2013,41.7544,2151392.42693,Unimproved
+HTI,Haiti,urban,Drinking water,2013,8.87378,465712.07422,Unimproved
+HTI,Haiti,total,Sanitation,2014,31.41232,3313688.15213,At least basic
+HTI,Haiti,rural,Sanitation,2014,21.5701,1104858.52533,At least basic
+HTI,Haiti,urban,Sanitation,2014,40.70201,2208829.5633,At least basic
+HTI,Haiti,total,Drinking water,2014,64.10223,6762149.14021,At least basic
+HTI,Haiti,rural,Drinking water,2014,42.30341,2166855.09269,At least basic
+HTI,Haiti,urban,Drinking water,2014,84.67731,4595294.3533,At least basic
+HTI,Haiti,total,Hygiene,2014,23.70561,2500706.85072,Basic service
+HTI,Haiti,rural,Hygiene,2014,16.80048,860549.94751,Basic service
+HTI,Haiti,urban,Hygiene,2014,30.22311,1640156.88449,Basic service
+HTI,Haiti,total,Hygiene,2014,50.02377,5277011.16142,Limited service
+HTI,Haiti,rural,Hygiene,2014,52.76325,2702626.62718,Limited service
+HTI,Haiti,urban,Hygiene,2014,47.43808,2574384.54141,Limited service
+HTI,Haiti,total,Sanitation,2014,25.83479,2725314.31083,Limited service
+HTI,Haiti,rural,Sanitation,2014,14.51958,743718.3345,Limited service
+HTI,Haiti,urban,Sanitation,2014,36.51479,1981595.94548,Limited service
+HTI,Haiti,total,Drinking water,2014,9.05857,955589.52466,Limited service
+HTI,Haiti,rural,Drinking water,2014,11.97781,613524.70225,Limited service
+HTI,Haiti,urban,Drinking water,2014,6.30322,342064.83028,Limited service
+HTI,Haiti,total,Hygiene,2014,26.27061,2771288.97521,No handwashing facility
+HTI,Haiti,rural,Hygiene,2014,30.43627,1558999.40278,No handwashing facility
+HTI,Haiti,urban,Hygiene,2014,22.33881,1212289.56759,No handwashing facility
+HTI,Haiti,total,Sanitation,2014,22.35109,2357817.90837,Open defecation
+HTI,Haiti,rural,Sanitation,2014,36.83107,1886552.36741,Open defecation
+HTI,Haiti,urban,Sanitation,2014,8.68399,471265.58048,Open defecation
+HTI,Haiti,total,Drinking water,2014,1.42844,150685.85762,Surface water
+HTI,Haiti,rural,Drinking water,2014,2.93798,150488.55966,Surface water
+HTI,Haiti,urban,Drinking water,2014,0.00364,197.30199,Surface water
+HTI,Haiti,total,Sanitation,2014,20.40179,2152186.55904,Unimproved
+HTI,Haiti,rural,Sanitation,2014,27.07925,1387046.75484,Unimproved
+HTI,Haiti,urban,Sanitation,2014,14.0992,765139.82256,Unimproved
+HTI,Haiti,total,Drinking water,2014,25.41075,2680582.13593,Unimproved
+HTI,Haiti,rural,Drinking water,2014,42.7808,2191307.65559,Unimproved
+HTI,Haiti,urban,Drinking water,2014,9.01584,489274.52756,Unimproved
+HTI,Haiti,total,Sanitation,2015,32.50173,3476235.32535,At least basic
+HTI,Haiti,rural,Sanitation,2015,22.34662,1137038.5948,At least basic
+HTI,Haiti,urban,Sanitation,2015,41.71661,2339196.75082,At least basic
+HTI,Haiti,total,Drinking water,2015,64.56749,6905841.6793,At least basic
+HTI,Haiti,rural,Drinking water,2015,42.41642,2158227.63384,At least basic
+HTI,Haiti,urban,Drinking water,2015,84.66768,4747613.51221,At least basic
+HTI,Haiti,total,Hygiene,2015,23.43182,2506159.83484,Basic service
+HTI,Haiti,rural,Hygiene,2015,16.533,841230.4606,Basic service
+HTI,Haiti,urban,Hygiene,2015,29.69191,1664929.36572,Basic service
+HTI,Haiti,total,Hygiene,2015,53.76887,5750871.41338,Limited service
+HTI,Haiti,rural,Hygiene,2015,56.31247,2865285.08804,Limited service
+HTI,Haiti,urban,Hygiene,2015,51.46078,2885586.32818,Limited service
+HTI,Haiti,total,Sanitation,2015,26.36279,2819642.75171,Limited service
+HTI,Haiti,rural,Sanitation,2015,15.05147,765847.08615,Limited service
+HTI,Haiti,urban,Sanitation,2015,36.62685,2053795.65138,Limited service
+HTI,Haiti,total,Drinking water,2015,9.21849,985966.96555,Limited service
+HTI,Haiti,rural,Drinking water,2015,12.2289,622229.4984,Limited service
+HTI,Haiti,urban,Drinking water,2015,6.4868,363737.4711,Limited service
+HTI,Haiti,total,Hygiene,2015,22.7993,2438508.78172,No handwashing facility
+HTI,Haiti,rural,Hygiene,2015,27.15453,1381673.92236,No handwashing facility
+HTI,Haiti,urban,Hygiene,2015,18.84731,1056834.78872,No handwashing facility
+HTI,Haiti,total,Sanitation,2015,21.50371,2299938.26604,Open defecation
+HTI,Haiti,rural,Sanitation,2015,35.75592,1819328.81595,Open defecation
+HTI,Haiti,urban,Sanitation,2015,8.57106,480609.46789,Open defecation
+HTI,Haiti,total,Drinking water,2015,0.73619,78739.23881,Surface water
+HTI,Haiti,rural,Drinking water,2015,1.54749,78739.23982,Surface water
+HTI,Haiti,urban,Drinking water,2015,0,0,Surface water
+HTI,Haiti,total,Sanitation,2015,19.63177,2099723.66546,Unimproved
+HTI,Haiti,rural,Sanitation,2015,26.84599,1365975.03567,Unimproved
+HTI,Haiti,urban,Sanitation,2015,13.08548,733748.63961,Unimproved
+HTI,Haiti,total,Drinking water,2015,25.47784,2724992.50951,Unimproved
+HTI,Haiti,rural,Drinking water,2015,43.80719,2228993.03263,Unimproved
+HTI,Haiti,urban,Drinking water,2015,8.84552,495999.49992,Unimproved
+HTI,Haiti,total,Sanitation,2016,33.59935,3642161.47399,At least basic
+HTI,Haiti,rural,Sanitation,2016,23.12276,1168130.17679,At least basic
+HTI,Haiti,urban,Sanitation,2016,42.74331,2474031.46084,At least basic
+HTI,Haiti,total,Drinking water,2016,65.02302,7048479.53267,At least basic
+HTI,Haiti,rural,Drinking water,2016,42.52715,2148413.29573,At least basic
+HTI,Haiti,urban,Drinking water,2016,84.65739,4900066.07459,At least basic
+HTI,Haiti,total,Hygiene,2016,23.15104,2509567.11146,Basic service
+HTI,Haiti,rural,Hygiene,2016,16.26553,821712.08875,Basic service
+HTI,Haiti,urban,Hygiene,2016,29.16071,1687855.0223,Basic service
+HTI,Haiti,total,Hygiene,2016,57.5239,6235576.70494,Limited service
+HTI,Haiti,rural,Hygiene,2016,59.86168,3024129.97799,Limited service
+HTI,Haiti,urban,Hygiene,2016,55.48348,3211446.72727,Limited service
+HTI,Haiti,total,Sanitation,2016,26.87329,2913057.94793,Limited service
+HTI,Haiti,rural,Sanitation,2016,15.58374,787268.97166,Limited service
+HTI,Haiti,urban,Sanitation,2016,36.7268,2125788.976,Limited service
+HTI,Haiti,total,Drinking water,2016,9.3793,1016713.52567,Limited service
+HTI,Haiti,rural,Drinking water,2016,12.48226,630586.47367,Limited service
+HTI,Haiti,urban,Drinking water,2016,6.67103,386127.05196,Limited service
+HTI,Haiti,total,Hygiene,2016,19.32506,2094832.26815,No handwashing facility
+HTI,Haiti,rural,Hygiene,2016,23.87279,1206020.39841,No handwashing facility
+HTI,Haiti,urban,Hygiene,2016,15.35581,888811.77647,No handwashing facility
+HTI,Haiti,total,Sanitation,2016,20.67893,2241590.60462,Open defecation
+HTI,Haiti,rural,Sanitation,2016,34.68076,1752024.37736,Open defecation
+HTI,Haiti,urban,Sanitation,2016,8.45813,489566.22758,Open defecation
+HTI,Haiti,total,Drinking water,2016,0.07317,7931.40372,Surface water
+HTI,Haiti,rural,Drinking water,2016,0.157,7931.40366,Surface water
+HTI,Haiti,urban,Drinking water,2016,0,0,Surface water
+HTI,Haiti,total,Sanitation,2016,18.84844,2043165.91059,Unimproved
+HTI,Haiti,rural,Sanitation,2016,26.61274,1344438.9949,Unimproved
+HTI,Haiti,urban,Sanitation,2016,12.07176,698726.91615,Unimproved
+HTI,Haiti,total,Drinking water,2016,25.52452,2766851.647,Unimproved
+HTI,Haiti,rural,Drinking water,2016,44.83359,2264931.40599,Unimproved
+HTI,Haiti,urban,Drinking water,2016,8.67157,501920.24142,Unimproved
+HTI,Haiti,total,Sanitation,2017,34.70446,3811370.75952,At least basic
+HTI,Haiti,rural,Sanitation,2017,23.89852,1198245.2651,At least basic
+HTI,Haiti,urban,Sanitation,2017,43.78211,2613125.28351,At least basic
+HTI,Haiti,total,Drinking water,2017,65.46683,7189807.24723,At least basic
+HTI,Haiti,rural,Drinking water,2017,42.63561,2137702.30637,At least basic
+HTI,Haiti,urban,Drinking water,2017,84.64646,5052105.00858,At least basic
+HTI,Haiti,total,Hygiene,2017,22.86275,2510870.74119,Basic service
+HTI,Haiti,rural,Hygiene,2017,15.99805,802124.72013,Basic service
+HTI,Haiti,urban,Hygiene,2017,28.62951,1708746.02923,Basic service
+HTI,Haiti,total,Hygiene,2017,61.28884,6730965.27624,Limited service
+HTI,Haiti,rural,Hygiene,2017,63.4109,3179352.47651,Limited service
+HTI,Haiti,urban,Hygiene,2017,59.50618,3551612.7967,Limited service
+HTI,Haiti,total,Sanitation,2017,27.36507,3005332.6083,Limited service
+HTI,Haiti,rural,Sanitation,2017,16.11639,808058.12788,Limited service
+HTI,Haiti,urban,Sanitation,2017,36.81466,2197274.49408,Limited service
+HTI,Haiti,total,Drinking water,2017,9.54128,1047858.24783,Limited service
+HTI,Haiti,rural,Drinking water,2017,12.73789,638663.8245,Limited service
+HTI,Haiti,urban,Drinking water,2017,6.85593,409194.41977,Limited service
+HTI,Haiti,total,Hygiene,2017,15.84841,1740531.03529,No handwashing facility
+HTI,Haiti,rural,Hygiene,2017,20.59105,1032412.26225,No handwashing facility
+HTI,Haiti,urban,Hygiene,2017,11.86431,708118.6884,No handwashing facility
+HTI,Haiti,total,Sanitation,2017,19.87759,2183029.36619,Open defecation
+HTI,Haiti,rural,Sanitation,2017,33.60561,1684947.9336,Open defecation
+HTI,Haiti,urban,Sanitation,2017,8.3452,498081.41656,Open defecation
+HTI,Haiti,total,Drinking water,2017,0,0,Surface water
+HTI,Haiti,rural,Drinking water,2017,0,0,Surface water
+HTI,Haiti,urban,Drinking water,2017,0,0,Surface water
+HTI,Haiti,total,Sanitation,2017,18.05289,1982634.42744,Unimproved
+HTI,Haiti,rural,Sanitation,2017,26.37948,1322638.21704,Unimproved
+HTI,Haiti,urban,Sanitation,2017,11.05803,659996.20021,Unimproved
+HTI,Haiti,total,Drinking water,2017,24.99189,2744701.53251,Unimproved
+HTI,Haiti,rural,Drinking water,2017,44.6265,2237523.32301,Unimproved
+HTI,Haiti,urban,Drinking water,2017,8.49761,507178.18625,Unimproved
+HTI,Haiti,total,Sanitation,2018,35.81745,3984040.24915,At least basic
+HTI,Haiti,rural,Sanitation,2018,24.67389,1227404.98864,At least basic
+HTI,Haiti,urban,Sanitation,2018,44.83301,2756635.0463,At least basic
+HTI,Haiti,total,Drinking water,2018,65.89944,7330115.81662,At least basic
+HTI,Haiti,rural,Drinking water,2018,42.74179,2126194.65603,At least basic
+HTI,Haiti,urban,Drinking water,2018,84.63486,5203921.08116,At least basic
+HTI,Haiti,total,Hygiene,2018,22.56722,2510192.69475,Basic service
+HTI,Haiti,rural,Hygiene,2018,15.73058,782519.23685,Basic service
+HTI,Haiti,urban,Hygiene,2018,28.09832,1727673.51093,Basic service
+HTI,Haiti,total,Hygiene,2018,65.0634,7237120.52746,Limited service
+HTI,Haiti,rural,Hygiene,2018,66.96012,3330937.69329,Limited service
+HTI,Haiti,urban,Hygiene,2018,63.52888,3906182.81999,Limited service
+HTI,Haiti,total,Sanitation,2018,27.83824,3096498.31244,Limited service
+HTI,Haiti,rural,Sanitation,2018,16.64943,828227.68913,Limited service
+HTI,Haiti,urban,Sanitation,2018,36.89041,2268270.70939,Limited service
+HTI,Haiti,total,Drinking water,2018,9.70437,1079434.61942,Limited service
+HTI,Haiti,rural,Drinking water,2018,12.9958,646477.46012,Limited service
+HTI,Haiti,urban,Drinking water,2018,7.04147,432957.13427,Limited service
+HTI,Haiti,total,Hygiene,2018,12.36939,1375869.72773,No handwashing facility
+HTI,Haiti,rural,Hygiene,2018,17.3093,861053.02259,No handwashing facility
+HTI,Haiti,urban,Hygiene,2018,8.37281,514816.67153,No handwashing facility
+HTI,Haiti,total,Sanitation,2018,19.0989,2124405.95282,Open defecation
+HTI,Haiti,rural,Sanitation,2018,32.53045,1618230.4873,Open defecation
+HTI,Haiti,urban,Sanitation,2018,8.23227,506175.36204,Open defecation
+HTI,Haiti,total,Drinking water,2018,0,0,Surface water
+HTI,Haiti,rural,Drinking water,2018,0,0,Surface water
+HTI,Haiti,urban,Drinking water,2018,0,0,Surface water
+HTI,Haiti,total,Sanitation,2018,17.24541,1918238.68581,Unimproved
+HTI,Haiti,rural,Sanitation,2018,26.14623,1300646.8399,Unimproved
+HTI,Haiti,urban,Sanitation,2018,10.04431,617591.77762,Unimproved
+HTI,Haiti,total,Drinking water,2018,24.39619,2713632.55506,Unimproved
+HTI,Haiti,rural,Drinking water,2018,44.26241,2201837.79928,Unimproved
+HTI,Haiti,urban,Drinking water,2018,8.32366,511794.60263,Unimproved
+HTI,Haiti,total,Sanitation,2019,36.93853,4160415.38171,At least basic
+HTI,Haiti,rural,Sanitation,2019,25.44887,1255680.50301,At least basic
+HTI,Haiti,urban,Sanitation,2019,45.89601,2904735.15138,At least basic
+HTI,Haiti,total,Drinking water,2019,66.32098,7469784.80911,At least basic
+HTI,Haiti,rural,Drinking water,2019,42.8457,2114062.50336,At least basic
+HTI,Haiti,urban,Drinking water,2019,84.62262,5355722.43885,At least basic
+HTI,Haiti,total,Hygiene,2019,22.26459,2507678.52066,Basic service
+HTI,Haiti,rural,Hygiene,2019,15.46311,762969.70471,Basic service
+HTI,Haiti,urban,Hygiene,2019,27.56712,1744708.79595,Basic service
+HTI,Haiti,total,Hygiene,2019,68.84731,7754326.79754,Limited service
+HTI,Haiti,rural,Hygiene,2019,70.50933,3479022.13755,Limited service
+HTI,Haiti,urban,Hygiene,2019,67.55157,4275304.66463,Limited service
+HTI,Haiti,total,Sanitation,2019,28.29269,3186628.3458,Limited service
+HTI,Haiti,rural,Sanitation,2019,17.18286,847824.47348,Limited service
+HTI,Haiti,urban,Sanitation,2019,36.95406,2338803.84057,Limited service
+HTI,Haiti,total,Drinking water,2019,9.86856,1111503.41286,Limited service
+HTI,Haiti,rural,Drinking water,2019,13.25599,654067.6289,Limited service
+HTI,Haiti,urban,Drinking water,2019,7.22767,457435.79369,Limited service
+HTI,Haiti,total,Hygiene,2019,8.8881,1001073.68743,No handwashing facility
+HTI,Haiti,rural,Hygiene,2019,14.02756,692138.15182,No handwashing facility
+HTI,Haiti,urban,Hygiene,2019,4.88131,308935.52904,No handwashing facility
+HTI,Haiti,total,Sanitation,2019,18.34235,2065913.92623,Open defecation
+HTI,Haiti,rural,Sanitation,2019,31.45529,1552045.11215,Open defecation
+HTI,Haiti,urban,Sanitation,2019,8.11934,513868.85204,Open defecation
+HTI,Haiti,total,Drinking water,2019,0,0,Surface water
+HTI,Haiti,rural,Drinking water,2019,0,0,Surface water
+HTI,Haiti,urban,Drinking water,2019,0,0,Surface water
+HTI,Haiti,total,Sanitation,2019,16.42642,1850121.14353,Unimproved
+HTI,Haiti,rural,Sanitation,2019,25.91298,1278579.91235,Unimproved
+HTI,Haiti,urban,Sanitation,2019,9.03059,571541.25842,Unimproved
+HTI,Haiti,total,Drinking water,2019,23.81046,2681790.4335,Unimproved
+HTI,Haiti,rural,Drinking water,2019,43.89831,2165999.82876,Unimproved
+HTI,Haiti,urban,Drinking water,2019,8.1497,515790.66266,Unimproved
+HTI,Haiti,total,Sanitation,2020,37.12173,4232818.04022,At least basic
+HTI,Haiti,rural,Sanitation,2020,25.44887,1245227.37821,At least basic
+HTI,Haiti,urban,Sanitation,2020,45.89601,2987590.76171,At least basic
+HTI,Haiti,total,Drinking water,2020,66.6953,7604954.14725,At least basic
+HTI,Haiti,rural,Drinking water,2020,42.8457,2096463.63237,At least basic
+HTI,Haiti,urban,Drinking water,2020,84.62262,5508490.80784,At least basic
+HTI,Haiti,total,Hygiene,2020,22.37304,2551093.66135,Basic service
+HTI,Haiti,rural,Hygiene,2020,15.46311,756618.23431,Basic service
+HTI,Haiti,urban,Hygiene,2020,27.56712,1794475.43718,Basic service
+HTI,Haiti,total,Hygiene,2020,68.82081,7847315.27693,Limited service
+HTI,Haiti,rural,Hygiene,2020,70.50933,3450060.42914,Limited service
+HTI,Haiti,urban,Hygiene,2020,67.55157,4397254.84558,Limited service
+HTI,Haiti,total,Sanitation,2020,28.46984,3246283.2397,Limited service
+HTI,Haiti,rural,Sanitation,2020,17.18286,840766.6152,Limited service
+HTI,Haiti,urban,Sanitation,2020,36.95406,2405516.6421,Limited service
+HTI,Haiti,total,Drinking water,2020,9.81454,1119106.57872,Limited service
+HTI,Haiti,rural,Drinking water,2020,13.25599,648622.73226,Limited service
+HTI,Haiti,urban,Drinking water,2020,7.22767,470483.84107,Limited service
+HTI,Haiti,total,Hygiene,2020,8.80615,1004124.10083,No handwashing facility
+HTI,Haiti,rural,Hygiene,2020,14.02756,686376.33067,No handwashing facility
+HTI,Haiti,urban,Hygiene,2020,4.88131,317747.70656,No handwashing facility
+HTI,Haiti,total,Sanitation,2020,18.13326,2067651.48455,Open defecation
+HTI,Haiti,rural,Sanitation,2020,31.45529,1539124.85002,Open defecation
+HTI,Haiti,urban,Sanitation,2020,8.11934,528526.61433,Open defecation
+HTI,Haiti,total,Drinking water,2020,0,0,Surface water
+HTI,Haiti,rural,Drinking water,2020,0,0,Surface water
+HTI,Haiti,urban,Drinking water,2020,0,0,Surface water
+HTI,Haiti,total,Sanitation,2020,16.27516,1855780.25947,Unimproved
+HTI,Haiti,rural,Sanitation,2020,25.91298,1267936.15754,Unimproved
+HTI,Haiti,urban,Sanitation,2020,9.03059,587844.08719,Unimproved
+HTI,Haiti,total,Drinking water,2020,23.49015,2678471.87175,Unimproved
+HTI,Haiti,rural,Drinking water,2020,43.89831,2147968.59672,Unimproved
+HTI,Haiti,urban,Drinking water,2020,8.1497,530503.2433,Unimproved

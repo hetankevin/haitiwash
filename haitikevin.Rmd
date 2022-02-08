@@ -1,0 +1,71 @@
+---
+title: "haitikevin"
+author: "Kevin Tan"
+date: "1/27/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(pomp)
+library(haitipkg)
+library(here)
+getwd()
+```
+
+
+Rscript --vanilla -e "rmarkdown::render(\"haitikevin.Rmd\")"
+
+```{r}
+washdata = read_csv("washdash.csv") 
+washdata = washdata %>% 
+  mutate(Residence = washdata$'Residence Type', 
+                    Service = washdata$'Service Type',
+                    Level = washdata$'Service level') %>%
+  select(-'Residence Type', -'Service Type', -'Service level')
+
+washdata %>% filter(Service == 'Drinking water') %>% ggplot() + 
+  geom_line(mapping=aes(x=Year, y=Coverage, color=interaction(Residence, Level)))
+
+washdata
+```
+
+```{r}
+mod1 = haiti1()
+?haiti1
+```
+
+add wash params, try local search out, send to great lakes
+
+```{r}
+sim = simulate(mod1, nsim = 1, seed = 321,
+                 format = "data.frame", include.data = TRUE)
+```
+
+```{r}
+sim %>% ggplot(mapping=aes(x=week, y=cases)) + geom_line() 
+
+```
+
+
+
+```{r}
+mod1#@partrans
+
+```
+
+Just use SBIED to fit all this.
+
+```{r}
+mod1 = 
+```
+
+
+
+
+
+
+
+
+
+
