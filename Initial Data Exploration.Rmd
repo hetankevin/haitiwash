@@ -1,0 +1,53 @@
+---
+title: "Initial Data Exploration"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+load("~/Haiti Research/haitipkg/data/MODEL3_CASES.rda")
+```
+
+
+### Explore case totals
+
+```{r}
+# add total case count
+MODEL3_CASES %>% mutate(totals = Artibonite+Centre+Grande_Anse+Nippes+Nord
+                           + MODEL3_CASES[,7]+MODEL3_CASES[,8]+Ouest+Sud+MODEL3_CASES[,11]) -> MODEL3_CASES
+```
+
+
+```{r}
+MODEL3_CASES %>% ggplot()+
+  geom_line(aes(x = c(1:426), y = unlist(totals)))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
