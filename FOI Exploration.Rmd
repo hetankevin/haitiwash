@@ -1,0 +1,138 @@
+---
+title: "FOI Exploration"
+author: "Noah Treutle"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(dplyr)
+library(pomp)
+library(haitipkg)
+library(doParallel)
+library(doRNG)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r run levels}
+# set run levels
+Nsim <- 1000
+```
+
+## Epidemic FOI Exploration
+```{r pomp def}
+epi_mod_1 <- haiti1()
+```
+
+
+```{r simulate mod_1}
+# simulates the model and stores results in df called epi_sims
+simulate(epi_mod_1,nsim=Nsim,seed=1643079359, 
+         format="data.frame", include.data = TRUE) -> epi_sims
+```
+
+Disclaimer: Had to set include.data = TRUE in order to get parameter values for the simulations >>> why?
+
+```{r}
+# remove case data
+epi_sims <- epi_sims %>% dplyr::filter(ifelse(.id == "data", FALSE, TRUE))
+```
+
+
+```{r no-vaccine FOI}
+epi_sims <- epi_sims %>% mutate(N = S+E+I+A+R, 
+                       beta = epi_mod_1@params[['beta1']]*seas1 +
+                         epi_mod_1@params[['beta2']]*seas2 + 
+                         epi_mod_1@params[['beta3']]*seas3 + 
+                         epi_mod_1@params[['beta4']]*seas4 + 
+                         epi_mod_1@params[['beta5']]*seas5 + 
+                         epi_mod_1@params[['beta6']]*seas6)
+# setup lambda
+kappa <- 0.95
+epi_sims <- epi_sims %>% mutate(lambda = (I + (1-kappa)*A)^epi_mod_1@params[['nu']] * (beta/N))
+```
+
+
+
+Take median of lambda for each week and store in a vector
+
+```{r plot prep}
+epi_med_lambda <- c()
+
+for(i in c(1:232)) {
+  epi_med_lambda[i] <- median(filter(epi_sims, week==i)$lambda)
+}
+
+week <- c(1:232)
+epi_lambdas <- data.frame(epi_med_lambda, week)
+```
+
+
+### Epidemic Sims Median FOI by Week
+
+```{r}
+epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week")
+```
+
+## Endemic FOI Exploration
+```{r}
+end_mod_1 <- haiti1(period = "endemic")
+```
+
+
+```{r}
+# simulates the model and stores results in df called end_sims
+simulate(end_mod_1,nsim=Nsim,seed=1643079359, 
+         format="data.frame", include.data = TRUE) -> end_sims
+```
+
+Disclaimer: Had to set include.data = TRUE in order to get parameter values for the simulations >>> why?
+
+```{r}
+# remove case data
+end_sims <- end_sims %>% dplyr::filter(ifelse(.id == "data", FALSE, TRUE))
+```
+
+
+```{r}
+end_sims <- end_sims %>% mutate(N = S+E+I+A+R, 
+                       beta = end_mod_1@params[['beta1']]*seas1 +
+                         end_mod_1@params[['beta2']]*seas2 + 
+                         end_mod_1@params[['beta3']]*seas3 + 
+                         end_mod_1@params[['beta4']]*seas4 + 
+                         end_mod_1@params[['beta5']]*seas5 + 
+                         end_mod_1@params[['beta6']]*seas6)
+# setup lambda
+kappa <- 0.95
+end_sims <- end_sims %>% mutate(lambda = (I + (1-kappa)*A)^end_mod_1@params[['nu']] * (beta/N))
+```
+
+
+
+Take median of lambda for each week and store in a vector
+
+```{r}
+end_med_lambda <- c()
+
+for(i in c(233:430)) {
+  end_med_lambda[i-232] <- median(filter(end_sims, week==i)$lambda)
+}
+
+end_week <- c(233:430)
+end_lambdas <- data.frame(end_med_lambda, end_week)
+```
+
+
+### Endemic Sims Median FOI by Week
+
+```{r}
+end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week")
+```
+
+
+
+
+
+
+
