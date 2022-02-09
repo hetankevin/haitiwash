@@ -12,6 +12,7 @@ library(pomp)
 library(haitipkg)
 library(doParallel)
 library(doRNG)
+library(gridExtra)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -54,10 +55,8 @@ epi_sims <- epi_sims %>% mutate(lambda = (I + (1-kappa)*A)^epi_mod_1@params[['nu
 ```
 
 
-
-Take median of lambda for each week and store in a vector
-
 ```{r plot prep}
+# Take median of lambda for each week and store in a vector
 epi_med_lambda <- c()
 
 for(i in c(1:232)) {
@@ -72,7 +71,7 @@ epi_lambdas <- data.frame(epi_med_lambda, week)
 ### Epidemic Sims Median FOI by Week
 
 ```{r}
-epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week")
+(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week"))
 ```
 
 ## Endemic FOI Exploration
@@ -127,8 +126,50 @@ end_lambdas <- data.frame(end_med_lambda, end_week)
 ### Endemic Sims Median FOI by Week
 
 ```{r}
-end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week")
+(end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week"))
 ```
+
+
+### Case Data Plot
+
+```{r, include=FALSE}
+load("~/Haiti Research/haitipkg/data/haitiCholera.rda")
+```
+
+
+### Explore case totals
+
+```{r}
+# add total case count
+haitiCholera %>% mutate(totals = Artibonite+Centre+Grand.Anse+Nippes+Nord
+                           + haitiCholera[,7]+haitiCholera[,8]+Ouest+Sud+haitiCholera[,11]) -> haitiCholera
+```
+
+```{r}
+epi_cases <- haitiCholera[c(1:232),] %>% ggplot()+
+  geom_line(aes(x = c(1:232), y = unlist(totals))) + labs(title="Epidemic Cases")
+```
+
+
+```{r}
+end_cases <- haitiCholera[c(233:426),] %>% ggplot()+
+  geom_line(aes(x = c(233:426), y = unlist(totals))) + labs(title="Endemic Cases")
+```
+
+
+
+```{r}
+grid.arrange(epi, epi_cases)
+```
+
+
+
+```{r}
+grid.arrange(end, end_cases)
+```
+
+
+
 
 
 
