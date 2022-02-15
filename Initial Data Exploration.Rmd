@@ -10,8 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, include=FALSE}
 library(tidyverse)
 load("~/Haiti Research/haitipkg/data/MODEL3_CASES.rda")
+library(pomp)
+library(devtools)
+load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
 ```
 
+install_github('hetankevin/haitipkg')
 
 ### Explore case totals
 
@@ -27,7 +31,12 @@ MODEL3_CASES %>% ggplot()+
   geom_line(aes(x = c(1:426), y = unlist(totals)))
 ```
 
-
+```{r}
+h1 = haiti1()
+mod1 = haiti1mod()
+coef(mod1)
+MODEL1_INPUT_PARAMETERS
+```
 
 
 

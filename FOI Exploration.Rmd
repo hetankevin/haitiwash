@@ -9,10 +9,11 @@ output: html_document
 library(tidyverse)
 library(dplyr)
 library(pomp)
-library(haitipkg)
+#library(haitipkg)
 library(doParallel)
 library(doRNG)
 library(gridExtra)
+load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -23,7 +24,7 @@ Nsim <- 1000
 
 ## Epidemic FOI Exploration
 ```{r pomp def}
-epi_mod_1 <- haiti1()
+epi_mod_1 <- haiti1mod()
 ```
 
 
@@ -72,6 +73,15 @@ epi_lambdas <- data.frame(epi_med_lambda, week)
 
 ```{r}
 (epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week"))
+epi_mod_1@params
+```
+
+```{r}
+
+epi_betas %>% ggplot() + 
+  geom_point(aes(x = week, y =  exp(log(epi_med_beta)-1e-5*week)))
+  
+
 ```
 
 ## Endemic FOI Exploration
@@ -123,17 +133,44 @@ end_lambdas <- data.frame(end_med_lambda, end_week)
 ```
 
 
+```{r}
+epi_med_beta = c()
+end_med_beta <- c()
+
+for(i in c(1:232)) {
+  epi_med_beta[i] <- median(filter(epi_sims, week==i)$beta)
+}
+
+for(i in c(233:430)) {
+  end_med_beta[i-232] <- median(filter(end_sims, week==i)$beta)
+}
+
+
+week <- c(1:232)
+epi_betas <- data.frame(epi_med_beta, week)
+
+end_week <- c(233:430)
+end_betas <- data.frame(end_med_beta, end_week)
+
+```
+
+fit variable no. of backshift operators
+
+
+
+
 ### Endemic Sims Median FOI by Week
 
 ```{r}
-(end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week"))
+(end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda %>% log)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week"))
 ```
 
 
 ### Case Data Plot
 
 ```{r, include=FALSE}
-load("~/Haiti Research/haitipkg/data/haitiCholera.rda")
+#load("~/Haiti Research/haitipkg/data/haitiCholera.rda")
+load("../haitipkg/data/haitiCholera.rda")
 ```
 
 
