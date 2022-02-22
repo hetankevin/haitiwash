@@ -1,0 +1,5 @@
+CIK
+Name
+SIC
+Industry
+Location

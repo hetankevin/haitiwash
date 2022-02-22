@@ -30,27 +30,14 @@ mod_1@params['betat'] = 1e-5
 y <- simulate(mod_1)
 plot(y)
 ```
-```{r}
-mod_1@params['betat'] = 1e-10
-mod_lik = function(mod_1, Np){
-  pf1 <- foreach(i=1:20,.packages="pomp",
-      .export=c("mod_1","Np")) %dopar%
-      pfilter(mod_1,Np=Np)
-  L1 <- logmeanexp(sapply(pf1,logLik),se=TRUE)
-  return(L1)
-}
-L1
-mod_lik(mod1, Np)
-mod_1@params
 
-```
 0 -1606.361137
 1e-1 -94347
 1e-15 -1599.407524
 
 ```{r run levels}
 # set run levels
-run_level <- 1
+run_level <- 2
 Np <-          switch(run_level,100, 1e3, 5e3)
 Nmif <-        switch(run_level, 11, 100, 200)
 Nreps_eval <-  switch(run_level,  2,  10,  20)
@@ -74,25 +61,22 @@ Need to find this file location
 ```
 
 
-```{r}
-registerDoParallel()
-# runs particle filter on model
-stew(file="pf1.rda",{
-  registerDoRNG(3899882)
-  pf1 <- foreach(i=1:20,.packages="pomp",
-    .export=c("mod_1","Np")) %dopar%
-    pfilter(mod_1,Np=Np)
-},info=TRUE,dependson=Np)
-L1 <- logmeanexp(sapply(pf1,logLik),se=TRUE)
-L1
-mod_1@params
-```
-
-```{r}
-
-```
 -1609 0
 -1609.986102 
+
+```{r}
+mod_1@params['betat'] = 1e-8
+mod_lik = function(mod_1, Np){
+  pf1 <- foreach(i=1:20,.packages="pomp",
+      .export=c("mod_1","Np")) %dopar%
+      pfilter(mod_1,Np=Np)
+  L1 <- logmeanexp(sapply(pf1,logLik),se=TRUE)
+  return(L1)
+}
+mod_lik(mod_1, Np)
+mod_1@params
+
+```
 
 ```{r}
 # simulates the model and stores results in df called sims
@@ -228,7 +212,7 @@ mod_fit <- function(settings, out_dir, period, starts, full_mod) {
 
 ```{r}
 rw_sd <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
-                    beta4 = .02, beta5 = .02, beta6 = .02, betat=.002,
+                    beta4 = .02, beta5 = .02, beta6 = .02, betat=.02,
                     tau = 0.02, rho = 0.02, nu = 0.02, #sig_sq = 0.02,
                     E_0 = ivp(0.2), I_0 = ivp(0.2))
 

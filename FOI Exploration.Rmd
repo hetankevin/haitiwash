@@ -13,6 +13,7 @@ library(pomp)
 library(doParallel)
 library(doRNG)
 library(gridExtra)
+library(devtools)
 load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -69,20 +70,7 @@ epi_lambdas <- data.frame(epi_med_lambda, week)
 ```
 
 
-### Epidemic Sims Median FOI by Week
 
-```{r}
-(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week"))
-epi_mod_1@params
-```
-
-```{r}
-
-epi_betas %>% ggplot() + 
-  geom_point(aes(x = week, y =  exp(log(epi_med_beta)-1e-5*week)))
-  
-
-```
 
 ## Endemic FOI Exploration
 ```{r}
@@ -162,8 +150,26 @@ fit variable no. of backshift operators
 ### Endemic Sims Median FOI by Week
 
 ```{r}
-(end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda %>% log)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week"))
+(end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week"))
 ```
+```{r}
+(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week"))
+epi_mod_1@params
+```
+
+
+### Epidemic Sims Median FOI by Week
+
+
+
+```{r}
+
+epi_betas %>% ggplot() + 
+  geom_point(aes(x = week, y =  exp(log(epi_med_beta)-1e-5*week)))
+  
+
+```
+
 
 
 ### Case Data Plot
@@ -204,9 +210,600 @@ grid.arrange(epi, epi_cases)
 ```{r}
 grid.arrange(end, end_cases)
 ```
+```{r}
+sic_codes = sec.all.sic()
+```
+
+
+```{r}
+
+sec.all.sic <- function (run.all.sic = F, incl.otc = F)
+{
+   require(XML)
+   require(httr)
+   strip.white <- function(x)
+       gsub("^ *|(?<= ) | *$", "", x, perl = TRUE)
+   curr.time <- Sys.time()
+   curr.time <- gsub(" ", "\\.", curr.time)
+   curr.time <- gsub(":", "\\.", curr.time)
+   log.file <- paste("log.", curr.time, ".txt", sep = "")
+   write(as.character(Sys.time()), log.file, append = F)
+   if(run.all.sic | !file.exists("SIC.Codes.txt"))
+       try.sic <- 100:9999
+   else
+{
+   try.sic <- read.delim("SIC.Codes.txt", header = F, as.is = T)
+   try.sic <- as.matrix(try.sic)
+   try.sic <- as.numeric(try.sic[, 1])
+}
+take <- try.sic < 1000
+try.sic[take] <- paste(0, try.sic[take], sep = "")
+mat <- c("CIK", "Name", "SIC", "Industry", "Location")
+for(ix in try.sic)
+{
+   get.pg <- T
+   print(paste("Processing ", ix, sep = ""))
+   s <- 0
+   while(get.pg)
+   {
+url <- paste( "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&SIC=", ix, "&owner=include&match=&start=",
+s, "&count=100", "&hidefilings=0", sep = "")
+       x <- sec.get.webpage(url)
+       y <- sec.parse.html(x, keyword = "div")
+       y1 <- grep(paste("SIC ", ix, sep = ""), y)
+       y2 <- grep(paste("SIC: ", ix, sep = ""), y)
+       if(length(y1) > 0)
+       {
+          y <- y[y1]
+          y <- unlist(strsplit(y, paste("SIC ", ix, " - ",
+              sep = "")))[2]
+          ind <- unlist(strsplit(y, " Click on CIK"))[1]
+          x <- sec.parse.html(x, keyword = "table")
+          x <- x[-(1:3)]
+          cik <- !is.na(as.numeric(x))
+          z <- matrix("", sum(cik), 5)
+          j <- 0
+          for(i in 1:length(x))
+          {
+              if(cik[i])
+                 z[j <- j + 1, 1] <- x[k <- i]
+              else if(i == k + 1)
+                 z[j, 2] <- strip.white(x[i])
+              else if(i == k + 2)
+                 z[j, 5] <- x[i]
+          }
+          z[, 3] <- ix
+          z[, 4] <- ind
+          mat <- rbind(mat, z)
+          get.pg <- nrow(z) == 100
+       }
+       else if(length(y2) > 0)
+       {
+          z <- rep("", 5)
+          y1 <- grep("CIK#: ", y)
+          y1 <- y[y1[1]]
+          y1 <- unlist(strsplit(y1, " CIK#: "))
+          z[2] <- strip.white(y1[1])
+          y1 <- y1[2]
+          z[1] <- unlist(strsplit(y1, " "))[1]
+          y2 <- grep("SIC: ", y)
+          y2 <- y[y2[1]]
+          y2 <- unlist(strsplit(y2, paste("SIC: ",
+             ix, " - ", sep = "")))[2]
+          y2 <- unlist(strsplit(y2, "State location: "))
+          z[4] <- y2[1]
+          y2 <- unlist(strsplit(y2[2], " "))
+          z[5] <- y2[1]
+          z[3] <- ix
+          mat <- rbind(mat, z)
+          get.pg <- F
+} else
+get.pg <- F
+s <- s + 100 }
+   }
+   sec.write.table(mat, "SIC.Download.txt", T)
+   write(as.character(Sys.time()), log.file, append = T)
+   sec.sic(incl.otc = incl.otc)
+}
 
 
 
+sec.dump <- function ()
+{
+   x <- sapply(ls(pos = 1), function(x) storage.mode(get(x)))
+   y <- names(x)[x == "function"]
+   z <- grep("sec\\.", y)
+   y <- y[z]
+   save(list = y, file = "SEC.RData")
+   dump(y, "sec.code.txt")
+}
+sec.fix.names <- function(x, drop.suffix, drop.last = T)
+{
+x <- toupper(x)
+x <- gsub("D/B/A", "", x)
+x <- gsub("\\.COM", " COM", x)
+x <- gsub(",", "", x)
+x <- gsub("\'", "", x)
+x <- gsub("\\.", "", x)
+x <- gsub(";", "", x)
+x <- gsub("\\(", "", x)
+x <- gsub("\\)", "", x)
+x <- gsub("/", " ", x)
+x <- gsub("!", " ", x)
+x <- gsub("&AMP", "AND", x)
+x <- gsub("&", "AND", x)
+x <- gsub("-", " ", x)
+x<-gsub(" ","",x)
+x <- gsub("CORPORATION", "CORP", x)
+x <- gsub("^ *|(?<= ) | *$", "", x, perl = TRUE)
+if(!drop.last)
+   return(x)
+for(i in 1:length(x))
+{
+   while(drop.last){
+       y <- unlist(strsplit(x[i], " "))
+       if(y[1] == "THE")
+          y <- y[-1]
+       n <- length(y)
+       z <- y[n]
+       drop.last <- any(z == drop.suffix) & n > 1
+       if(drop.last)
+       {
+} }
+x[i] <- y[1]
+if(n > 2)
+   for(j in 2:(n - 1))
+       x[i] <- paste(x[i], y[j], sep = " ")
+       drop.last <- T
+   }
+return(x) }
+
+
+sec.get.webpage <- function (url)
+{
+   response <- try(GET(url))
+   if(mode(response) == "list")
+   {
+       x <- unlist(response)
+       x <- grep("status_code", x)
+       if(length(x) == 1)
+          if(response$status_code != 200)
+              print(c(url, ",
+                 http status = ", response$status_code))
+   }
+   u <- htmlParse(response, useInternalNodes = T, asText = T)
+   webpage <- as(u, "character")
+   webpage <- readLines(tc <- textConnection(webpage))
+   close(tc)
+   return(webpage)
+}
+
+
+sec.match <- function (a, b)
+{
+   x <- match(a, b)
+   x <- x[!is.na(x)]
+   return(x)
+}
+
+
+sec.nasdaq.ticker <- function (x)
+{
+if(vec.x <- is.vector(x))
+   x <- as.matrix(x, length(x), 1)
+   y <- x[, 1]
+   take <- nchar(y) == 5
+   if(sum(take) == 0)
+   {
+       if(vec.x)
+          x <- as.vector(x)
+return(x) }
+   z <- y[take]
+   for(i in 1:length(z))
+   {
+       v <- unlist(strsplit(z[i], ""))
+       if(any(v[5] == c("G","H","I","R","T","V","W","X")))
+          z[i] <- "99999"
+   }
+   y[take] <- z
+   x[, 1] <- y
+   bad <- y == "99999"
+   x <- x[!bad, ]
+   if(vec.x)
+       x <- as.vector(x)
+   return(x)
+}
+
+
+sec.nq.amex <- function (db)
+{
+   y <- sec.read.nq(db$file.nq.amex)
+   y <- sec.nyse.ticker(y)
+   db$tickers.nq.amex <- as.character(y[, 1])
+   db$mkt.cap.nq.amex <- as.character(y[, 2])
+   db$last.nq.amex <- as.numeric(y[, 3])
+   db$exch.nq.amex <- rep("A", nrow(y))
+   db$name.nq.amex <- as.character(y[, 4])
+}
+sec.nq.nasdaq <- function (db)
+{
+   y <- sec.read.nq(db$file.nq.nasdaq)
+   y <- sec.nasdaq.ticker(y)
+   db$tickers.nq.nasdaq <- as.character(y[, 1])
+   db$mkt.cap.nq.nasdaq <- as.character(y[, 2])
+   db$last.nq.nasdaq <- as.numeric(y[, 3])
+   db$exch.nq.nasdaq <- rep("Q", nrow(y))
+   db$name.nq.nasdaq <- as.character(y[, 4])
+}
+sec.nq.nyse <- function (db)
+{
+   y <- sec.read.nq(db$file.nq.nyse)
+   y <- sec.nyse.ticker(y)
+   db$tickers.nq.nyse <- as.character(y[, 1])
+   db$mkt.cap.nq.nyse <- as.character(y[, 2])
+   db$last.nq.nyse <- as.numeric(y[, 3])
+   db$exch.nq.nyse <- rep("N", nrow(y))
+
+
+db$name.nq.nyse <- as.character(y[, 4])
+}
+sec.nt.nasdaq <- function (db)
+{
+   x <- sec.read.nt(db$file.nt.nasdaq)
+   y <- x[, c("Symbol", "Test.Issue")]
+   y <- sec.nasdaq.ticker(y)
+   test <- y[, 2] == "Y"
+   db$tickers.nt.nasdaq <- y[!test, 1]
+   db$exch.nt.nasdaq <- rep("Q", length(db$tickers.nt.nasdaq))
+   db$test.tickers.nt.nasdaq <- y[test, 1]
+}
+sec.nt.other <- function (db)
+{
+   x <- sec.read.nt(db$file.nt.other)
+   exch <- x[, "Exchange"]
+   exch[exch == "P"] <- "N"
+   x[, "Exchange"] <- exch
+   y <- x[, c("CQS.Symbol", "Exchange", "Test.Issue")]
+   y <- sec.nyse.ticker(y)
+   test <- y[, 3] == "Y"
+   db$tickers.nt.other <- y[!test, 1]
+   db$exch.nt.other <- y[!test, 2]
+   db$test.tickers.nt.other <- y[test, 1]
+}
+sec.nyse.ticker <- function (x)
+{
+   if(vec.x <- is.vector(x))
+       x <- as.matrix(x, length(x), 1)
+   y <- x[, 1]
+   z <- gsub("[A-Z]", "", y)
+   take <- z == "" | z == "/"
+   y[!take] <- "99999"
+   for(i in 1:length(y))
+   {
+       z <- unlist(strsplit(y[i], "/"))
+       if(length(z) == 2)
+          if(nchar(z[2]) > 1)
+              y[i] <- "99999"
+          else
+              y[i] <- paste(z[1], z[2], sep = ".")
+   }
+   x[, 1] <- y
+   bad <- y == "99999"
+   x <- x[!bad, ]
+   if(vec.x)
+       x <- as.vector(x)
+   return(x)
+}
+
+
+sec.osha <- function () {
+    require(XML)
+    require(httr)
+    get.ind <- function(id, code) {
+      url <- paste(
+          "https://www.osha.gov/pls/imis/sic_manual.display?id=",
+          id, "&tab=group", sep = "")
+      y <- sec.get.webpage(url)
+      x <- sec.parse.html(y, keyword = "div")
+      y1 <- grep(paste("Industry Group ", code, "*.:", sep = ""), x)[1]
+      y2 <- grep("SIC Search Division Structure", x)[1]
+      x <- x[y1:(y2-1)]
+      z <- c("Code", "Industry Group", "Industry")
+      for(i in 1:length(x)) {
+         if(length(grep("Industry Group", x[i])) > 0) {
+             u <- unlist(strsplit(x[i], " "))
+             u <- u[-(1:3)]
+             for(j in 1:length(u))
+                if(j == 1)
+                   ind.grp <- u[1]
+                else
+                   ind.grp <- paste(ind.grp, u[j], sep = " ")
+        } 
+        else {
+          v <- unlist(strsplit(x[i], " "))
+          code <- v[1]
+          ind <- gsub(paste(code, " ", sep = ""), "", x[i])
+          z <- rbind(z, c(code, ind.grp, ind))
+        } 
+      }
+      return(z) 
+    }
+    url <- "https://www.osha.gov/pls/imis/sic_manual.html"
+    y <- sec.get.webpage(url)
+    x <- sec.parse.html(y, keyword = "div")
+    y1 <- grep("SIC Division Structure", x)[1]
+    y2 <- grep("Major Group 99", x)[1]
+    x <- x[(y1+1):y2]
+    z <- c("Code", "Division", "Major Group", "Industry Group", "Industry") 
+    for(i in 1:length(x)) {
+       u <- unlist(strsplit(x[i], ": "))
+       if(length(grep("Division", u[1])) > 0)
+           div <- u[2]
+       else {
+        maj <- u[2]
+        code <- unlist(strsplit(u[1], " "))[3]
+                  v <- grep(paste("Major Group ", code, sep = ""), y)
+                  v <- y[v]
+                  v <- unlist(strsplit(v, "id="))[2]
+                  id <- unlist(strsplit(v, "&amp"))[1]
+                  q <- get.ind(id, code)
+                  q <- cbind(q[, 1], rep(div, nrow(q)), rep(maj, nrow(q)),
+                      q[, 2:3])
+                  q <- q[-1, ]
+                  z <- rbind(z, q)
+      }
+    }
+   sec.write.table(z, "SIC.table.txt", T)
+}
+
+
+sec.parse.html <- function (webpage, keyword)
+{
+   pagetree <- htmlTreeParse(webpage, error=function(...){},
+       useInternalNodes = TRUE)
+   # parse the tree
+   x <- xpathSApply(pagetree, paste("//*/", keyword, sep = ""), xmlValue)
+   if(!is.character(x))
+       return(keyword)
+   # do some clean up with regular expressions
+   x <- unlist(strsplit(x, "\n"))
+   x <- gsub("\t","",x)
+   x <- sub("^[[:space:]]*(.*?)[[:space:]]*$", "\\1", x, perl=TRUE)
+   x <- x[!(x %in% c("", "|"))]
+   return(x)
+}
+
+
+sec.read.nq <- function (file)
+{
+   x <- read.csv(file = file, header = T, strip.white = T, sep = ",")
+   x <- as.matrix(x)
+   mode(x) <- "character"
+   x1 <- sec.strip.white(x)
+   y <- x1[, c("Symbol", "MarketCap", "LastSale")]
+   y <- cbind(y, x[, "Name"])
+   return(y)
+}
+
+sec.read.nt <- function (file) {
+  x <- readLines(file)
+  x <- gsub("\'", "", x)
+  file <- paste(file, ".cleaned.txt", sep = "")
+  write(x, file = file)
+  x <- read.table(file = file, sep = "|", header = T, comment.char = "@",
+         fill = T, strip.white = T)
+  x <- as.matrix(x)
+  mode(x) <- "character"
+  test <- x[, "Test.Issue"]
+  bad <- test == ""
+  x <- x[!bad, ]
+  return(x)
+}
+
+sec.sic <- function (incl.otc = F)
+{
+   fund.etc <- function(x)
+   {
+       if(length(grep("FUND", x)) > 0)
+          return(T)
+       if(length(grep("TRUST", x)) > 0)
+          return(T)
+       if(length(grep("PORTFOLIO", x)) > 0)
+          return(T)
+       if(length(grep("ETF", x)) > 0)
+          return(T)
+       if(length(grep("INCOME", x)) > 0)
+          return(T)
+       if(length(grep("DIVIDEND", x)) > 0)
+          return(T)
+       if(length(grep("SHARES", x)) > 0)
+          return(T)
+       if(length(grep("DIVIDEND", x)) > 0)
+          return(T)
+       if(length(grep(" BOND", x)) > 0)
+          return(T)
+       if(length(grep(" RETURN", x)) > 0)
+          return(T)
+       if(length(grep(" SECURITIES", x)) > 0)
+          return(T)
+       if(length(grep(" INVESTMENT", x)) > 0)
+          return(T)
+       if(length(grep(" INVESTOR", x)) > 0)
+          return(T)
+       if(length(grep(" MUNICIPAL", x)) > 0)
+          return(T)
+       if(length(grep(" GROWTH", x)) > 0)
+          return(T)
+       if(length(grep(" INFLATION", x)) > 0)
+          return(T)
+       if(length(grep(" VOLATILITY", x)) > 0)
+          return(T)
+       if(length(grep("DOW 30", x)) > 0)
+          return(T)
+       if(length(grep("TREASURY", x)) > 0)
+          return(T)
+       if(length(grep("CONTINGENT", x)) > 0)
+          return(T)
+       if(length(grep("FLOATING", x)) > 0)
+          return(T)
+       if(length(grep(" RATE", x)) > 0)
+          return(T)
+       if(length(grep("INDEX", x)) > 0)
+          return(T)
+return(F)
+}
+drop.suffix <- c("INC", "INCORPORATED", "LP", "CORPORATION",
+   "CORP", "PLC", "LTD", "LIMITED", "COMPANY", "AG", "SA",
+   "LLC", "PLLC", "DBA", "THE", "NEW", "NV", "HOLDING",
+   "HOLDINGS", "CO", "HLDGS", "HLDG", "PARTNERSHIP")
+drop.suffix <- c(drop.suffix, state.abb[])
+u <- read.delim("SIC.Codes.txt", header = F)
+u <- as.matrix(u)
+sic.names <- u[, 2]
+names(sic.names) <- sic.codes <- as.character(u[, 1])
+w <- read.delim("SIC.Download.txt", header = T)
+w <- as.matrix(w)
+mode(w) <- "character"
+sec.names <- sec.fix.names(w[, 2], "", drop.last = F)
+sec.sic.codes <- w[, 3]
+db <- new.env()
+db$file.nq.amex = "NQ_AMEX.csv"
+db$file.nq.nyse = "NQ_NYSE.csv"
+db$file.nq.nasdaq = "NQ_NASDAQ.csv"
+db$file.nt.other = "NT_otherlisted.txt"
+db$file.nt.nasdaq = "NT_nasdaqlisted.txt"
+sec.nq.amex(db)
+sec.nq.nyse(db)
+sec.nq.nasdaq(db)
+sec.nt.other(db)
+sec.nt.nasdaq(db)
+sec.tickers(db)
+tickers <- db$tickers
+co.names <- sec.fix.names(db$name, "", drop.last = F)
+exch <- db$exch.nq
+cap <- db$mkt.cap.nq
+if(incl.otc)
+{
+   x <- read.csv("otctickers.csv", header = T)
+   x <- as.matrix(x)
+   tickers <- c(tickers, x[, 1])
+   co.names <- c(co.names,
+        sec.fix.names(x[, 10], "", drop.last = F))
+   exch <- c(exch, x[, 4])
+   cap <- c(cap, rep(NA, nrow(x)))
+}
+n <- length(tickers)
+sic <- c("TICKER", "EXCH", "SIC", "SIC.NAME", "MKT.CAP")
+no.sic <- c("TICKER", "EXCH", "MKT.CAP", "FUND.ETC", "NO.MATCH")
+for(i in 1:n)
+{
+   take <- co.names[i] == sec.names
+   x <- unique(sec.sic.codes[take])
+   if(length(x) == 1)
+   {
+       sic <- rbind(sic,
+          c(tickers[i], exch[i], x, sic.names[x], cap[i]))
+next
+
+       }
+       co.name <- sec.fix.names(co.names[i], drop.suffix)
+       y <- grep(co.name, sec.names)
+       if(length(y) == 0)
+       {
+          no.sic <- rbind(no.sic,
+              c(tickers[i], exch[i], cap[i], fund.etc(co.name),
+"TRUE"))
+next }
+       sec.name <- sec.fix.names(sec.names[y], drop.suffix)
+       sec.sic.code <- sec.sic.codes[y]
+       take <- co.name == sec.name
+       if(sum(take) == 0)
+       {
+          no.sic <- rbind(no.sic,
+              c(tickers[i], exch[i], cap[i], fund.etc(co.name),
+                 "TRUE"))
+next }
+       x <- unique(sec.sic.code[take])
+       if(length(x) > 1)
+       {
+          no.sic <- rbind(no.sic,
+              c(tickers[i], exch[i], cap[i], fund.etc(co.name),
+"FALSE"))
+next }
+       sic <- rbind(sic,
+          c(tickers[i], exch[i], x, sic.names[x], cap[i]))
+   }
+   y <- unique(sic[-1, 3])
+   ind <- matrix(0, k <- nrow(sic) - 1, length(y))
+   for(i in 1:k)
+       ind[i, ] <- as.numeric(sic[i + 1, 3] == y)
+   dimnames(ind)[[1]] <- sic[-1, 1]
+   dimnames(ind)[[2]] <- y
+   sec.write.table(sic, file = "TICKER.SIC.txt", last.return = T)
+   sec.write.table(no.sic, file = "NO.SIC.txt", last.return = T)
+   write.table(ind, file = "SIC.IND.CLASS.txt", quote = F, sep = "\t")
+}
+sec.strip.white <- function (x)
+{
+   x <- gsub("\t", "", x)
+   x <- gsub(" ", "", x)
+   return(x)
+}
+sec.tickers <- function (db)
+{
+   db$tickers.nq <- c(db$tickers.nq.amex, db$tickers.nq.nyse,
+       db$tickers.nq.nasdaq)
+   db$exch.nq <- c(db$exch.nq.amex, db$exch.nq.nyse, db$exch.nq.nasdaq)
+
+
+db$mkt.cap.nq <- c(db$mkt.cap.nq.amex, db$mkt.cap.nq.nyse,
+   db$mkt.cap.nq.nasdaq)
+db$last.nq <- c(db$last.nq.amex, db$last.nq.nyse, db$last.nq.nasdaq)
+db$name.nq <- c(db$name.nq.amex, db$name.nq.nyse, db$name.nq.nasdaq)
+db$tickers.nt <- c(db$tickers.nt.other, db$tickers.nt.nasdaq)
+db$exch.nt <- c(db$exch.nt.other, db$exch.nt.nasdaq)
+db$test.tickers.nt <- c(db$test.tickers.nt.other,
+   db$test.tickers.nt.nasdaq)
+x <- sec.match(db$test.tickers.nt, db$tickers.nq)
+db$tickers.nq <- db$tickers.nq[-x]
+db$exch.nq <- db$exch.nq[-x]
+db$mkt.cap.nq <- db$mkt.cap.nq[-x]
+db$last.nq <- db$last.nq[-x]
+db$name.nq <- db$name.nq[-x]
+db$tickers <- db$tickers.nq
+db$name <- db$name.nq
+}
+sec.write.table <- function (x, file, last.return = F)
+{
+   if(last.return)
+   {
+       write.table(x, file = file, quote = F, row.names = F,
+          col.names = F, sep = "\t")
+return(1) }
+   single.line <- F
+   if(is.matrix(x))
+       if(nrow(x) == 1)
+          single.line <- T
+   if(is.vector(x))
+       single.line <- T
+   if(single.line)
+   {
+       write.table(x, file = file, quote = F, row.names = F,
+          col.names = F, sep = "\t", eol = "")
+return(1) }
+   y <- x[nrow(x), ]
+   x <- x[-nrow(x), ]
+   z <- y[1]
+   if(length(y) > 1)
+       for(i in 2:length(y))
+          z <- paste(z, "\t", y[i], sep = "")
+   write.table(x, file = file, quote = F, row.names = F,
+       col.names = F, sep = "\t")
+   write.table(z, file = file, quote = F, row.names = F,
+       col.names = F, sep = "\t", eol = "", append = T)
+}
+
+```
 
 
 
