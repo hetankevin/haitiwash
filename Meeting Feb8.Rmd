@@ -11,6 +11,7 @@ library(pomp)
 #library(haitipkg)
 library(doParallel)
 library(doRNG)
+library(devtools)
 load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -21,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r pomp def}
 mod_1 <- haiti1mod()
+mod1orig = haiti1()
 ```
 
 ```{r test simulate}
@@ -37,7 +39,7 @@ plot(y)
 
 ```{r run levels}
 # set run levels
-run_level <- 2
+run_level <- 3
 Np <-          switch(run_level,100, 1e3, 5e3)
 Nmif <-        switch(run_level, 11, 100, 200)
 Nreps_eval <-  switch(run_level,  2,  10,  20)
@@ -52,7 +54,16 @@ Nsim <-        switch(run_level, 50, 100, 500)
 #dir.create("workflowtmp")
 #options(pomp_cdir="workflowtmp")
 #save(file=file.path("workflowtmp","pf1.rda"))
+
 ```
+
+```{r}
+no_cores <- detectCores() # 24 cores
+cl<-makeCluster(no_cores)
+registerDoParallel(cl)
+no_cores
+```
+
 
 
 Need to find this file location
@@ -65,7 +76,7 @@ Need to find this file location
 -1609.986102 
 
 ```{r}
-mod_1@params['betat'] = 1e-8
+#mod_1@params['betat'] = 1e-8
 mod_lik = function(mod_1, Np){
   pf1 <- foreach(i=1:20,.packages="pomp",
       .export=c("mod_1","Np")) %dopar%
@@ -74,10 +85,13 @@ mod_lik = function(mod_1, Np){
   return(L1)
 }
 mod_lik(mod_1, Np)
+mod_lik(mod1orig, Np)
 mod_1@params
 
 ```
-
+```{r}
+mod_1@partrans
+```
 ```{r}
 # simulates the model and stores results in df called sims
 simulate(mod_1,nsim=Nsim,seed=1643079359,
@@ -106,7 +120,7 @@ mod_fit <- function(settings, out_dir, period, starts, full_mod) {
   if (period == 1) { ## endemic
     est_params <- c(paste0("beta", 1:6), "rho", "tau", "nu")
     rw_sds <- rw.sd(beta1 = 0.02, beta2 = 0.02, beta3 = 0.02,
-                    beta4 = 0.02, beta5 = 0.02, beta6 = 0.02, #sig_sq = 0.02,
+                    beta4 = 0.02, beta5 = 0.02, beta6 = 0.02, betat = 0.002, #sig_sq = 0.02,
                     tau = 0.02, rho = 0.02, nu = 0.02)
     tstart <- 233
     tend <- 430
@@ -115,7 +129,7 @@ mod_fit <- function(settings, out_dir, period, starts, full_mod) {
                     "E_0", "I_0")
     rw_sds <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
                     beta4 = .02, beta5 = .02, beta6 = .02,
-                    tau = 0.02, rho = 0.02, nu = 0.02, #sig_sq = 0.02,
+                    tau = 0.02, rho = 0.02, nu = 0.02, betat = 0.002, #sig_sq = 0.02,
                     E_0 = ivp(0.2), I_0 = ivp(0.2))
     tstart <- 1
     tend <- 232
@@ -209,44 +223,48 @@ mod_fit <- function(settings, out_dir, period, starts, full_mod) {
 ```
 
 
-
 ```{r}
 rw_sd <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
-                    beta4 = .02, beta5 = .02, beta6 = .02, betat=.02,
+                    beta4 = .02, beta5 = .02, beta6 = .02, betat=.0002,
                     tau = 0.02, rho = 0.02, nu = 0.02, #sig_sq = 0.02,
                     E_0 = ivp(0.2), I_0 = ivp(0.2))
+
+rw_sd <- rw.sd(betat=.02)
 
 
 exl <- c("mod_1","Np","Nmif","rw_sd",
   "Nreps_local","Nreps_eval")
 
 
-m2 <- foreach(i=1:Nreps_local,
-    .packages="pomp",.combine=c,.export=exl) %dopar%
+m2 <- foreach(i=1:10,
+    .packages="pomp",.combine=c,.export=exl, .verbose=T) %dopar%
     mif2(mod_1, Np=Np, Nmif=Nmif, rw.sd=rw_sd,
          cooling.fraction.50=0.5)
 ```
 
 
 ```{r}
-m2[[1]]@params
+m2[[2]]@params
 ```
 
 ```{r}
 mod_1@params
 ```
+
+
 ```{r}
-mod_lik(m2[[1]], Np)
+#mod_lik(m2[[1]], Np)
+
+for(i in 1:Nreps_local)
+  print(mod_lik(m2[[i]], Np))
+
 ```
 
 ```{r}
-box <- rbind(
-  
-)
+for(i in 1:Nreps_local)
+  print(m2[[i]]@params)
+
 ```
-
-
-
 
 
 
