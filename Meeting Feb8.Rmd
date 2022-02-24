@@ -12,7 +12,8 @@ library(pomp)
 library(doParallel)
 library(doRNG)
 library(devtools)
-load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
+#load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
+load_all('/Users/ntreu/Documents/Haiti Research/haitipkg')
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
