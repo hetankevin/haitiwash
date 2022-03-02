@@ -1,0 +1,109 @@
+---
+title: "BetaTrend Explorations"
+author: "Noah Treutle"
+date: "3/2/2022"
+output: html_document
+---
+
+## Prep
+```{r setup, include=FALSE}
+library(tidyverse)
+library(pomp)
+#library(haitipkg)
+library(doParallel)
+library(doRNG)
+library(devtools)
+ifelse(Sys.info()[[7]] == "ntreu",
+       load_all('/Users/ntreu/Documents/Haiti Research/haitipkg'),
+       load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg'))
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r run levels}
+# set run levels
+run_level <- 1
+Np <-          switch(run_level,100, 1e3, 5e3)
+Nmif <-        switch(run_level, 10, 100, 200)
+Nreps_eval <-  switch(run_level,  2,  10,  20)
+Nreps_local <- switch(run_level, 10,  20,  40)
+Nreps_global <-switch(run_level, 10,  20, 100)
+Nsim <-        switch(run_level, 50, 100, 500) 
+```
+
+```{r parallel setup}
+no_cores <- detectCores() 
+cl<-makeCluster(no_cores)
+registerDoParallel(cl)
+no_cores
+```
+
+```{r windows compatibility}
+# added to make compatible with windows
+if (Sys.info()[[7]] == "ntreu") {
+  options(pomp_cdir="workflowtmp")
+  save(file=file.path("workflowtmp","pf1.rda"))
+}
+```
+### Setup pomp object
+
+```{r pomp def}
+mod_1 <- haiti1mod()
+mod1orig = haiti1()
+```
+
+### pfilter with preset parameters
+```{r}
+#mod_1@params['betat'] = 1e-8
+mod_lik = function(mod_1, Np){
+  pf1 <- foreach(i=1:20,.packages="pomp",
+      .export=c("mod_1","Np")) %dopar%
+      pfilter(mod_1,Np=Np)
+  L1 <- logmeanexp(sapply(pf1,logLik),se=TRUE)
+  return(L1)
+}
+mod_lik(mod_1, Np)
+mod_lik(mod1orig, Np)
+mod_1@params
+
+```
+Note that in the above simulation, the log-liks are very similar for both models.
+
+## Mif2 modified model1
+```{r}
+rw_sd <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
+                    beta4 = .02, beta5 = .02, beta6 = .02, betat=.0002,
+                    tau = 0.02, rho = 0.02, nu = 0.02, #sig_sq = 0.02,
+                    E_0 = ivp(0.2), I_0 = ivp(0.2))
+
+exl <- c("mod_1","Np","Nmif","rw_sd",
+  "Nreps_local","Nreps_eval")
+
+
+m2 <- foreach(i=1:10,
+    .packages="pomp",.combine=c,.export=exl, .verbose=T) %dopar%
+    mif2(mod_1, Np=Np, Nmif=Nmif, rw.sd=rw_sd,
+         cooling.fraction.50=0.5)
+```
+
+### Print the log-liks from mif2 
+
+```{r}
+#mod_lik(m2[[1]], Np)
+
+for(i in 1:Nreps_local)
+  print(mod_lik(m2[[i]], Np))
+
+```
+
+### MLE parameter estimates from mif2
+```{r}
+for(i in 1:Nreps_local)
+  print(m2[[i]]@params)
+```
+
+### log liks for different fixed beta_t
+0 -1606.361137
+1e-1 -94347
+1e-15 -1599.407524
+
+
