@@ -1,0 +1,91 @@
+---
+title: "BetaTrend Profile"
+author: "Noah Treutle"
+date: "3/4/2022"
+output: html_document
+---
+
+Note: This file depends on the BetaTrendExplorations.Rmd
+
+```{r}
+# from lesson 3
+ps = data.frame()
+for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5)) {
+    # create df to hold results of search
+    slice_design(
+      # centers on MLE coefs from original model
+      center=coef(mod_1),
+      betat= seq(from=x,to=0,length=100)) -> p
+    library(doParallel)
+    library(doRNG)
+    # cl defined in betatrend exploration.Rmd
+    registerDoParallel(cl, 6)
+    registerDoRNG(123)
+    foreach (theta=iter(p,"row"), .combine=rbind,
+             .inorder=FALSE) %dopar%
+      {
+        library(pomp)
+        mod_1 %>% pfilter(params=theta,Np=5000) -> pf
+        theta$loglik <- logLik(pf)
+        theta
+      } -> p
+  ps = rbind(ps, p)
+}
+```
+
+```{r}
+
+
+```
+
+
+```{r}
+bake(file="slice.rds",{
+ps = data.frame()
+for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5)) {
+  slice_design(
+      # centers on MLE coefs from original model
+      center=coef(mod_1),
+      betat= seq(from=x,to=0,length=10)) -> p
+  print(ps)
+  rbind(ps, p) -> ps
+  ps -> slices
+}
+}) -> slices
+slices
+
+for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5)) {
+  print(x)
+}
+```
+
+```{r}
+ps
+```
+
+
+
+```{r}
+ps[30:(nrow(ps)-50),] %>% ggplot(aes(x = betat, y=loglik)) +
+  geom_point() + geom_smooth()
+```
+
+
+
+
+```{r}
+(new_max <- max(ps$loglik))
+(ps %>% filter(loglik==new_max))$betat
+```
+
+-1596.983 for seq(from=0,to=1e-10,length=100), Np =5000, betat = 8.282828e-11
+-1597.675 for seq(from=0,to=1e-6,length=100), Np=5000, betat = 8.181818e-07
+-1597.675 for seq(from=1e-12,to=1e-6,length=100)), Np=5000, betat = 8.18182e-07
+-1598.71 for seq(from=1e-7,to=1e-6,length=100), Np = 5000, betat = 9.181818e-07
+-1596.983 for seq(from=1e-13,to=1e-12,length=100), Np =5000, betat = 8.454545e-13
+
+
+
+
+
+
