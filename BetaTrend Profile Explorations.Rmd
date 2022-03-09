@@ -1,0 +1,56 @@
+---
+title: "BetaTrend Profile Explorations"
+author: "Noah Treutle"
+date: "3/8/2022"
+output: html_document
+---
+
+BetaTrendExplorations.Rmd and  BetaTrend Profile.Rmd
+
+Most of the below code is adopted from SBIED lesson 4.
+
+
+```{r}
+
+```
+
+
+
+
+
+```{r}
+mf1 <- mifs_local[[1]]
+bake(file="eta_profile.rds",
+  dependson=guesses,{
+    registerDoRNG(830007657)
+    foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
+      library(pomp)
+      library(tidyverse)
+      mf1 %>%
+        mif2(params=c(guess,fixed_params),
+          rw.sd=rw.sd(Beta=0.02,rho=0.02)) %>%
+        mif2(Nmif=100,cooling.fraction.50=0.3) -> mf
+      replicate(
+        10,
+        mf %>% pfilter(Np=5000) %>% logLik()) %>%
+        logmeanexp(se=TRUE) -> ll
+      mf %>% coef() %>% bind_rows() %>%
+        bind_cols(loglik=ll[1],loglik.se=ll[2])
+    } -> results
+    attr(results,"ncpu") <- getDoParWorkers()
+    results
+  }) -> results
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
