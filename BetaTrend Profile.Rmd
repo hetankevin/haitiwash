@@ -5,7 +5,7 @@ date: "3/4/2022"
 output: html_document
 ---
 
-Note: This file depends on the BetaTrendExplorations.Rmd
+Note: This file depends on the BetaTrendExplorations.Rmd.
 
 ```{r}
 # from lesson 3
