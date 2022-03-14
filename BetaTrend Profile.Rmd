@@ -1,88 +1,135 @@
 ---
 title: "BetaTrend Profile"
 author: "Noah Treutle"
-date: "3/4/2022"
+date: "3/8/2022"
 output: html_document
 ---
 
-Note: This file depends on the BetaTrendExplorations.Rmd.
+BetaTrendExplorations.Rmd
+
+Most of the below code is adopted from SBIED lesson 4.
+
+Don't run this chunk. We need to conduct more local searching of the likelihood surface for this be a valid approach. Instead we will use the MLE parameters from the original model as starting points.
+
+## Conduct local search
+
+```{r windows compatibility}
+# added to make compatible with windows
+if (Sys.info()[[7]] == "ntreu") {
+  dir.create("tmp")
+  options(pomp_cdir="./tmp")
+}
+```
+
 
 ```{r}
-# from lesson 3
-ps = data.frame()
-for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5)) {
-    # create df to hold results of search
-    slice_design(
-      # centers on MLE coefs from original model
-      center=coef(mod_1),
-      betat= seq(from=x,to=0,length=100)) -> p
+library(doRNG)
+registerDoRNG(625904618)
+foreach(i=1:10,.combine=c) %dopar% {
+  library(pomp)
+  mod_1 %>% pfilter(Np=5000)
+} -> pf
+
+pf %>% logLik() %>% logmeanexp(se=TRUE) -> L_pf
+L_pf
+
+pf[[1]] %>% coef() %>% bind_rows() %>%
+  bind_cols(loglik=L_pf[1],loglik.se=L_pf[2]) %>%
+  write_csv("cholera_params.csv")
+```
+
+
+```{r}
+
+```
+
+
+## Profile Evaluation
+
+```{r, eval = FALSE}
+# guesses are the guesses of betat that we're searching
+#box gives range of values for parameters
+#read_csv("measles_params.csv") %>%
+#  filter(loglik>max(loglik)-20,loglik.se<2) %>%
+#  sapply(range) -> box
+
+freeze(seed=1196696958,
+  profile_design(
+    eta=seq(0.01,0.95,length=40),
+    lower=box[1,c("Beta","rho")],
+    upper=box[2,c("Beta","rho")],
+    nprof=15, type="runif"
+  )) -> guesses
+plot(guesses)
+
+unfixed_param_names <- c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6",
+                         "nu", "rho", "tau", "E_0", "I_0")
+
+freeze(seed=1196696958,
+  profile_design(
+    betat=seq(-0.07,0.04,length=1000),
+    lower=box[1,unfixed_param_names],
+    upper=box[2,unfixed_param_names)],
+    nprof=15, type="runif"
+  )) -> guesses
+plot(guesses)
+```
+
+
+
+```{r}
+(fixed_params <- coef(mod_1)[c("pop_0","mu", "delta", "sig_sq", "gamma", "alpha", "theta0")])
+coef(mod_1)
+```
+
+```{r}
+# perturbing 11 parameters
+rw_sd1 <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
+                    beta4 = .02, beta5 = .02, beta6 = .02,
+                    tau = 0.02, rho = 0.02, nu = 0.02,
+                    E_0 = ivp(0.2), I_0 = ivp(0.2))
+```
+
+
+```{r}
+# m2 is from the betatrendexplorations file
+# needed the topline because of the str of
+# mif2 requiring a special kind of object
+mf1 <- m2[[1]]
+bake(file="betat_profile.rds",
+  dependson=guesses,{
     library(doParallel)
     library(doRNG)
     # cl defined in betatrend exploration.Rmd
-    registerDoParallel(cl, 6)
-    registerDoRNG(123)
-    foreach (theta=iter(p,"row"), .combine=rbind,
-             .inorder=FALSE) %dopar%
-      {
-        library(pomp)
-        mod_1 %>% pfilter(params=theta,Np=5000) -> pf
-        theta$loglik <- logLik(pf)
-        theta
-      } -> p
-  ps = rbind(ps, p)
-}
-```
-
-```{r}
-
-
-```
-
-
-```{r}
-bake(file="slice.rds",{
-ps = data.frame()
-for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5)) {
-  slice_design(
-      # centers on MLE coefs from original model
-      center=coef(mod_1),
-      betat= seq(from=x,to=0,length=10)) -> p
-  print(ps)
-  rbind(ps, p) -> ps
-  ps -> slices
-}
-}) -> slices
-slices
-
-for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5)) {
-  print(x)
-}
-```
-
-```{r}
-ps
-```
-
-
-
-```{r}
-ps[30:(nrow(ps)-50),] %>% ggplot(aes(x = betat, y=loglik)) +
-  geom_point() + geom_smooth()
+    registerDoParallel(cl, 4)
+    registerDoRNG(830007657)
+    foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
+      library(pomp)
+      library(tidyverse)
+      mf1 %>%
+        mif2(params=c(guess,fixed_params),
+             # need to provide rw.sd for all unfixed params
+          rw.sd=rw_sd1) %>%
+        mif2(Nmif=100,cooling.fraction.50=0.5) -> mf
+      # replicate 10 runs of pfilter so we can get se's
+      replicate(
+        10,
+        mf %>% pfilter(Np=5000) %>% logLik()) %>%
+        logmeanexp(se=TRUE) -> ll
+      mf %>% coef() %>% bind_rows() %>%
+        bind_cols(loglik=ll[1],loglik.se=ll[2])
+    } -> results
+    attr(results,"ncpu") <- getDoParWorkers()
+    results
+  }) -> results
 ```
 
 
 
 
-```{r}
-(new_max <- max(ps$loglik))
-(ps %>% filter(loglik==new_max))$betat
-```
 
--1596.983 for seq(from=0,to=1e-10,length=100), Np =5000, betat = 8.282828e-11
--1597.675 for seq(from=0,to=1e-6,length=100), Np=5000, betat = 8.181818e-07
--1597.675 for seq(from=1e-12,to=1e-6,length=100)), Np=5000, betat = 8.18182e-07
--1598.71 for seq(from=1e-7,to=1e-6,length=100), Np = 5000, betat = 9.181818e-07
--1596.983 for seq(from=1e-13,to=1e-12,length=100), Np =5000, betat = 8.454545e-13
+
+
 
 
 
