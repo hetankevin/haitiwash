@@ -1,4 +1,4 @@
-load(adj_epi_mif.rda)
+load("adj_epi_mif.rda")
 library(devtools)
 devtools::install_github('hetankevin/haitipkg')
 library(haitipkg)
