@@ -14,6 +14,7 @@ library(devtools)
 devtools::install_github('cbreto/panelPomp')
 devtools::install_github('hetankevin/haitipkg')
 library(haitipkg)
+library(pomp)
 
 
 haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
