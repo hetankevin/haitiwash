@@ -27,4 +27,4 @@ module list
 echo "Running on $SLURM_JOB_NODELIST"
 echo "Running in $(pwd)"
 
-Rscript --vanilla trendProfile.R
+Rscript trendProfile.R

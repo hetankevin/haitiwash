@@ -1,5 +1,11 @@
 load("adj_epi_mif.rda")
-
+install.packages('doParallel')
+install.packages('parallel')
+install.packages('pomp')
+install.packages('tidyverse')
+install.packages('devtools')
+library(devtools)
+devtools::install_github('hetankevin/haitipkg')
 library(haitipkg)
 mod_1 = haiti1mod()
 
