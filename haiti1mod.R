@@ -10,6 +10,8 @@
 #' m1 <- haiti1(vacscen = "id0")
 #' @export
 
+library(haitipkg)
+library(pomp)
 haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
   ## get data
   dat <- haiti1_agg_data()
