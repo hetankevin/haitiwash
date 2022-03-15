@@ -14,6 +14,7 @@ library(devtools)
 devtools::install_github('cbreto/panelPomp')
 devtools::install_github('hetankevin/haitipkg')
 library(haitipkg)
+source('haiti1mod.R')
 mod_1 = haiti1mod()
 
 prof_if[,-c(1,2, 19,27, 28)] %>%
