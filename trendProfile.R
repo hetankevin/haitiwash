@@ -1,4 +1,9 @@
 load("adj_epi_mif.rda")
+
+local({r <- getOption("repos")
+r["CRAN"] <- "http://repo.miserver.it.umich.edu/cran"
+options(repos=r)})
+
 install.packages('doParallel')
 install.packages('parallel')
 install.packages('pomp')
