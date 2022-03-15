@@ -21,10 +21,10 @@ rw_sd1 <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
 
 freeze(seed=1196696958,
        profile_design(
-         betat=seq(-0.07,0.04,length=10),
+         betat=seq(-0.07,0.04,length=100),
          lower=box[1,unfixed_param_names],
          upper=box[2,unfixed_param_names],
-         nprof=2, type="runif"
+         nprof=10, type="runif"
        )) -> guesses
 
 library(doParallel)
