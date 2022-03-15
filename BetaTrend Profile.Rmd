@@ -11,6 +11,12 @@ Most of the below code is adopted from SBIED lesson 4.
 
 Don't run this chunk. We need to conduct more local searching of the likelihood surface for this be a valid approach. Instead we will use the MLE parameters from the original model as starting points.
 
+```{r}
+library(doParallel)
+registerDoParallel()
+```
+
+
 ## Conduct local search
 
 ```{r windows compatibility}
@@ -23,70 +29,182 @@ if (Sys.info()[[7]] == "ntreu") {
 
 
 ```{r}
-library(doRNG)
-registerDoRNG(625904618)
-foreach(i=1:10,.combine=c) %dopar% {
-  library(pomp)
-  mod_1 %>% pfilter(Np=5000)
-} -> pf
-
-pf %>% logLik() %>% logmeanexp(se=TRUE) -> L_pf
-L_pf
-
-pf[[1]] %>% coef() %>% bind_rows() %>%
-  bind_cols(loglik=L_pf[1],loglik.se=L_pf[2]) %>%
-  write_csv("cholera_params.csv")
+# loads prof_if which is an archive of mif2 searches from Anna??
+load("C:/Users/ntreu/Downloads/adj_epi_mif.rda")
 ```
+
+
+
+## testing option 1
+
 
 
 ```{r}
+# guesses are the guesses of betat that we're searching
+#box gives range of values for parameters
+
+prof_if[,-c(1,2, 19,27, 28)] %>%
+  filter(loglik>max(loglik)-20,loglik.se<2) %>%
+  sapply(range) -> box
+
+# S_0 ??
+unfixed_param_names <- c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6",
+                         "nu", "rho", "tau", "E_0", "I_0", "sig_sq")
+
+fixed_params <- coef(mod_1)[c("pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "A_0", "R_0")]
+
+rw_sd1 <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
+                    beta4 = .02, beta5 = .02, beta6 = .02,
+                    tau = 0.02, rho = 0.02, nu = 0.02, sig_sq = 0.02,
+                    E_0 = ivp(0.2), I_0 = ivp(0.2))
+
+freeze(seed=1196696958,
+  profile_design(
+    betat=seq(-0.07,0.04,length=10),
+    lower=box[1,unfixed_param_names],
+    upper=box[2,unfixed_param_names],
+    nprof=2, type="runif"
+  )) -> guesses
+
+library(doParallel)
+library(doRNG)
+library(parallel)
+no_cores <- detectCores(logical=FALSE) 
+cl<- parallel::makeCluster(no_cores)
+
+# m2 is from the betatrendexplorations file
+# needed the topline because of the str of
+# mif2 requiring a special kind of object
+# cl defined in betatrend exploration.Rmd
+doParallel::registerDoParallel(cl)
+registerDoRNG(123)
+foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
+  library(pomp)
+  library(tidyverse)
+  mod_1 %>%
+    # problem is with params argument
+    mif2(params=c(guess, fixed_params),
+      rw.sd=rw_sd1, Nmif=50,cooling.fraction.50=0.5, Np=100) -> mf
+  # replicate 10 runs of pfilter so we can get se's
+  replicate(
+    10,
+    mf %>% pfilter(Np=100) %>% logLik()) %>%
+    logmeanexp(se=TRUE) -> ll
+  mf %>% coef() %>% bind_rows() %>%
+    bind_cols(loglik=ll[1],loglik.se=ll[2])
+}-> results
+    
 
 ```
 
+
+### Testing option 2
+```{r}
+# guesses are the guesses of betat that we're searching
+#box gives range of values for parameters
+
+prof_if[,-c(1,2, 19,27, 28)] %>%
+  filter(loglik>max(loglik)-20,loglik.se<2) %>%
+  sapply(range) -> box
+
+# S_0 ??
+unfixed_param_names <- c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6",
+                         "nu", "rho", "tau", "E_0", "I_0", "sig_sq")
+
+fixed_params <- coef(mod_1)[c("pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "A_0", "R_0")]
+
+rw_sd1 <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
+                    beta4 = .02, beta5 = .02, beta6 = .02,
+                    tau = 0.02, rho = 0.02, nu = 0.02, sig_sq = 0.02,
+                    E_0 = ivp(0.2), I_0 = ivp(0.2))
+
+freeze(seed=1196696958,
+  profile_design(
+    betat=seq(-0.07,0.04,length=10),
+    lower=box[1,unfixed_param_names],
+    upper=box[2,unfixed_param_names],
+    nprof=2, type="runif"
+  )) -> guesses
+
+library(doParallel)
+library(doRNG)
+library(parallel)
+no_cores <- detectCores(logical=FALSE) 
+cl<- parallel::makeCluster(no_cores)
+
+# m2 is from the betatrendexplorations file
+# needed the topline because of the str of
+# mif2 requiring a special kind of object
+# cl defined in betatrend exploration.Rmd
+doParallel::registerDoParallel(cl)
+registerDoRNG(123)
+#foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
+foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
+  library(pomp)
+  library(tidyverse)
+  mod_1 %>%
+    # problem is with params argument
+    mif2(params=c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"]),
+      rw.sd=rw_sd1, Nmif=50,cooling.fraction.50=0.5, Np=100) -> mf
+  # replicate 10 runs of pfilter so we can get se's
+  replicate(
+    10,
+    mf %>% pfilter(Np=100) %>% logLik()) %>%
+    logmeanexp(se=TRUE) -> ll
+  mf %>% coef() %>% bind_rows() %>%
+    bind_cols(loglik=ll[1],loglik.se=ll[2])
+}-> results
+    
+
+```
+
+
+## Profile Check
+
+```{r}
+view(results)
+```
+
+```{r}
+results %>% ggplot(aes(x = betat, y=loglik)) +
+  geom_point() + geom_smooth()
+```
 
 ## Profile Evaluation
 
 ```{r, eval = FALSE}
 # guesses are the guesses of betat that we're searching
 #box gives range of values for parameters
-#read_csv("measles_params.csv") %>%
-#  filter(loglik>max(loglik)-20,loglik.se<2) %>%
-#  sapply(range) -> box
+prof_if[,-c(1,2, 27, 28)] %>%
+  filter(loglik>max(loglik)-20,loglik.se<2) %>%
+  sapply(range) -> box
 
-freeze(seed=1196696958,
-  profile_design(
-    eta=seq(0.01,0.95,length=40),
-    lower=box[1,c("Beta","rho")],
-    upper=box[2,c("Beta","rho")],
-    nprof=15, type="runif"
-  )) -> guesses
-plot(guesses)
-
+# S_0 ??
 unfixed_param_names <- c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6",
-                         "nu", "rho", "tau", "E_0", "I_0")
+                         "nu", "rho", "tau", "E_0", "I_0", "sig_sq")
 
 freeze(seed=1196696958,
   profile_design(
     betat=seq(-0.07,0.04,length=1000),
     lower=box[1,unfixed_param_names],
-    upper=box[2,unfixed_param_names)],
+    upper=box[2,unfixed_param_names],
     nprof=15, type="runif"
   )) -> guesses
-plot(guesses)
 ```
 
 
 
 ```{r}
-(fixed_params <- coef(mod_1)[c("pop_0","mu", "delta", "sig_sq", "gamma", "alpha", "theta0")])
+(fixed_params <- coef(mod_1)[c("pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "S_0")])
 coef(mod_1)
 ```
 
 ```{r}
-# perturbing 11 parameters
+# perturbing 12 parameters
+#S_0 ??
 rw_sd1 <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
                     beta4 = .02, beta5 = .02, beta6 = .02,
-                    tau = 0.02, rho = 0.02, nu = 0.02,
+                    tau = 0.02, rho = 0.02, nu = 0.02, sig_sq = 0.02,
                     E_0 = ivp(0.2), I_0 = ivp(0.2))
 ```
 
@@ -123,16 +241,4 @@ bake(file="betat_profile.rds",
     results
   }) -> results
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
