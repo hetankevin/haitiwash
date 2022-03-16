@@ -11,7 +11,9 @@ install.packages('devtools')
 install.packages('subplex')
 install.packages('pomp')
 library(devtools)
+
 devtools::install_github('cbreto/panelPomp')
+
 devtools::install_github('hetankevin/haitipkg')
 library(haitipkg)
 library(pomp)
