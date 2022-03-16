@@ -1,5 +1,5 @@
-load("adj_epi_mif.rda")
-load("model1params.rda")
+load("haitiwash/adj_epi_mif.rda")
+load("haitiwash/model1params.rda")
 
 local({r <- getOption("repos")
 r["CRAN"] <- "http://repo.miserver.it.umich.edu/cran"
@@ -12,6 +12,11 @@ install.packages('devtools')
 install.packages('subplex')
 install.packages('pomp')
 library(devtools)
+library(doParallel)
+library(tidyverse)
+library(subplex)
+library(parallel)
+library(pomp)
 
 devtools::install_github('cbreto/panelPomp')
 
@@ -356,7 +361,7 @@ haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
 mod_1 = haiti1mod()
 
 prof_if[,-c(1,2, 19,27, 28)] %>%
-  filter(prof_if$loglik>max(prof_if$loglik)-20,prof_if$loglik.se<2) %>%
+  filter(loglik>max(loglik)-20,loglik.se<2) %>%
   sapply(range) -> box
 
 # S_0 ??
