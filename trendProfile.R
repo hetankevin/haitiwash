@@ -266,8 +266,8 @@ haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
   ")
   
   ## get parameters
-  epi_pars <- MODEL1_INPUT_PARAMETERS$adj_pars_epi
-  end_pars <- MODEL1_INPUT_PARAMETERS$adj_pars_end
+  epi_pars <- haitipkg::MODEL1_INPUT_PARAMETERS$adj_pars_epi
+  end_pars <- haitipkg::MODEL1_INPUT_PARAMETERS$adj_pars_end
   
   ## names
   if (depts > 1) {
