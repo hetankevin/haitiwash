@@ -1,5 +1,5 @@
-load("haitiwash/adj_epi_mif.rda")
-load("haitiwash/model1params.rda")
+load("adj_epi_mif.rda")
+load("model1params.rda")
 
 local({r <- getOption("repos")
 r["CRAN"] <- "http://repo.miserver.it.umich.edu/cran"
