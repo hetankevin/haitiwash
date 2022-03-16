@@ -356,7 +356,7 @@ haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
 mod_1 = haiti1mod()
 
 prof_if[,-c(1,2, 19,27, 28)] %>%
-  filter(loglik>max(loglik)-20,loglik.se<2) %>%
+  filter(prof_if$loglik>max(prof_if$loglik)-20,prof_if$loglik.se<2) %>%
   sapply(range) -> box
 
 # S_0 ??
