@@ -25,6 +25,7 @@ if (Sys.info()[[7]] == "ntreu") {
   dir.create("tmp")
   options(pomp_cdir="./tmp")
 }
+save(MODEL1_INPUT_PARAMETERS, file='model1params.rda')
 ```
 
 
