@@ -396,7 +396,7 @@ cl<- parallel::makeCluster(no_cores)
 doParallel::registerDoParallel(cl)
 registerDoRNG(123)
 
-
+print('starting fitting')
 #foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
 system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   pars = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
@@ -408,11 +408,13 @@ system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   library(pomp)
   library(tidyverse)
   #mod_1@params = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
+  print('guess i')
   mod_1 %>%
     # problem is with params argument
     mif2(
       rw.sd=rw_sd1, Nmif=100,cooling.fraction.50=0.5, Np=1000) -> mf
   # replicate 10 runs of pfilter so we can get se's
+  print('replicating guess i')
   replicate(
     10,
     mf %>% pfilter(Np=1000) %>% logLik()) %>%
