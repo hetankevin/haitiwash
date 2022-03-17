@@ -387,7 +387,7 @@ library(doParallel)
 library(doRNG)
 library(parallel)
 no_cores <- detectCores(logical=FALSE) 
-cl<- parallel::makeCluster(no_cores)
+cl<- parallel::makeCluster(no_cores, outfile = "")
 
 # m2 is from the betatrendexplorations file
 # needed the topline because of the str of
@@ -408,13 +408,15 @@ system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   library(pomp)
   library(tidyverse)
   #mod_1@params = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
-  print('guess i')
+  print('guess')
+  print(i)
   mod_1 %>%
     # problem is with params argument
     mif2(
       rw.sd=rw_sd1, Nmif=100,cooling.fraction.50=0.5, Np=1000) -> mf
   # replicate 10 runs of pfilter so we can get se's
-  print('replicating guess i')
+  print('replicating guess')
+  print(i)
   replicate(
     10,
     mf %>% pfilter(Np=1000) %>% logLik()) %>%
