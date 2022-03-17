@@ -377,7 +377,7 @@ rw_sd1 <- rw.sd(beta1 = .02, beta2 = .02, beta3 = .02,
 
 freeze(seed=1196696958,
        profile_design(
-         betat=seq(-0.07,0.04,length=100),
+         betat=seq(-0.07,0.04,length=50),
          lower=box[1,unfixed_param_names],
          upper=box[2,unfixed_param_names],
          nprof=10, type="runif"
@@ -395,8 +395,10 @@ cl<- parallel::makeCluster(no_cores)
 # cl defined in betatrend exploration.Rmd
 doParallel::registerDoParallel(cl)
 registerDoRNG(123)
+
+
 #foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
-foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
+system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   pars = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
   parOrder = c("rho","tau","beta1","beta2","beta3","beta4","beta5","beta6","nu",
                "gamma","sigma","theta0","alpha","mu","delta","sig_sq","S_0","E_0",
@@ -409,14 +411,14 @@ foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   mod_1 %>%
     # problem is with params argument
     mif2(
-      rw.sd=rw_sd1, Nmif=200,cooling.fraction.50=0.5, Np=5000) -> mf
+      rw.sd=rw_sd1, Nmif=20,cooling.fraction.50=0.5, Np=50) -> mf
   # replicate 10 runs of pfilter so we can get se's
   replicate(
-    100,
-    mf %>% pfilter(Np=5000) %>% logLik()) %>%
+    10,
+    mf %>% pfilter(Np=50) %>% logLik()) %>%
     logmeanexp(se=TRUE) -> ll
   mf %>% coef() %>% bind_rows() %>%
     bind_cols(loglik=ll[1],loglik.se=ll[2])
-}-> results
+}-> results)
 
 save(results, file = "trendResults.rda")
