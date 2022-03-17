@@ -418,7 +418,7 @@ system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   print('replicating guess')
   print(i)
   replicate(
-    10,
+    100,
     mf %>% pfilter(Np=5000) %>% logLik()) %>%
     logmeanexp(se=TRUE) -> ll
   mf %>% coef() %>% bind_rows() %>%
