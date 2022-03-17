@@ -29,6 +29,7 @@ save(MODEL1_INPUT_PARAMETERS, file='model1params.rda')
 ```
 
 
+
 ```{r}
 # loads prof_if which is an archive of mif2 searches from Anna??
 load("C:/Users/ntreu/Downloads/adj_epi_mif.rda")
@@ -191,10 +192,11 @@ Show in New Window
 
 ```{r}
 view(results)
+results
 ```
 
 ```{r}
-results %>% ggplot(aes(x = betat, y=loglik)) +
+results %>% filter(loglik > -1700, loglik.se < 2) %>% ggplot(aes(x = betat, y=loglik)) +
   geom_point() + geom_smooth()
 ```
 

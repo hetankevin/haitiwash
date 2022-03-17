@@ -413,13 +413,13 @@ system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   mod_1 %>%
     # problem is with params argument
     mif2(
-      rw.sd=rw_sd1, Nmif=100,cooling.fraction.50=0.5, Np=1000) -> mf
+      rw.sd=rw_sd1, Nmif=200,cooling.fraction.50=0.5, Np=5000) -> mf
   # replicate 10 runs of pfilter so we can get se's
   print('replicating guess')
   print(i)
   replicate(
     10,
-    mf %>% pfilter(Np=1000) %>% logLik()) %>%
+    mf %>% pfilter(Np=5000) %>% logLik()) %>%
     logmeanexp(se=TRUE) -> ll
   mf %>% coef() %>% bind_rows() %>%
     bind_cols(loglik=ll[1],loglik.se=ll[2])
