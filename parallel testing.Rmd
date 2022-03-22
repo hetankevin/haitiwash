@@ -1,0 +1,161 @@
+---
+title: "parallel testing"
+author: "Noah Treutle"
+date: '2022-03-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(doParallel)
+```
+
+```{r}
+system.time(foreach(i=1:10000) %do% sum(tanh(1:i)))
+```
+
+```{r}
+registerDoParallel()
+system.time(foreach(i=1:10000) %dopar% sum(tanh(1:i)))
+```
+
+
+
+```{r}
+registerDoParallel(cores=3)
+getDoParWorkers()
+system.time(foreach(i=1:10000) %dopar% sum(tanh(1:i)))
+```
+
+
+```{r}
+stopCluster()
+```
+
+## Betat Profile
+```{r}
+library(doParallel)
+registerDoParallel()
+```
+
+
+```{r windows compatibility}
+# added to make compatible with windows
+if (Sys.info()[[7]] == "ntreu") {
+  dir.create("tmp")
+  options(pomp_cdir="./tmp")
+}
+```
+
+
+
+```{r}
+## approach for conducting are own mif2 search
+library(doRNG)
+registerDoRNG(625904618)
+foreach(i=1:10,.combine=c) %dopar% {
+  library(pomp)
+  mod_1 %>% pfilter(Np=5000)
+} -> pf
+
+pf %>% logLik() %>% logmeanexp(se=TRUE) -> L_pf
+L_pf
+
+pf[[1]] %>% coef() %>% bind_rows() %>%
+  bind_cols(loglik=L_pf[1],loglik.se=L_pf[2]) %>%
+  write_csv("cholera_params.csv")
+```
+
+```{r}
+prof_if %>% filter(max(prof_if$loglik)==loglik) %>% view()
+```
+
+
+```{r}
+mod1orig@params
+mod_1@params
+```
+
+
+
+
+
+```{r}
+str(c(unlist(guesses[1,]),fixed_params))
+str(unlist(guesses[1,]))
+```
+
+
+
+```{r}
+mod_1 %>%
+        mif2(
+          rw.sd=rw_sd1, Nmif=50,cooling.fraction.50=0.5, Np=100) -> mf
+```
+
+
+```{r}
+mod_1 %>%
+        mif2(params=c(guesses[1,],fixed_params),
+          rw.sd=rw_sd1, Nmif=50,cooling.fraction.50=0.5, Np=100)
+```
+
+
+
+```{r}
+yo <- iter(guesses,"row")
+(yee <- c(yo,fixed_params))
+```
+
+
+
+```{r}
+mod_1 %>%
+        # problem is with params argument
+        mif2(params=c(unlist(guesses[1,]),fixed_params, S_0 = 1 - guesses[1,"E_0"] - guesses[1,"I_0"]),
+          rw.sd=rw_sd1, Nmif=50,cooling.fraction.50=0.5, Np=100) -> mf
+```
+
+
+
+
+```{r}
+c(unlist(guesses[1,]),fixed_params, S_0 = 1 - guesses[1,"E_0"] - guesses[1,"I_0"])
+```
+
+
+```{r}
+logs <- data.frame
+for(i in 1:nrow(guesses)) {
+      mod_1 %>%
+        # problem is with params argument
+        mif2(params=c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"]),
+          rw.sd=rw_sd1, Nmif=50,cooling.fraction.50=0.5, Np=100) -> mf
+      # replicate 10 runs of pfilter so we can get se's
+      replicate(
+        10,
+        mf %>% pfilter(Np=100) %>% logLik()) %>%
+        logmeanexp(se=TRUE) -> ll
+      mf %>% coef() %>% bind_rows() %>%
+        bind_cols(loglik=ll[1],loglik.se=ll[2])
+    }-> results
+    
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
