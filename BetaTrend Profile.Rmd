@@ -196,9 +196,17 @@ results
 ```
 
 ```{r}
-results %>% filter(loglik > -1700, loglik.se < 2) %>% ggplot(aes(x = betat, y=loglik)) +
+results
+results %>% 
+  group_by(betat) %>% filter(loglik.se < 2) %>%
+  summarize(loglik=max(loglik)) %>%
+  ggplot(aes(x = betat, y=loglik)) +
   geom_point() + geom_smooth()
+
+results
 ```
+
+go re-estimate all parameters and profile on joint epi, end dataset
 
 ## Profile Evaluation
 
