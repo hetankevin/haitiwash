@@ -4,7 +4,7 @@
 #SBATCH --mail-user=kevtan@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
  
-#SBATCH --account=lsa3
+#SBATCH --account=stats_dept1
 #SBATCH --partition=standard
 
 #SBATCH --nodes=1
