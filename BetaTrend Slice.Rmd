@@ -7,7 +7,12 @@ output: html_document
 
 Note: This file depends on the BetaTrendExplorations.Rmd.
 
-```{r}
+```{r, echo=FALSE}
+library(tidyverse)
+```
+
+
+```{r, eval = FALSE}
 # from lesson 3
 ps = data.frame()
 for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6)) {
@@ -36,12 +41,9 @@ for (x in c(-1e-1, -1e-2, -1e-3, -1e-4, -1e-5, -1e-6, -1e-7, -1e-8, 1e-1, 1e-2, 
 
 ```{r}
 ps <- read_csv(file="C:/Users/ntreu/Documents/Haiti Research/haitiwash/betatSlice.csv")
-#names(ps) <- ps[1,]
-#ps <- ps[-1,]
-#ps <- as.data.frame(sapply(ps,function(x) as.numeric(x)))
 ```
 
-```{r}
+```{r, eval=FALSE}
 # don't run
 bake(file="slice.rds",{
 ps = data.frame()

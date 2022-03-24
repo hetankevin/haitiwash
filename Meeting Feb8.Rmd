@@ -42,10 +42,10 @@ plot(y)
 # set run levels
 run_level <- 3
 Np <-          switch(run_level,100, 1e3, 5e3)
-Nmif <-        switch(run_level, 11, 100, 200)
+Nmif <-        switch(run_level, 10, 100, 200)
 Nreps_eval <-  switch(run_level,  2,  10,  20)
-Nreps_local <- switch(run_level, 11,  20,  40)
-Nreps_global <-switch(run_level, 11,  20, 100)
+Nreps_local <- switch(run_level, 10,  20,  40)
+Nreps_global <-switch(run_level, 10,  20, 100)
 Nsim <-        switch(run_level, 50, 100, 500) 
 ```
 

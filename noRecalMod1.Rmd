@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #' m1 <- haiti1(vacscen = "id0")
 #' @export
 
-haiti1mod <- function(vacscen = 'id0') {
+haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
   ## get data
   dat <- haiti1_agg_data()
   fc_set <- vac_scen(vacscen)
@@ -349,21 +349,17 @@ haiti1mod <- function(vacscen = 'id0') {
       rinit = rinit
     )
 
-  
-  model1 <- pomp::window(model1, start = 1, end = 430) ## epidemic period
+  if (period == "endemic") {
+    model1@t0 <- 232
+    model1 <- pomp::window(model1, start = 233, end = 430) ## endemic period
+    pomp::coef(model1) <- unlist(end_pars) ## endemic period
+  } else {
+    model1 <- pomp::window(model1, start = 1, end = 232) ## epidemic period
     model1@t0 <- 0
     pomp::coef(model1) <- unlist(epi_pars) ## epidemic period
-  
-  #  if (period == "endemic") {
-  #  model1@t0 <- 232
-  #  model1 <- pomp::window(model1, start = 233, end = 430) ## endemic period
-# pomp::coef(model1) <- unlist(end_pars) ## endemic period
-  #} else {
-  #  model1 <- pomp::window(model1, start = 1, end = 232) ## epidemic period
-  #  model1@t0 <- 0
-  #  pomp::coef(model1) <- unlist(epi_pars) ## epidemic period
-  #}
-  pomp::coef(model1)['betat'] = 0 
+  }
+  pomp::coef(model1)['betat'] = 0 #1e-10
+  #pomp::coef(model1)['rho'] = 7e10
     
   return(model1)
 }
@@ -371,12 +367,8 @@ haiti1mod <- function(vacscen = 'id0') {
 ```
 
 
-
-
-
-
 ```{r}
-mod_1 <- haiti1mod()
+mod_1 <- haiti1mod(period= "endemic")
 ```
 
 
@@ -400,8 +392,8 @@ Nsim <-        switch(run_level, 50, 100, 500)
 ```{r windows compatibility}
 # added to make compatible with windows
 if (Sys.info()[[7]] == "ntreu") {
-  options(pomp_cdir="workflowtmp")
-  save(file=file.path("workflowtmp","pf1.rda"))
+  dir.create("tmp")
+  options(pomp_cdir="./tmp")
 }
 ```
 
@@ -473,6 +465,102 @@ ps %>% ggplot(aes(x = betat, y=loglik)) +
 (new_max <- max(ps$loglik))
 (ps %>% filter(loglik==new_max))$betat
 ```
+
+Use trendResults.rda data frame as starting point for the combined profile going into the endemic period. We will refit rho, tau, and sigma^2. 
+
+```{r}
+# called results from trendResults
+prof_if[,-c(1,2, 19,27, 28)] %>%
+  filter(loglik>max(loglik)-20,loglik.se<2) %>%
+  sapply(range) -> box
+
+# S_0 ??
+unfixed_param_names <- c( "rho", "tau", "sig_sq")
+
+fixed_params <- unlist(results[i,c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6", "pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "A_0", "R_0","nu", "E_0", "I_0")])
+
+rw_sd1 <- rw.sd(tau = 0.02, rho = 0.02, sig_sq = 0.02)
+
+freeze(seed=1196696958,
+       profile_design(
+         betat=seq(-0.07,0.04,length=50),
+         lower=box[1,unfixed_param_names],
+         upper=box[2,unfixed_param_names],
+         nprof=10, type="runif"
+       )) -> guesses
+i=1
+pars = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
+parOrder = c("rho","tau","beta1","beta2","beta3","beta4","beta5","beta6","nu",
+               "gamma","sigma","theta0","alpha","mu","delta","sig_sq","S_0","E_0",
+               "I_0","A_0","R_0","pop_0","betat")
+pars = pars[order(factor(names(pars), levels = parOrder))]
+```
+
+```{r}
+print(guesses[1,])
+```
+
+
+```{r}
+
+library(doParallel)
+library(doRNG)
+library(parallel)
+no_cores <- detectCores(logical=FALSE) 
+#cl<- parallel::makeCluster(no_cores, outfile = "")
+
+# m2 is from the betatrendexplorations file
+# needed the topline because of the str of
+# mif2 requiring a special kind of object
+# cl defined in betatrend exploration.Rmd
+doParallel::registerDoParallel()
+registerDoRNG(123)
+
+print('starting fitting')
+#foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
+system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
+  
+  
+  fixed_params <- unlist(results[i,c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6", "pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "A_0", "R_0","nu", "E_0", "I_0")])
+  
+  pars = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - unlist(unname(results[i,"E_0"])) - unlist(unname(results[i,"I_0"])))
+  
+  parOrder = c("rho","tau","beta1","beta2","beta3","beta4","beta5","beta6","nu",
+               "gamma","sigma","theta0","alpha","mu","delta","sig_sq","S_0","E_0",
+               "I_0","A_0","R_0","pop_0","betat")
+  pars = pars[order(factor(names(pars), levels = parOrder))]
+  mod_1@params = pars
+  library(pomp)
+  library(tidyverse)
+  #mod_1@params = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
+  print('guess')
+  print(i)
+  mod_1 %>%
+    # problem is with params argument
+    mif2(
+      rw.sd=rw_sd1, Nmif=1,cooling.fraction.50=0.5, Np=1) -> mf
+  # replicate 10 runs of pfilter so we can get se's
+  print('replicating guess')
+  print(i)
+  replicate(
+    1,
+    mf %>% pfilter(Np=1) %>% logLik()) %>%
+    logmeanexp(se=TRUE) -> ll
+  mf %>% coef() %>% bind_rows() %>%
+    bind_cols(loglik=ll[1],loglik.se=ll[2])
+}-> resultsEnd)
+```
+
+
+```{r}
+resultsEnd
+```
+
+
+
+
+
+
 
 
 
