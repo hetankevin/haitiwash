@@ -12,6 +12,7 @@ install.packages('tidyverse')
 install.packages('devtools')
 install.packages('subplex')
 install.packages('pomp')
+install.packages("doRNG")
 library(devtools)
 library(doParallel)
 library(tidyverse)
@@ -24,6 +25,15 @@ devtools::install_github('cbreto/panelPomp')
 devtools::install_github('hetankevin/haitipkg')
 library(haitipkg)
 library(pomp)
+
+# set run levels
+run_level <- 1
+Np <-          switch(run_level,100, 1e3, 5e3)
+Nmif <-        switch(run_level, 10, 100, 200)
+Nreps_eval <-  switch(run_level,  2,  10,  20)
+Nreps_local <- switch(run_level, 10,  20,  40)
+Nreps_global <-switch(run_level, 10,  20, 100)
+Nsim <-        switch(run_level, 50, 100, 500) 
 
 
 haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
@@ -359,7 +369,8 @@ haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
   return(model1)
 }
 
-mod_1 = haiti1mod(period="endemic")
+
+mod_1 <- haiti1mod(period= "endemic")
 
 # called results from trendResults
 prof_if[,-c(1,2, 19,27, 28)] %>%
@@ -395,7 +406,7 @@ registerDoRNG(123)
 print('starting fitting')
 #foreach(guess=iter(guesses,"row"), .combine=rbind) %dopar% {
 system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
-  fixed_params <- unlist(results[i,c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6", "pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "A_0", "R_0","nu", "E_0", "I_0")])
+  fixed_params = unlist(results[i,c("beta1", "beta2", "beta3", "beta4", "beta5", "beta6", "pop_0","mu", "delta", "sigma", "gamma", "alpha", "theta0", "A_0", "R_0","nu", "E_0", "I_0")])
   pars = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - unlist(unname(results[i,"E_0"])) - unlist(unname(results[i,"I_0"])))
   
   parOrder = c("rho","tau","beta1","beta2","beta3","beta4","beta5","beta6","nu",
@@ -405,22 +416,20 @@ system.time(foreach(i = 1:nrow(guesses), .combine=rbind) %dopar% {
   mod_1@params = pars
   library(pomp)
   library(tidyverse)
-  #mod_1@params = c(unlist(guesses[i,]),fixed_params, S_0 = 1 - guesses[i,"E_0"] - guesses[i,"I_0"])
   print('guess')
   print(i)
   mod_1 %>%
-    # problem is with params argument
     mif2(
-      rw.sd=rw_sd1, Nmif=200,cooling.fraction.50=0.5, Np=5000) -> mf
+      rw.sd=rw_sd1, Nmif=Nmif,cooling.fraction.50=0.5, Np=Np) -> mf
   # replicate 10 runs of pfilter so we can get se's
   print('replicating guess')
   print(i)
   replicate(
-    100,
-    mf %>% pfilter(Np=5000) %>% logLik()) %>%
+    Nreps_eval,
+    mf %>% pfilter(Np=Np) %>% logLik()) %>%
     logmeanexp(se=TRUE) -> ll
   mf %>% coef() %>% bind_rows() %>%
     bind_cols(loglik=ll[1],loglik.se=ll[2])
 }-> resultsEnd)
 
-save(results, file = "trendResults3Recal.rda")
+save(resultsEnd, file = "trendResults3Recal.rda")
