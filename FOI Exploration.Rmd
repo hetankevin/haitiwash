@@ -32,7 +32,9 @@ epi_mod_1 <- haiti1mod()
 ```{r simulate mod_1}
 # simulates the model and stores results in df called epi_sims
 simulate(epi_mod_1,nsim=Nsim,seed=1643079359, 
-         format="data.frame", include.data = TRUE) -> epi_sims
+         format="data.frame", include.data = FALSE) -> epi_sims
+
+epi_sims
 ```
 
 Disclaimer: Had to set include.data = TRUE in order to get parameter values for the simulations >>> why?
