@@ -367,7 +367,7 @@ prof_if[,-c(1,2, 19,27, 28)] %>%
   filter(loglik>max(loglik)-20,loglik.se<2) %>%
   sapply(range) -> box
 box = as.data.frame(box)
-box$betat = runif(-0.06, 0.15)
+box$betat = c(-0.06, 0.15)
 box = as.matrix(box)
 
 # S_0 ??
