@@ -72,13 +72,9 @@ mc <- mcap(results1$full_loglik, results1$betat)
 
 
 ```{r}
-mc$ci
+c(-mc$ci[2],-mc$ci[1])
+
 ```
-
-
-
-
-
 
 ```{r}
 results1 %>% 
