@@ -1,0 +1,112 @@
+---
+title: "BetaTrendRecalProfile"
+author: "Noah Treutle"
+date: '2022-03-28'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(pomp)
+```
+
+
+```{r}
+# -.1,,1 betat profile, with 3 vars recal
+load("~/Haiti Research/haitiwash/trendProfileRecalResults2.rda")
+# -.15,  .1 betat profile, with 3 vars recal
+load("~/Haiti Research/haitiwash/trendProfileRecalResults3.rda")
+resultsRecal2 <- resultsRecal3
+rm(resultsRecal3)
+load("~/Haiti Research/haitiwash/trendProfileRecalResults4.rda")
+resultsRecal3 <- resultsRecal4
+rm(resultsRecal4)
+#resultsRecal2 <- resultsRecal2[-c(1:10), ] 
+```
+
+
+ -2728.384
+ 
+ 
+```{r}
+#resultsRecal <- resultsRecal[, -c("epi_loglik", "epi_loglik.se", "end_loglik", "end_loglik.se")]
+resultsRecal <- resultsRecal[, -c(29:32)]
+results <- rbind(resultsRecal, resultsRecal2, resultsRecal3)
+```
+ 
+ 
+ 
+ 
+
+```{r}
+(new_max <- max(results$full_loglik))
+(results %>% filter(full_loglik==new_max))$betat
+```
+
+
+
+
+```{r}
+results %>% 
+  group_by(betat) %>%
+  summarize(loglik=max(full_loglik)) %>%
+  ggplot(aes(x = -betat, y=loglik)) +
+  geom_point() + geom_smooth()
+```
+
+
+
+```{r}
+results %>% 
+  group_by(betat) %>%
+  summarize(full_loglik=max(full_loglik)) -> results1
+```
+
+```{r}
+mc <- mcap(results1$full_loglik, results1$betat)
+```
+
+
+```{r}
+mc$ci
+```
+
+
+
+
+
+
+```{r}
+results1 %>% 
+  ggplot(aes(x = -betat, y=full_loglik)) +
+  geom_point() + geom_smooth() +
+  geom_vline(xintercept = -mc$ci[1] ,color = "red")+
+  geom_vline(xintercept = -mc$ci[2] ,color = "red")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
