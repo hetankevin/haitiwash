@@ -25,14 +25,14 @@ Nsim <- 1000
 
 ## Epidemic FOI Exploration
 ```{r pomp def}
-epi_mod_1 <- haiti1mod()
+epi_mod_1 <- haiti1()
 ```
 
 
 ```{r simulate mod_1}
 # simulates the model and stores results in df called epi_sims
 simulate(epi_mod_1,nsim=Nsim,seed=1643079359, 
-         format="data.frame", include.data = FALSE) -> epi_sims
+         format="data.frame", include.data = TRUE) -> epi_sims
 
 epi_sims
 ```
@@ -56,6 +56,8 @@ epi_sims <- epi_sims %>% mutate(N = S+E+I+A+R,
 # setup lambda
 kappa <- 0.95
 epi_sims <- epi_sims %>% mutate(lambda = (I + (1-kappa)*A)^epi_mod_1@params[['nu']] * (beta/N))
+
+epi_sims
 ```
 
 
@@ -69,6 +71,7 @@ for(i in c(1:232)) {
 
 week <- c(1:232)
 epi_lambdas <- data.frame(epi_med_lambda, week)
+
 ```
 
 
@@ -155,8 +158,12 @@ fit variable no. of backshift operators
 (end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Endemic Sims Median FOI by Week"))
 ```
 ```{r}
-(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week"))
+(end <- end_lambdas %>% ggplot(aes(x = end_week, y = end_med_lambda)) + geom_point() + labs(title = "Epidemic Sims Median FOI by Week"))
 epi_mod_1@params
+
+end_med_lambda
+
+end_lambdas
 ```
 
 
@@ -166,11 +173,21 @@ epi_mod_1@params
 
 ```{r}
 
-epi_betas %>% ggplot() + 
-  geom_point(aes(x = week, y =  exp(log(epi_med_beta)-1e-5*week)))
+epi_betas %>% mutate(date = lubridate::ymd("2010-10-16") + lubridate::weeks(week)) %>%
+  filter(date < "2012-01-01", date >= "2011-01-01") %>% ggplot() + 
+  geom_line(aes(x = date, y =  exp(log(epi_med_beta)-1e-5*week)))
   
+end_sims$S %>% plot()
 
+
+epi_sims %>% group_by(week) %>% summarize(S = mean(S)) %>% plot
+end_sims$I
+epi_sims %>% group_by(week) %>% summarize(S = mean(S, na.rm=TRUE)) %>% plot
+epi_sims %>% group_by(week) %>% summarize(R = mean(R, na.rm=TRUE)) %>% plot
+results
 ```
+
+?pfilter
 
 
 

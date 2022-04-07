@@ -205,7 +205,24 @@ results %>%
 
 pchisq(-2*(-2731 - -2721.153), 11)
        
-results
+results$loglik %>% max
+```
+
+```{r}
+mcap(results$loglik, results$betat)[7][1]$fit %>%
+  group_by(parameter) %>%
+  summarize(smoothed=max(smoothed)) %>%
+  ggplot(aes(x = -parameter, y=smoothed)) +
+  geom_point() + geom_smooth() + 
+  geom_vline(xintercept = -mcap(results$loglik, results$betat, confidence = 0.9)$ci[1])  +
+    geom_vline(xintercept = -mcap(results$loglik, results$betat, confidence = 0.9)$ci[2])
+
+scatter(mcap(results$loglik, results$betat)$smooth_fit)
+
+plot(mcap(results$loglik, results$betat)[7]$parameter, mcap(results$loglik, results$betat)[7]$smoothed)
+mcap(results$loglik, results$betat)[7][1]$fit
+
+mcap(results$loglik, results$betat)$mle
 ```
 
 go re-estimate all parameters and profile on joint epi, end dataset

@@ -241,6 +241,8 @@ m2 <- foreach(i=1:10,
     .packages="pomp",.combine=c,.export=exl, .verbose=T) %dopar%
     mif2(mod_1, Np=Np, Nmif=Nmif, rw.sd=rw_sd,
          cooling.fraction.50=0.5)
+
+
 ```
 
 
