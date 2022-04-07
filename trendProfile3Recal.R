@@ -135,7 +135,7 @@ haiti1mod <- function(vacscen = 'id0', period = 'epidemic') {
   }
   
   # seasonal beta and foi #1/10*(-betat)
-  beta <- "double mybeta = exp(log(beta1*seas1 + beta2*seas2 + beta3*seas3 + beta4*seas4 + beta5*seas5 + beta6*seas6) - (betat)*((t-215)/(430-215))); \n "
+  beta <- "double mybeta = exp((beta1*seas1 + beta2*seas2 + beta3*seas3 + beta4*seas4 + beta5*seas5 + beta6*seas6) + (betat)*((t-215)/(430-215))); \n "
   if (depts > 1) {
     foi_i <- c("I", paste0("+I", 1:depts)) %>%
       paste(collapse = "")
