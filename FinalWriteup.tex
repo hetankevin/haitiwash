@@ -47,58 +47,14 @@
 
 % to run code from R: knitr::purl("ms.Rnw") ; source("ms.R")
 
-<<set-opts,include=F,cache=F,echo=FALSE>>=
-options(
-        scipen=2,
-        help_type="html",
-        stringsAsFactors=FALSE,
-        prompt="R> ",
-        continue="+  ",
-        width=70,
-        useFancyQuotes=FALSE,
-        reindent.spaces=2,
-        xtable.comment=FALSE
-        )
-@
 
-<<knitr-opts,include=F,cache=F,purl=F,echo=FALSE>>=
-library("knitr")
-opts_knit$set(concordance=TRUE)
-opts_chunk$set(
-    progress=TRUE,prompt=TRUE,highlight=FALSE,
-    tidy=TRUE,
-    tidy.opts=list(
-        keep.blank.line=FALSE
-    ),
-    comment="",
-    warning=FALSE,
-    message=FALSE,
-    error=TRUE,
-    echo=TRUE,
-    cache=FALSE,
-    strip.white=TRUE,
-    results="tex",
-    background="#FFFFFF00",
-    size="normalsize",
-    fig.path="figure/",
-    fig.lp="fig:",
-    fig.align="left",
-    fig.show="asis",
-#    dpi=300,
-    dev="pdf",
-    dev.args=list(
-        bg="transparent",
-        pointsize=9
-    )
-)
-@
 
 % \SweaveOpts{concordance=TRUE}
 
 \date{This manuscript was compiled on \today}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{FinalWriteup-concordance}
 
 \def\spacingset#1{\renewcommand{\baselinestretch}%
 {#1}\small\normalsize} \spacingset{1}
