@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  12 APR 2022 15:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  12 APR 2022 16:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -379,35 +379,35 @@ pdfTeX warning (Object streams): \pdfobjcompresslevel > 0 requires PDF-1.5 or gr
 \openout5 = `FinalWriteup.out'.
 
 (./FinalWriteup-concordance.tex)
-LaTeX Font Info:    Trying to load font information for T1+aett on input line 90.
-(/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/ae/t1aett.fd
-File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 90.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
 (/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 90.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
 (/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OML+txmi on input line 90.
+LaTeX Font Info:    Trying to load font information for OML+txmi on input line 81.
 (/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    Trying to load font information for T1+aett on input line 86.
+(/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 ) [1
 Non-PDF special ignored!
 <special> header=psfrag.pro
 
 {/Users/hetankevin/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (5.04323pt too wide) in paragraph at lines 110--111
+Overfull \hbox (5.04323pt too wide) in paragraph at lines 107--108
 \T1/aer/m/n/12 vid-ing a pop-u-la-tion into com-part-ments, for ex-am-ple as (S)usceptible, (I)nfectious, (R)ecovered
  []
 
-[3] [4] [5] [6] [7]
+[3] [4] [5] [6]
 
-LaTeX Warning: Hyper reference `fig:A1' on page 8 undefined on input line 200.
+LaTeX Warning: Hyper reference `fig:A1' on page 7 undefined on input line 197.
 
-[8] (./FinalWriteup.bbl [9])
+[7] [8] (./FinalWriteup.bbl [9])
 
 Package caption Warning: Unused \captionsetup[figure] on input line 24.
 See the caption package documentation for explanation.
@@ -424,17 +424,17 @@ Package rerunfilecheck Info: File `FinalWriteup.out' has not changed.
 (rerunfilecheck)             Checksum: CC4FDDEA1055600A16FBF08EB2A54726;1247.
  ) 
 Here is how much of TeX's memory you used:
- 12768 strings out of 480198
- 205981 string characters out of 5892074
- 482020 words of memory out of 5000000
- 30483 multiletter control sequences out of 15000+600000
- 498457 words of font info for 90 fonts, out of 8000000 for 9000
+ 12760 strings out of 480198
+ 205965 string characters out of 5892074
+ 480972 words of memory out of 5000000
+ 30481 multiletter control sequences out of 15000+600000
+ 499551 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,16n,63p,1965b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on FinalWriteup.pdf (10 pages, 227838 bytes).
+ 60i,16n,63p,1965b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on FinalWriteup.pdf (10 pages, 233003 bytes).
 PDF statistics:
- 215 PDF objects out of 1000 (max. 8388607)
- 42 named destinations out of 1000 (max. 500000)
+ 211 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
  69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

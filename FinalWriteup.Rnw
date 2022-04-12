@@ -106,18 +106,14 @@ opts_chunk$set(
 \thispagestyle{plain}
 \begin{center}
     \Large
-    \textbf{Modelling the 2010-2019 Haiti Cholera Epidemic}
+    \textbf{On the Transmissibility of Cholera During the 2010-2019 Haiti Cholera Epidemic}
         
     \vspace{0.1cm}
     \large
     A Study in Simulation-Based Inference for Infectious Disease Transmission
         
     \vspace{0.4cm}
-    \textbf{Anna Rosengart}
-    
-    \vspace{0.4cm}
-    Thesis Advisor\\
-    Professor Edward Ionides
+    \textbf{Kevin Tan, Noah Treutle, Jesse Wheeler, Edward Ionides}
     
     \vspace{0.2cm}
     Department of Statistics, University of Michigan
@@ -126,12 +122,12 @@ opts_chunk$set(
 \end{center}
 
 \begin{abstract}
-At the onset of an epidemic, it is common for disease intervention methods to be evaluated for efficacy via mathematical modelling prior to deployment. Model specification and construction must be informed by both the case data of the disease under study and the scientific principles underlying its transmission. For any given epidemic, there are countless possible models that can be formulated and used for motivating public health action, thus underscoring the importance of model criticism and comparison. Although there may be many models that vary in implementation, complexity, and mechanistic and stochastic elements, it is imperative that models with the best available forecasting accuracy be used for informing policy in real-life health crises. To exemplify this point we use the 2010-2019 cholera epidemic in Haiti as a case study. Through the analysis of three different stochastic models, we show the wide variability in model quality and forecasting that can result from minor changes in model specification and calibration. 
+During an epidemic, competent governments often take many measures are taken to mitigate the spread of the disease and flatten the curve. These measures may include sanitation and hygiene improvements, more accurate monitoring of cases, social distancing, education campaigns, vaccination, and many more. Should these measures be successful, one could expect a decrease in the effective transmissibility of the disease as time goes on. As such, we attempt to detect a trend in the transmissibility of cholera during the 2010-2019 cholera epidemic in Haiti. Ultimately, we find evidence for a decreasing trend in the transmissibility of cholera. We also detect seasonality in the transmissibility of cholera corresponding to seasonality in rainfall throughout the year, and explore the $R_0$ and $R_t$ of cholera during the epidemic. 
 \end{abstract}
 
 \vfill
 
-\noindent All materials and code can be downloaded at \url{https://github.com/aerosengart/haiti_thesis}.
+\noindent All materials and code can be downloaded at \url{https://github.com/hetankevin/haitiwash}.
 
 \newpage
 
@@ -139,13 +135,16 @@ At the onset of an epidemic, it is common for disease intervention methods to be
 
 \section{Introduction}
 
- In late October of 2010, the first cases of cholera in over one hundred years were observed in Haiti. Within the next several weeks, case reports skyrocketed into the thousands and reached over 230,000 by mid-February of the next year \cite{zaro, chao}. Exacerbated by the poor water infrastructure and the fact that the highly virulent strain introduced to the nation, O1 biotype El Tor serotype Ogawa, had associated antibiotic resistance, the threat the disease posed to public health was large \cite{zaro}. Presently, there have been well over 800,000 cumulative cases and almost 10,000 deaths in Haiti since the onset of the epidemic \cite{Lee_haiticholera}. Unfortunately, the opportunity for using vaccination to prevent cholera from becoming a chronic problem has passed, but cholera's decade-long presence in Haiti has provided much more data for the study of the progression of cholera in a population. Therefore, continued efforts in modelling this epidemiological event may prove instructive in responses to future outbreaks.
+  The cholera epidemic in Haiti began in October 2010, when soldiers from the UN Stabilization Mission introduced the bacteria to the island, during their response to an earthquake in January 2010. The epidemic lasted several years, ending in 2019, but not before claiming almost 10,000 lives and infecting over 800,000 people \cite{Lee_haiticholera}. 
   
-  There was a multitude of opinions on the best and most effective course of action to take to mitigate cholera's spread at the start of the epidemic and throughout the disease's continued presence in Haiti. Vaccination was considered a promising response as two killed oral cholera vaccines (OCVs) were available at the time. However, the duration and level of protection acquired by these vaccines is dependent upon dosage, national coverage, and the age of the vaccine recipient as young children shed immunity faster than adults \cite{chao}. Questions continue to arise when considering the logistics of vaccine distribution and administration: When is the best time to begin vaccination? Should vaccine delivery be prioritized according to location-based risk? How many vaccines must be administered for the optimal amount of protection, and are there enough vaccines currently available for this? With all of these questions in mind, it was, and still is, challenging to determine whether investment in widespread vaccination would be an effective measure against cholera.
+  Lee et al. \cite{Lee_haiticholera} suggested in 2020 that nationwide vaccination rollouts would be necessary for cholera to be fully eradicated in Haiti despite case numbers significantly dropping in 2019, and supported their claim with forecasts from their stochastic epidemiological models. Haiti never managed to mount a widespread vaccination campaign, due to limited stockpiles and prohibitive costs \cite{rebaudet}. Contrary to their predictions, cholera never returned to Haiti after 2019, with Haiti declared free of cholera on February 4 2022 (cite). 
   
-  One means by which to overcome these uncertainties is epidemiological modelling, a powerful method of analysis of disease dynamics that can be used to inform vaccination policy and public health decision-making. In December of 2010, the CDC's modelling study predicted that the impact of vaccination would be relatively minor with the number of vaccines available at the time \cite{date}. However, a later study by Chao et al. found that even relatively low vaccination coverage (around 30\% of the population) was effective at controlling the spread of the disease if the administration was informed by the relative risk and exposure of a given community \cite{chao}. Fung et al. also showed that OCVs used in conjunction with improved sanitation practices and water infrastructure was most effective at reducing the number of cases \cite{fung}. This paper provides an analysis of a state\hyp{}space model proposed by Elizabeth C. Lee, Andrew S. Azman, and Justin Lessler of the Johns Hopkins Bloomberg School of Public Health. We begin with an analysis of the methods and results of Lee et al. and go on to propose improvements to its implementation. Through this case study, we aim to exhibit the dependence of the utility and quality of simulation-based inference in epidemiological contexts upon model examination and refinement.
+  This observation is puzzling at first glance. However, noting that numerous measures other than vaccination, such as water, sanitation and hygiene improvements (cite), more rapid medical care, monitoring and testing (cite), and education campaigns (cite) were taken within that time period, suggests a conjecture. We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and that the eradication of the disease in Haiti would not be surprising in that light.
+
 
 \section{Background}
+
+  lalala more stochastic seir compartmental models, particle filtering, if2 <3, etc. btw would pomp get a lot more users/citations if everyone started calling hidden markov models to bait the MLers
 
  In many epidemiological settings, statistical modelling can be of immense use in motivating public health decision-making. For example, modelling reported cases of a given infectious disease can help inform the subsequent actions taken to mitigate the disease's spread. Due to the inherent randomness and complexity of population dynamics, there are numerous different methods for modelling disease, all of which have advantages and disadvantages. Yet the contributions of epidemiological models to our understanding of how infectious diseases evolve in a population are of high value, and it is worth tackling the challenge of developing a good and useful model.
   
@@ -206,6 +205,9 @@ At the onset of an epidemic, it is common for disease intervention methods to be
 \section{Methodology}
 \subsection{Model Structure}
 
+  we wrote modifications to model 1, ran a whole bunch of profiles, mcapped it and found statsig!
+  we found r_0 and r_t and fit seasonality splines
+
  Lee et al. used an SEIAR compartmental model (S: Susceptible, E: Exposed, I: Infectious, A: Asymptomatic Infectious, R: Recovered) for the Haiti cholera epidemic. In their formulation, at a given time point $t$ each compartment contains some unobserved number of individuals from the total population of Haiti. Between two time points $t$ and $t+1$, individuals can transition into the system by birth, out of the system by death, or between compartments at rates that are either specified or estimated. We define these transition rates with the following series of equations:
         \begin{eqnarray}
         \label{SE}
@@ -243,6 +245,17 @@ At the onset of an epidemic, it is common for disease intervention methods to be
 
   We repeated most of this process with some minor changes. We did not perform trajectory matching as it assumes a deterministic latent process, which is not assumed in the forecasting model. Additionally, Lee et al. did not publish their initial starting sets, so we created our own using the schema provided in their supplemental code. We left weeks with missing data as \texttt{NA} rather than \texttt{0} as the \texttt{pomp} package is capable of working with missing data. We also filtered out epidemic parameter sets with $\nu \leq 0.9$ and $\beta_1 \geq 100$ and endemic parameter sets with log-likelihoods of -3000 units or less to avoid outlying parameter values similar to Lee et al.'s pruning process. Our reproduction (\hyperref[fig:A1]{fig. A1}) does seem to visually match the results of Lee et al. in figure S7 of their supplement \cite{Lee_supp}. 
 
+% section add plots for FOI decrease, beta decrease over time
+
+% section add mcap CIs for betat
+
+% section add plots for seasonality over time corresponding to rainfall
+
+% section add mcaps for beta1:6
+
+% section add plots for r_0, r_t
+
+% section -2730 loglik compared to orig joint model, evaluate on aic relative to lee et al
 
 \newpage
 
