@@ -95,10 +95,12 @@ During an epidemic, competent governments often take many measures are taken to 
   
   Lee et al. \cite{Lee_haiticholera} suggested in 2020 that nationwide vaccination rollouts would be necessary for cholera to be fully eradicated in Haiti despite case numbers significantly dropping in 2019, and supported their claim with forecasts from their stochastic epidemiological models. Haiti never managed to mount a widespread vaccination campaign, due to limited stockpiles and prohibitive costs \cite{rebaudet}. Contrary to their predictions, cholera never returned to Haiti after 2019, with Haiti declared free of cholera on February 4 2022 (cite). 
   
-  This observation is puzzling at first glance. However, noting that numerous measures other than vaccination, such as water, sanitation and hygiene improvements (cite), more rapid medical care, monitoring and testing (cite), and education campaigns (cite) were taken within that time period, suggests a conjecture. We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and that the eradication of the disease in Haiti would not be surprising that that light.
+  This observation is puzzling at first glance. However, noting that numerous measures other than vaccination, such as water, sanitation and hygiene improvements (cite), more rapid medical care, monitoring and testing (cite), and education campaigns (cite) were taken within that time period, suggests a conjecture. We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and that the eradication of the disease in Haiti would not be surprising in that light.
 
 
 \section{Background}
+
+  lalala more stochastic seir compartmental models, particle filtering, if2 <3, etc. btw would pomp get a lot more users/citations if everyone started calling hidden markov models to bait the MLers
 
  In many epidemiological settings, statistical modelling can be of immense use in motivating public health decision-making. For example, modelling reported cases of a given infectious disease can help inform the subsequent actions taken to mitigate the disease's spread. Due to the inherent randomness and complexity of population dynamics, there are numerous different methods for modelling disease, all of which have advantages and disadvantages. Yet the contributions of epidemiological models to our understanding of how infectious diseases evolve in a population are of high value, and it is worth tackling the challenge of developing a good and useful model.
   
@@ -159,6 +161,9 @@ During an epidemic, competent governments often take many measures are taken to 
 \section{Methodology}
 \subsection{Model Structure}
 
+  we wrote modifications to model 1, ran a whole bunch of profiles, mcapped it and found statsig!
+  we found r_0 and r_t and fit seasonality splines
+
  Lee et al. used an SEIAR compartmental model (S: Susceptible, E: Exposed, I: Infectious, A: Asymptomatic Infectious, R: Recovered) for the Haiti cholera epidemic. In their formulation, at a given time point $t$ each compartment contains some unobserved number of individuals from the total population of Haiti. Between two time points $t$ and $t+1$, individuals can transition into the system by birth, out of the system by death, or between compartments at rates that are either specified or estimated. We define these transition rates with the following series of equations:
         \begin{eqnarray}
         \label{SE}
@@ -196,6 +201,17 @@ During an epidemic, competent governments often take many measures are taken to 
 
   We repeated most of this process with some minor changes. We did not perform trajectory matching as it assumes a deterministic latent process, which is not assumed in the forecasting model. Additionally, Lee et al. did not publish their initial starting sets, so we created our own using the schema provided in their supplemental code. We left weeks with missing data as \texttt{NA} rather than \texttt{0} as the \texttt{pomp} package is capable of working with missing data. We also filtered out epidemic parameter sets with $\nu \leq 0.9$ and $\beta_1 \geq 100$ and endemic parameter sets with log-likelihoods of -3000 units or less to avoid outlying parameter values similar to Lee et al.'s pruning process. Our reproduction (\hyperref[fig:A1]{fig. A1}) does seem to visually match the results of Lee et al. in figure S7 of their supplement \cite{Lee_supp}. 
 
+% section add plots for FOI decrease, beta decrease over time
+
+% section add mcap CIs for betat
+
+% section add plots for seasonality over time corresponding to rainfall
+
+% section add mcaps for beta1:6
+
+% section add plots for r_0, r_t
+
+% section -2730 loglik compared to orig joint model, evaluate on aic relative to lee et al
 
 \newpage
 

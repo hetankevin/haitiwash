@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  12 APR 2022 16:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  14 APR 2022 15:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -147,7 +147,7 @@ Package: Sweave
 (/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 ) (/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
+Package: fancyvrb 2022/04/12 4.2 verbatim text (tvz,hv)
 \FV@CodeLineNo=\count276
 \FV@InFile=\read3
 \FV@TabBox=\box52
@@ -328,7 +328,8 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 File: l3backend-pdftex.def 2022-04-10 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count299
 \l__pdf_internal_box=\box57
-) (./FinalWriteup.aux)
+)
+No file FinalWriteup.aux.
 \openout1 = `FinalWriteup.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
@@ -372,12 +373,11 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 56.
 LaTeX Info: Redefining \pageref on input line 56.
 LaTeX Info: Redefining \nameref on input line 56.
-(./FinalWriteup.out) (./FinalWriteup.out
-pdfTeX warning (Object streams): \pdfobjcompresslevel > 0 requires PDF-1.5 or greater. Object streams disabled now.
-)
 \@outlinefile=\write5
 \openout5 = `FinalWriteup.out'.
 
+
+pdfTeX warning (Object streams): \pdfobjcompresslevel > 0 requires PDF-1.5 or greater. Object streams disabled now.
 (./FinalWriteup-concordance.tex)
 LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
 (/Users/hetankevin/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -398,43 +398,78 @@ File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 Non-PDF special ignored!
 <special> header=psfrag.pro
 
-{/Users/hetankevin/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (5.04323pt too wide) in paragraph at lines 107--108
+{/Users/hetankevin/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+Package natbib Warning: Citation `Lee_haiticholera' on page 2 undefined on input line 94.
+
+
+Package natbib Warning: Citation `Lee_haiticholera' on page 2 undefined on input line 96.
+
+
+Package natbib Warning: Citation `rebaudet' on page 2 undefined on input line 96.
+
+
+Package natbib Warning: Citation `Ionides_infdynsys' on page 2 undefined on input line 107.
+
+
+LaTeX Warning: Hyper reference `sec:like' on page 2 undefined on input line 107.
+
+
+Package natbib Warning: Citation `Ionides_if' on page 2 undefined on input line 107.
+
+[2]
+Overfull \hbox (5.04323pt too wide) in paragraph at lines 109--110
 \T1/aer/m/n/12 vid-ing a pop-u-la-tion into com-part-ments, for ex-am-ple as (S)usceptible, (I)nfectious, (R)ecovered
  []
 
-[3] [4] [5] [6]
 
-LaTeX Warning: Hyper reference `fig:A1' on page 7 undefined on input line 197.
-
-[7] [8] (./FinalWriteup.bbl [9])
-
-Package caption Warning: Unused \captionsetup[figure] on input line 24.
-See the caption package documentation for explanation.
+Package natbib Warning: Citation `Shumway_ch1' on page 3 undefined on input line 113.
 
 
-Package caption Warning: Unused \captionsetup[table] on input line 25.
-See the caption package documentation for explanation.
+Package natbib Warning: Citation `cham' on page 3 undefined on input line 115.
 
-[10] (./FinalWriteup.aux)
+[3]
 
-LaTeX Warning: There were undefined references.
+Package natbib Warning: Citation `Shumway_ch6' on page 4 undefined on input line 124.
 
-Package rerunfilecheck Info: File `FinalWriteup.out' has not changed.
-(rerunfilecheck)             Checksum: CC4FDDEA1055600A16FBF08EB2A54726;1247.
- ) 
+
+Package natbib Warning: Citation `Millar' on page 4 undefined on input line 134.
+
+
+Package natbib Warning: Citation `crisan' on page 4 undefined on input line 136.
+
+
+Package natbib Warning: Citation `Millar' on page 4 undefined on input line 136.
+
+[4]
+
+Package natbib Warning: Citation `King_statinfpomp' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `Ionides_infpomp' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `Ionides_if' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `Ionides_infdynsys' on page 5 undefined on input line 159.
+
+
+Package natbib Warning: Citation `Ionides_infpomp' on page 5 undefined on input line 159.
+
+[5]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.165   we found r_
+                   0 and r_t and fit seasonality splines 
 Here is how much of TeX's memory you used:
- 12760 strings out of 480198
- 205965 string characters out of 5892074
- 480972 words of memory out of 5000000
- 30481 multiletter control sequences out of 15000+600000
- 499551 words of font info for 94 fonts, out of 8000000 for 9000
+ 12664 strings out of 480198
+ 204514 string characters out of 5892074
+ 479279 words of memory out of 5000000
+ 30419 multiletter control sequences out of 15000+600000
+ 499864 words of font info for 96 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,16n,63p,1965b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></Users/hetankevin/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on FinalWriteup.pdf (10 pages, 233003 bytes).
-PDF statistics:
- 211 PDF objects out of 1000 (max. 8388607)
- 39 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 60i,16n,63p,1031b,326s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
