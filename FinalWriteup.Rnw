@@ -122,7 +122,12 @@ opts_chunk$set(
 \end{center}
 
 \begin{abstract}
-During an epidemic, competent governments often take many measures are taken to mitigate the spread of the disease and flatten the curve. These measures may include sanitation and hygiene improvements, more accurate monitoring of cases, social distancing, education campaigns, vaccination, and many more. Should these measures be successful, one could expect a decrease in the effective transmissibility of the disease as time goes on. As such, we attempt to detect a trend in the transmissibility of cholera during the 2010-2019 cholera epidemic in Haiti. Ultimately, we find evidence for a decreasing trend in the transmissibility of cholera. We also detect seasonality in the transmissibility of cholera corresponding to seasonality in rainfall throughout the year, and explore the $R_0$ and $R_t$ of cholera during the epidemic. 
+During an epidemic, competent governments often take many measures are taken to mitigate the spread of the disease and flatten the curve. 
+These measures may include sanitation and hygiene improvements, more accurate monitoring of cases, social distancing, education campaigns, vaccination, and many more. 
+Should these measures be successful, one could expect a decrease in the effective transmissibility of the disease as time goes on. 
+As such, we attempt to detect a trend in the transmissibility of cholera during the 2010-2019 cholera epidemic in Haiti. 
+Ultimately, we find evidence for a decreasing trend in the transmissibility of cholera. 
+We also detect seasonality in the transmissibility of cholera corresponding to seasonality in rainfall throughout the year, and explore the $R_0$ and $R_t$ of cholera during the epidemic. 
 \end{abstract}
 
 \vfill
@@ -135,11 +140,16 @@ During an epidemic, competent governments often take many measures are taken to 
 
 \section{Introduction}
 
-  The cholera epidemic in Haiti began in October 2010, when soldiers from the UN Stabilization Mission introduced the bacteria to the island, during their response to an earthquake in January 2010. The epidemic lasted several years, ending in 2019, but not before claiming almost 10,000 lives and infecting over 800,000 people \cite{Lee_haiticholera}. 
+  The cholera epidemic in Haiti began in October 2010, when soldiers from the UN Stabilization Mission introduced the bacteria to the island, during their response to an earthquake in January 2010. 
+  The epidemic lasted several years, ending in 2019, but not before claiming almost 10,000 lives and infecting over 800,000 people \cite{Lee_haiticholera}. 
   
-  Lee et al. \cite{Lee_haiticholera} suggested in 2020 that nationwide vaccination rollouts would be necessary for cholera to be fully eradicated in Haiti despite case numbers significantly dropping in 2019, and supported their claim with forecasts from their stochastic epidemiological models. Haiti never managed to mount a widespread vaccination campaign, due to limited stockpiles and prohibitive costs \cite{rebaudet}. Contrary to their predictions, cholera never returned to Haiti after 2019, with Haiti declared free of cholera on February 4 2022 (cite). 
+  Lee et al. \cite{Lee_haiticholera} suggested in 2020 that nationwide vaccination rollouts would be necessary for cholera to be fully eradicated in Haiti despite case numbers significantly dropping in 2019, and supported their claim with forecasts from their stochastic epidemiological models.
+  Haiti never managed to mount a widespread vaccination campaign, due to limited stockpiles and prohibitive costs \cite{rebaudet}. 
+  Contrary to their predictions, cholera never returned to Haiti after 2019, with Haiti declared free of cholera on February 4 2022 (cite). 
   
-  This observation is puzzling at first glance. However, noting that numerous measures other than vaccination, such as water, sanitation and hygiene improvements (cite), more rapid medical care, monitoring and testing (cite), and education campaigns (cite) were taken within that time period, suggests a conjecture. We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and that the eradication of the disease in Haiti would not be surprising in that light.
+  This observation is puzzling at first glance. 
+  However, noting that numerous measures other than vaccination, such as water, sanitation and hygiene improvements (cite), more rapid medical care, monitoring and testing (cite), and education campaigns (cite) were taken within that time period, suggests a conjecture. 
+  We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and that the eradication of the disease in Haiti would not be surprising in that light.
 
 
 \section{Background}
