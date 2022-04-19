@@ -200,7 +200,7 @@ results
 results %>% 
   group_by(betat) %>%
   summarize(loglik=max(loglik)) %>%
-  ggplot(aes(x = -betat, y=loglik)) +
+  ggplot(aes(x = betat, y=loglik)) +
   geom_point() + geom_smooth()
 
 pchisq(-2*(-2731 - -2721.153), 11)
