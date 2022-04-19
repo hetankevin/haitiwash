@@ -125,9 +125,9 @@ opts_chunk$set(
 During an epidemic, competent governments often take many measures are taken to mitigate the spread of the disease and flatten the curve. 
 These measures may include sanitation and hygiene improvements, more accurate monitoring of cases, social distancing, education campaigns, vaccination, and many more. 
 Should these measures be successful, one could expect a decrease in the effective transmissibility of the disease as time goes on. 
+SEIR models are a common method for modeling epidemics, however this is a nontrivial task as these models can easily mask the effect of interventions. Existing models, such as the ones featured in Lee et. al. \cite{Lee_haiticholera}, do not attempt to factor in the possibility of a trend and numerous confounding factors such as the depletion of the susceptible population make the detection of a trend in effective transmissibility a challenging statistical endeavor.
 As such, we attempt to detect a trend in the transmissibility of cholera during the 2010-2019 cholera epidemic in Haiti. 
-This is a nontrivial task, given that existing models do not attempt to factor in the possibility of a trend and numerous confounding factors, such as a depletion of susceptibles.
-Ultimately, we find evidence for a decreasing trend in the transmissibility of cholera based on the first model featured in Lee et al. \cite{Lee_haiticholera}, via hypothesis testing on parameters estimated via simulation-based inference. 
+Ultimately, we find evidence for a decreasing trend in the transmissibility of cholera based on the first model featured in Lee et al. \cite{Lee_haiticholera}, via estimating model parameters via simulation-based inference as in \cite{Ionides_if}, and then performing a hypothesis test via Monte-Carlo profile confidence intervals on the trend parameter \cite{Ionides_mcap}. 
 We also detect seasonality in the transmissibility of cholera corresponding to seasonality in rainfall throughout the year. 
 
 %if jesse doesn't want it, we can eat up the claim that cholera would go away regardless?
@@ -160,7 +160,8 @@ We also detect seasonality in the transmissibility of cholera corresponding to s
   
   This observation is puzzling at first glance. 
   However, noting that numerous measures other than vaccination, such as water, sanitation and hygiene improvements (cite), more rapid medical care, monitoring and testing (cite), and education campaigns (cite) were taken within that time period, suggests a conjecture. 
-  We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and if this is evidenced in the data, the eradication of the disease in Haiti would not be surprising in that light.
+  We suggest here that measures including but not limited to those mentioned above might have induced a decreasing trend in the transmissibility of cholera in Haiti from 2010 to 2019, and if this is evidenced in the data, the eradication of the disease in Haiti would not be surprising in that light. 
+  To that end, we attempt to detect a trend in the transmissibility of cholera in Haiti during this time period, through fitting a stochastic compartmental SEIR model adapted from Lee et al \cite{Lee_haiticholera} and (citeAnna), augmenting it with an additional trend parameter, and then conducting a hypothesis test on these two nested models with the recent methodology of Ionides et. al. \cite{Ionides_mcap}.
 
 
 \section{Background}
