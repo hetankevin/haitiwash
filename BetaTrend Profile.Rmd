@@ -195,33 +195,35 @@ view(results)
 results
 ```
 
-```{r}
-results
-results %>% 
-  group_by(betat) %>%
-  summarize(loglik=max(loglik)) %>%
-  ggplot(aes(x = betat, y=loglik)) +
-  geom_point() + geom_smooth()
-
-pchisq(-2*(-2731 - -2721.153), 11)
-       
-results$loglik %>% max
-```
 
 
 ```{r}
+load('results/trendResultsJoint.rda')
 maxresults = results %>% 
   group_by(betat) %>%
   summarize(loglik=max(loglik))
 
+mcapci = mcap(maxresults$loglik, maxresults$betat, confidence = 0.95)$ci
 
-mcap(results$loglik, results$betat)[7][1]$fit %>%
+mcap(maxresults$loglik, maxresults$betat)[7][1]$fit %>%
   group_by(parameter) %>%
   summarize(smoothed=max(smoothed)) %>%
   ggplot(aes(x = parameter, y=smoothed)) +
   geom_point() + geom_smooth() + 
-  geom_vline(xintercept = mcap(results$loglik, results$betat, confidence = 0.95)$ci[1])  +
-    geom_vline(xintercept = mcap(results$loglik, results$betat, confidence = 0.95)$ci[2]) 
+  geom_vline(xintercept = mcapci[1]) +
+    geom_vline(xintercept = mcapci[2]) + 
+  labs(title=expression('Monte Carlo Adjusted Profile of '*beta[t]*', No Re-Estimated Parameters'),
+       x=expression(beta[t]), y='Log-Likelihood')
+
+maxresults %>%
+  ggplot(aes(x = betat, y=loglik)) +
+  geom_point() + geom_smooth() +   geom_vline(xintercept = mcapci[1], color='red')  +
+    geom_vline(xintercept = mcapci[2], color='red') + 
+  labs(title=expression('Profile Likelihood of '*beta[t]*', No Re-Estimated Parameters'),
+       x=expression(beta[t]), y='Log-Likelihood')
+
+results %>% filter(loglik>-2745)
+```
 
 plot(results$betat, results$loglik)
 scatter(mcap(results$loglik, results$betat)$smooth_fit)
@@ -230,7 +232,7 @@ plot(mcap(results$loglik, results$betat)[7]$parameter, mcap(results$loglik, resu
 mcap(results$loglik, results$betat)[7][1]$fit
 
 mcap(results$loglik, results$betat)$mle
-```
+
 
 ```{r}
 mcap(results$loglik, results$betat)[7][1]$fit %>%
