@@ -1,0 +1,48 @@
+---
+title: "Rainfall"
+author: "Noah Treutle"
+date: '2022-04-19'
+output: html_document
+---
+
+```{r}
+library(haitipkg)
+library(tidyverse)
+library(lubridate)
+```
+
+Rainfall is summmed rainfall from Haiti's 10 departments. Each line represents a different year. The rainfall is likely in mm. Weekly national rainfall seems inconsistent with google saying weekly national average is ~200mm. Will have to specify how we calculated weekly national rainfall. Data source is NASA, looks like you need to register for an account to get the data.
+
+```{r}
+df <- haitiRainfall %>%
+  pivot_longer(
+    data = ., 
+    cols = -date,
+    names_to = 'dep',
+    values_to = 'rainfall'
+  ) %>%
+  mutate(
+    year = year(date),
+    week = week(date)
+  ) %>%
+  group_by(year, week) %>%
+  summarize(national_weekly_rain = sum(rainfall)) %>%
+  ungroup() %>% # Not needed, but good practice
+  mutate(
+    date_week_start = ymd(paste0(2014, "-01-01")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")
+  )
+# Be weary of beggining and end, because of way things were rounded. 
+df %>%
+  filter(week != 1, week != max(week)) %>% 
+  ggplot(aes(x = week_date, y = national_weekly_rain, group = year, col = as.factor(year))) + 
+  geom_line() + 
+  theme_bw() + 
+  guides(color = 'none') + 
+  scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
+  ylab('Weekly National Rain (Units??)') + 
+  theme(axis.title.x = element_blank())
+
+```
+
+
