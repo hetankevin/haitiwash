@@ -198,6 +198,7 @@ results
 
 
 ```{r}
+view(results)
 load('results/trendResultsJoint.rda')
 maxresults = results %>% 
   group_by(betat) %>%

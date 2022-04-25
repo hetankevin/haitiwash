@@ -25,7 +25,10 @@ Nsim <- 1000
 
 ## Epidemic FOI Exploration
 ```{r pomp def}
-epi_mod_1 <- haiti1()
+results
+epi_mod_1 <- haiti1mod()
+epi_mod_1@params = results[which.max(results$loglik),] %>% unlist
+
 ```
 
 
@@ -34,7 +37,7 @@ epi_mod_1 <- haiti1()
 simulate(epi_mod_1,nsim=Nsim,seed=1643079359, 
          format="data.frame", include.data = TRUE) -> epi_sims
 
-epi_sims
+epi_sims %>% filter(week > 300)
 ```
 
 Disclaimer: Had to set include.data = TRUE in order to get parameter values for the simulations >>> why?
@@ -52,12 +55,11 @@ epi_sims <- epi_sims %>% mutate(N = S+E+I+A+R,
                          epi_mod_1@params[['beta3']]*seas3 + 
                          epi_mod_1@params[['beta4']]*seas4 + 
                          epi_mod_1@params[['beta5']]*seas5 + 
-                         epi_mod_1@params[['beta6']]*seas6)
+                         epi_mod_1@params[['beta6']]*seas6 +
+                           epi_mod_1@params[['betat']]*((week-215)/430))
 # setup lambda
-kappa <- 0.95
-epi_sims <- epi_sims %>% mutate(lambda = (I + (1-kappa)*A)^epi_mod_1@params[['nu']] * (beta/N))
+epi_sims <- epi_sims %>% mutate(lambda = (I)^epi_mod_1@params[['nu']] * (beta/N))
 
-epi_sims
 ```
 
 
@@ -65,13 +67,34 @@ epi_sims
 # Take median of lambda for each week and store in a vector
 epi_med_lambda <- c()
 
-for(i in c(1:232)) {
+for(i in c(1:430)) {
   epi_med_lambda[i] <- median(filter(epi_sims, week==i)$lambda)
 }
 
-week <- c(1:232)
+week <- c(1:430)
 epi_lambdas <- data.frame(epi_med_lambda, week)
 
+
+epi_med_beta = c()
+
+for(i in c(1:430)) {
+  epi_med_beta[i] <- median(filter(epi_sims, week==i)$beta)
+}
+
+epi_med_cases = c()
+for(i in c(1:430)) {
+  epi_med_cases[i] <- median(filter(epi_sims, week==i)$cases)
+}
+
+epi_betas <- data.frame(epi_med_beta, week)
+epi_cases <- data.frame(epi_med_cases, week)
+epi_cases
+
+(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Fixed Model Simulated Median FOI by Week"))
+
+epi_betas %>% ggplot(aes(x = week, y = epi_med_beta)) + geom_point() + labs(title = "Fixed Model Simulated Median Beta by Week")
+
+epi_cases %>% ggplot(aes(x = week, y = epi_med_cases)) + geom_point() + labs(title = "Fixed Model Simulated Median Cases by Week")
 ```
 
 
@@ -123,6 +146,7 @@ for(i in c(233:430)) {
 
 end_week <- c(233:430)
 end_lambdas <- data.frame(end_med_lambda, end_week)
+
 ```
 
 
