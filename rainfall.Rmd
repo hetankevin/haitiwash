@@ -40,9 +40,220 @@ df %>%
   theme_bw() + 
   guides(color = 'none') + 
   scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
-  ylab('Weekly National Rain (Units??)') + 
+  ylab('Weekly National Rain (mm)') + 
   theme(axis.title.x = element_blank())
 
+```
+
+
+
+
+```{r}
+df1 <- haitiRainfall %>%
+  pivot_longer(
+    data = ., 
+    cols = -date,
+    names_to = 'dep',
+    values_to = 'rainfall'
+  ) %>%
+  mutate(
+    year = year(date),
+    week = week(date)
+  ) %>%
+  group_by(year, week) %>%
+  summarize(national_weekly_rain = sum(rainfall)) %>%
+  ungroup() %>% # Not needed, but good practice
+  group_by(week) %>%
+ summarize(median_rainfall = median(national_weekly_rain, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(
+    date_week_start = ymd(paste0(2014, "-01-01")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")
+  ) 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+# Be weary of beggining and end, because of way things were rounded. 
+df1 %>%
+  filter(week != 1, week != max(week)) %>% 
+  ggplot(aes(x = week_date, y = mean_rainfall), color= "blue") + 
+  geom_line(color="blue") + 
+  geom_area(fill="light blue")
+  theme_bw() + 
+  guides(color = 'none') + 
+  scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
+  ylab('Weekly Mean National Rain (mm)') + 
+  theme(axis.title.x = element_blank())
+
+```
+
+```{r}
+df3 <- df %>%
+  filter(week != 1, week != max(week)) 
+
+# Be weary of beggining and end, because of way things were rounded. 
+df1 %>%
+  filter(week != 1, week != max(week)) %>% 
+  ggplot(aes(x = week_date, y = median_rainfall), color= "blue") + 
+  geom_line(color="blue") + 
+  theme_bw() + 
+  guides(color = 'none') + 
+  scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
+  ylab('Weekly Median National Rain (mm)') + 
+  theme(axis.title.x = element_blank())
+
+
+
+```
+
+
+
+
+
+```{r}
+df2 <- haitiRainfall %>%
+  pivot_longer(
+    data = ., 
+    cols = -date,
+    names_to = 'dep',
+    values_to = 'rainfall'
+  ) %>%
+  mutate(
+    year = year(date),
+    week = week(date)
+  ) %>%
+  group_by(year, week) %>%
+  summarize(national_weekly_rain = sum(rainfall)) %>%
+  ungroup() %>% # Not needed, but good practice
+  group_by(week) %>%
+ summarize(median_rainfall = median(national_weekly_rain, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(
+    date_week_start = ymd(paste0(2014, "-01-01")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")
+  )
+```
+
+
+
+```{r}
+df2 <- df %>%
+  
+```
+
+
+```{r}
+median_rainfall <- df1$median_rainfall
+df[,6] <- rep(0, nrow(df))
+colnames(df)[6] <- "median_rainfall"
+
+
+```
+
+
+
+```{r}
+for(i in 1:nrow(df)) {
+  for(j in 1:length(median_rainfall))
+    if(df[i,"week"] == j) {
+      df[i,"median_rainfall"] <- median_rainfall[j]
+  }
+}
+
+```
+
+
+
+```{r}
+df[]
+```
+
+
+```{r}
+df <- df
+```
+
+
+```{r}
+df %>%
+  filter(week != 1, week != max(week)) %>% 
+  ggplot(aes(x = week_date, y = national_weekly_rain, group = year, col = as.factor(year))) + 
+  geom_line() + 
+  #geom_line(aes(y = median_rainfall))
+  theme_bw() + 
+  guides(color = 'none') + 
+  scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
+  ylab('Weekly National Rain (mm)') + 
+  theme(axis.title.x = element_blank())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+df3 <- df %>%
+  filter(week != 1, week != max(week)) 
+
+# Be weary of beggining and end, because of way things were rounded. 
+df1 %>%
+  filter(week != 1, week != max(week)) %>% 
+  ggplot(aes(x = week_date, y = median_rainfall, color=median_rainfall)) + 
+  geom_line(aes(color = "blue"),color= "blue", size = 3) + 
+  theme_bw() + 
+  guides(color = 'none') + 
+  scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
+  ylab('Weekly National Rainfall (mm)') + 
+  theme(axis.title.x = element_blank()) +
+  geom_line(data = df3, aes(x = week_date, y = national_weekly_rain, group = year, color = as.factor(year)))
+```
+
+
+
+```{r}
+df3 <- df %>%
+  filter(week != 1, week != max(week)) 
+
+df4 <-df1 %>%
+  filter(week != 1, week != max(week)) 
+# Be weary of beggining and end, because of way things were rounded. 
+
+ggplot()+
+  geom_line(data = df3, aes(x = week_date, y = national_weekly_rain, group = year, col = as.factor(year))) +
+  guides(color = 'none') + 
+  ggplot(data= df4, aes(x = week_date, y = median_rainfall)) +
+  ggplot(aes(x = week_date, y = median_rainfall)) +
+  geom_line(aes(color = "blue"),color="blue", size = 3) + 
+ # theme_bw() + 
+  scale_x_date(date_labels = "%b", date_breaks = '1 month') + 
+  ylab('Weekly National Rainfall (mm)') + 
+  theme(axis.title.x = element_blank()) 
 ```
 
 
