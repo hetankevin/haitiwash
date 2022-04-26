@@ -14,6 +14,7 @@ library(doParallel)
 library(doRNG)
 library(gridExtra)
 library(devtools)
+library(lubridate)
 load_all('/Users/hetankevin/Library/CloudStorage/OneDrive-Personal/Documents/UMich/Research/haitiRes/haitipkg')
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -38,28 +39,141 @@ simulate(epi_mod_1,nsim=Nsim,seed=1643079359,
          format="data.frame", include.data = TRUE) -> epi_sims
 
 epi_sims %>% filter(week > 300)
+epi_sims
+
 ```
 
 Disclaimer: Had to set include.data = TRUE in order to get parameter values for the simulations >>> why?
 
 ```{r}
 # remove case data
-epi_sims <- epi_sims %>% dplyr::filter(ifelse(.id == "data", FALSE, TRUE))
+
+pf = epi_mod_1 %>% pfilter(params = results[which.max(results$loglik),] %>% unlist, 
+                           Np=5000, save.states=TRUE) 
+
+projfilt = project_from_filter2(epi_mod_1, pf) 
+
+projfilt %>% group_by(week) %>% summarize(cases = quantile(cases, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=cases) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>%
+  ggplot() + geom_line(aes(x=week_date, y=median)) + 
+  geom_ribbon(aes(x=week_date, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = "Fixed Model Projected Cases", x='Date', y='Cases')
+
+projfilt %>% group_by(week) %>% mutate(cases=log(cases)) %>% summarize(cases = quantile(cases, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=cases) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>%
+  ggplot() + geom_line(aes(x=week_date, y=median)) + 
+  geom_ribbon(aes(x=week_date, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = "Fixed Model Projected Cases on Log Scale", x='Date', y='Log Cases')
+#epi_sims <- epi_sims %>% dplyr::filter(ifelse(.id == "data", FALSE, TRUE))
 ```
 
 
 ```{r no-vaccine FOI}
 epi_sims <- epi_sims %>% mutate(N = S+E+I+A+R, 
-                       beta = epi_mod_1@params[['beta1']]*seas1 +
+                       beta = exp(epi_mod_1@params[['beta1']]*seas1 +
                          epi_mod_1@params[['beta2']]*seas2 + 
                          epi_mod_1@params[['beta3']]*seas3 + 
                          epi_mod_1@params[['beta4']]*seas4 + 
                          epi_mod_1@params[['beta5']]*seas5 + 
                          epi_mod_1@params[['beta6']]*seas6 +
-                           epi_mod_1@params[['betat']]*((week-215)/430))
+                           epi_mod_1@params[['betat']]*((week-215)/430)))
 # setup lambda
 epi_sims <- epi_sims %>% mutate(lambda = (I)^epi_mod_1@params[['nu']] * (beta/N))
 
+```
+
+
+```{r}
+
+epi_sims %>% group_by(week) %>% summarize(cases = quantile(cases, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=cases) %>% cbind(actual=agg$cases) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>%
+  ggplot() + geom_line(aes(x=week_date, y=median)) +
+  geom_point(aes(x=week_date, y=actual)) + 
+  geom_ribbon(aes(x=week_date, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = "Fixed Model Simulated Cases vs Actual Cases", x='Date', y='Cases')
+
+epi_sims %>% group_by(week) %>% mutate(cases = log(cases+1)) %>% summarize(cases = quantile(cases, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=cases) %>% cbind(actual=agg$cases+1) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>%
+  mutate(actual = log(actual)) %>%
+  ggplot() + geom_line(aes(x=week_date, y=median)) +
+  geom_point(aes(x=week_date, y=actual)) + 
+  geom_ribbon(aes(x=week_date, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = "Fixed Model Simulated Cases vs Actual Cases on Log Scale", x='Date', y='Log Cases')
+
+agg = haiti1_agg_data()
+```
+
+```{r}
+epi_sims %>% group_by(week) %>% summarize(beta = quantile(beta, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=beta) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>%
+  ggplot() + geom_line(aes(x=week_date, y=median)) +
+  geom_ribbon(aes(x=week_date, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = expression("Fixed Model Simulated "*beta*'(t)'), x='Date', y=expression(beta(t)))
+
+
+
+epi_sims %>% group_by(week) %>% summarize(lambda = quantile(lambda, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=lambda) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>%
+  ggplot() + geom_line(aes(x=week_date, y=median)) +
+  geom_ribbon(aes(x=week_date, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = expression("Fixed Model Simulated "*lambda*'(t)'), x='Date', y=expression(lambda(t)))
+
+
+```
+
+```{r}
+haitiRainfall %>%
+  pivot_longer(
+    data = .,
+    cols = -date,
+    names_to = 'dep',
+    values_to = 'rainfall'
+  ) %>%
+  mutate(
+    year = year(date),
+    week = week(date)
+  ) %>%
+  group_by(year, week) %>%
+  summarize(national_weekly_rain = sum(rainfall)) %>%
+  ungroup() %>% # Not needed, but good practice
+  mutate(
+    date_week_start = ymd(paste0(2014, "-01-01")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d")) %>% group_by(week) %>% 
+  summarize(national_weekly_rain = quantile(national_weekly_rain, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=national_weekly_rain)  %>%
+  ggplot() + geom_line(aes(x=week, y=median)) +
+  geom_ribbon(aes(x=week, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
+  labs(title = expression("Weekly Rainfall from 2014-2019"), x='Week', y='Rainfall (mm)')
+
+
+epi_sims %>% group_by(week) %>% summarize(beta = quantile(beta, c(0.025, 0.5, 0.975), 
+                                                           na.rm=TRUE), q = c('low', 'median', 'high')) %>%
+  pivot_wider(names_from=q, values_from=beta) %>% mutate(
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
+    week_date = as.Date(date_week_start, format = "%m-%d"),
+    Year=as.factor(year(week_date))) %>% group_by(week) %>% 
+  filter(week_date > '2010-12-31') %>% group_by(Year) %>% 
+  ggplot() + geom_line(aes(x=week(week_date), y=median, group=year(week_date), color=Year)) + 
+  labs(title = expression("Fixed Model Simulated "*beta*'(t)'), x='Week', y=expression(beta(t)))
 ```
 
 
@@ -90,11 +204,14 @@ epi_betas <- data.frame(epi_med_beta, week)
 epi_cases <- data.frame(epi_med_cases, week)
 epi_cases
 
-(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Fixed Model Simulated Median FOI by Week"))
+(epi <- epi_lambdas %>% ggplot(aes(x = week, y = epi_med_lambda)) + geom_point() + labs(title = "Fixed Model Simulated Median FOI by Week", 
+                                                                                        x='Week', y=expression(lambda(t))))
 
-epi_betas %>% ggplot(aes(x = week, y = epi_med_beta)) + geom_point() + labs(title = "Fixed Model Simulated Median Beta by Week")
+epi_betas %>% ggplot(aes(x = week, y = epi_med_beta)) + geom_point() + labs(title = "Fixed Model Simulated Median Beta by Week", 
+                                                                                 x='Week', y=expression(beta(t)))
 
-epi_cases %>% ggplot(aes(x = week, y = epi_med_cases)) + geom_point() + labs(title = "Fixed Model Simulated Median Cases by Week")
+epi_cases %>% ggplot(aes(x = week, y = epi_med_cases)) + geom_point() + labs(title = "Fixed Model Simulated Median Cases by Week",
+                                                                             x='Week', y='Simulated Median Cases')
 ```
 
 
