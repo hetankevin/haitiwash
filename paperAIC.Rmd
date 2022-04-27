@@ -1,0 +1,52 @@
+---
+title: "paperAIC"
+author: "Noah Treutle"
+date: '2022-04-27'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+aic <- function(loglik, params){
+  (-2 * loglik) + (2 * params)
+}
+```
+
+
+
+```{r}
+#arma
+aic(-2800.808, 5)
+#5611.616
+```
+
+```{r}
+#leeetal
+aic(-2966.819, 20)
+#5973.638
+```
+
+```{r}
+#anna
+aic(-2735.623, 15)
+#5501.246
+# possible error in her calculation in her thesis
+```
+
+```{r}
+#fixed
+aic(-2740.846, 13)
+#5507.692
+```
+
+```{r}
+#recal
+aic(-2730.638, 16)
+5493.276
+```
+
+
+

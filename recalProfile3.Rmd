@@ -1,0 +1,95 @@
+---
+title: "recalProfile3"
+author: "Noah Treutle"
+date: '2022-04-26'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(pomp)
+library(spatPomp)
+```
+
+
+```{r}
+load("~/Haiti Research/haitiwash/trendProfileRecalResults6.rda")
+load("~/Haiti Research/haitiwash/trendProfileRecalResults7.rda")
+results <- rbind(resultsRecal6, resultsRecal7)
+```
+
+
+-2730.638
+```{r}
+(new_max <- max(results$full_loglik))
+view(results %>% filter(full_loglik==new_max))
+```
+
+
+```{r}
+results %>% 
+  group_by(betat) %>%
+  summarize(loglik=max(full_loglik)) %>%
+  ggplot(aes(x = betat, y=loglik)) +
+  geom_point() + geom_smooth()
+```
+
+
+
+```{r}
+results %>% 
+  group_by(betat) %>%
+  summarize(full_loglik=max(full_loglik)) -> results1
+```
+
+```{r}
+mc <- mcap(results1$full_loglik, results1$betat)
+mc$ci
+```
+
+
+```{r}
+plot1 <- results1 %>% 
+  ggplot(aes(x = betat, y=full_loglik)) +
+  geom_point() + geom_smooth() +
+  geom_vline(xintercept = mc$ci[1] ,color = "red")+
+  geom_vline(xintercept = mc$ci[2] ,color = "red")
+plot1
+#ggsave("recalTrendPlot.png")
+```
+
+```{r plot1, dev = "png"}
+
+maxresults = results %>%
+  group_by(betat) %>%
+  summarize(loglik=max(full_loglik))
+mcapci = mcap(maxresults$loglik, maxresults$betat, confidence = 0.95)$ci
+mcap(maxresults$loglik, maxresults$betat)[7][1]$fit %>%
+  group_by(parameter) %>%
+  summarize(smoothed=max(smoothed)) %>%
+  ggplot(aes(x = parameter, y=smoothed)) +
+  geom_point() + geom_smooth() +
+  geom_vline(xintercept = mcapci[1])  +
+  geom_vline(xintercept = mcapci[2]) +
+  labs(title=expression("Monte Carlo Adjusted Profile of "*beta[t]*", Re-Estimated "*rho*", "*tau*", "*sigma^2*""),
+       x=expression(""*beta[t]*""), y="Log-Likelihood") 
+
+
+
+
+```
+
+```{r plot2, dev = "png"}
+
+maxresults %>%
+  ggplot(aes(x = betat, y=loglik)) +
+  geom_point() + geom_smooth() +   geom_vline(xintercept = mcapci[1], color="red")  +
+  geom_vline(xintercept = mcapci[2], color="red") +
+  labs(title=expression("Profile Likelihood "*beta[t]*", Re-Estimated "*rho*", "*tau*", "*sigma^2*""),
+       x=expression(""*beta[t]*""), y="Log-Likelihood")
+
+```
