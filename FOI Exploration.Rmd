@@ -140,6 +140,7 @@ epi_sims %>% group_by(week) %>% summarize(lambda = quantile(lambda, c(0.025, 0.5
 ```
 
 ```{r}
+                                                           
 haitiRainfall %>%
   pivot_longer(
     data = .,
@@ -155,14 +156,14 @@ haitiRainfall %>%
   summarize(national_weekly_rain = sum(rainfall)) %>%
   ungroup() %>% # Not needed, but good practice
   mutate(
-    date_week_start = ymd(paste0(2014, "-01-01")) + weeks(week - 1),
+    date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
     week_date = as.Date(date_week_start, format = "%m-%d")) %>% group_by(week) %>% 
   summarize(national_weekly_rain = quantile(national_weekly_rain, c(0.025, 0.5, 0.975), 
                                                            na.rm=TRUE), q = c('low', 'median', 'high')) %>%
   pivot_wider(names_from=q, values_from=national_weekly_rain)  %>%
   ggplot() + geom_line(aes(x=week, y=median)) +
   geom_ribbon(aes(x=week, ymin=low, ymax=high), fill='darkgreen', alpha=0.4) + 
-  labs(title = expression("Weekly Rainfall from 2014-2019"), x='Week', y='Rainfall (mm)')
+  labs(title = expression("Weekly Rainfall from 2010-2019"), x='Week', y='Rainfall (mm)')
 
 
 epi_sims %>% group_by(week) %>% summarize(beta = quantile(beta, c(0.025, 0.5, 0.975), 
@@ -170,8 +171,7 @@ epi_sims %>% group_by(week) %>% summarize(beta = quantile(beta, c(0.025, 0.5, 0.
   pivot_wider(names_from=q, values_from=beta) %>% mutate(
     date_week_start = ymd(paste0(2010, "-10-23")) + weeks(week - 1),
     week_date = as.Date(date_week_start, format = "%m-%d"),
-    Year=as.factor(year(week_date))) %>% group_by(week) %>% 
-  filter(week_date > '2010-12-31') %>% group_by(Year) %>% 
+    Year=as.factor(year(week_date))) %>% group_by(week) %>% group_by(Year) %>% 
   ggplot() + geom_line(aes(x=week(week_date), y=median, group=year(week_date), color=Year)) + 
   labs(title = expression("Fixed Model Simulated "*beta*'(t)'), x='Week', y=expression(beta(t)))
 ```
@@ -182,7 +182,7 @@ epi_sims %>% group_by(week) %>% summarize(beta = quantile(beta, c(0.025, 0.5, 0.
 epi_med_lambda <- c()
 
 for(i in c(1:430)) {
-  epi_med_lambda[i] <- median(filter(epi_sims, week==i)$lambda)
+  epi_med_lambda[i] <- median(filter(epi_sims, week==i)$lambda, na.rm=TRUE)
 }
 
 week <- c(1:430)

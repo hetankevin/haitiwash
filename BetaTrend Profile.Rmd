@@ -192,12 +192,15 @@ Show in New Window
 
 ```{r}
 view(results)
-results
+(results %>% filter(loglik > -2746, loglik < -2742))
+maxresults
 ```
 
 
 
 ```{r}
+library(pomp)
+library(spatPomp)
 view(results)
 load('results/trendResultsJoint.rda')
 maxresults = results %>% 
