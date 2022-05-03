@@ -201,6 +201,7 @@ maxresults
 ```{r}
 library(pomp)
 library(spatPomp)
+library(tidyverse)
 view(results)
 load('results/trendResultsJoint.rda')
 maxresults = results %>% 

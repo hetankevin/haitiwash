@@ -28,8 +28,14 @@ Nsim <- 1000
 ```{r pomp def}
 results
 epi_mod_1 <- haiti1mod()
-epi_mod_1@params = results[which.max(results$loglik),] %>% unlist
+#epi_mod_1@params = 
+  
+  
+tempres = (results[which.max(results$loglik),] %>% unlist)[1:23]
+#tempres[23] = 0
 
+epi_mod_1@params = tempres
+epi_mod_1@params
 ```
 
 
